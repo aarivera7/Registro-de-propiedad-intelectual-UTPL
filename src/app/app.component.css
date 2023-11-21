@@ -1,0 +1,191 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilos para el sidebar */
+.sidebar {
+  height: 100%;
+  width: 11.5rem;
+  position: fixed;
+  background-color: black;
+  padding-top: 60px;
+  transition: all 90ms linear;
+  left: -200px;
+  /* Ocultar sidebar en dispositivos móviles */
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 20px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #CECDCE;
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: #404040;
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.sidebar .close-btn span {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar__a--button {
+  background-color: var(--primary-color) !important;
+  padding: 7px 15px !important;
+  border-radius: 15px !important;
+  margin: 5px 15px;
+  font-size: 15px !important;
+  font-weight: bold;
+  color: white !important;
+}
+
+.sidebar__p {
+  color: white;
+  padding: 0 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidebar__p--normal {
+  color: white;
+  padding: 0 40px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  margin-top: 30px;
+  margin-left: 60px;
+}
+
+.content {
+  display: flex;
+  padding: 1rem .5rem 1rem 14rem;
+  /*max-width: 960px;*/
+  flex-direction: column;
+  align-items: center;
+}
+
+svg.material-icons {
+  height: 24px;
+  width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+  margin-right: 8px;
+}
+
+svg#rocket {
+  width: 80px;
+  position: absolute;
+  left: -10px;
+  top: -24px;
+}
+
+svg#rocket-smoke {
+  height: calc(100vh - 95px);
+  position: absolute;
+  top: 10px;
+  right: 180px;
+  z-index: -10;
+}
+
+a,
+a:visited,
+a:hover {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #125699;
+}
+
+.circle-link {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  margin: 8px;
+  background-color: white;
+  border: 1px solid #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: 1s ease-out;
+}
+
+.circle-link:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+
+
+svg#clouds {
+  position: fixed;
+  bottom: -160px;
+  left: -230px;
+  z-index: -10;
+  width: 1920px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 767px) {
+
+  .card-container>*:not(.circle-link),
+  .terminal {
+    width: 100%;
+  }
+
+  .card:not(.highlight-card) {
+    height: 16px;
+    margin: 8px 0;
+  }
+
+  .card.highlight-card span {
+    margin-left: 72px;
+  }
+
+  svg#rocket-smoke {
+    right: 120px;
+    transform: rotate(-5deg);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
+  }
+}

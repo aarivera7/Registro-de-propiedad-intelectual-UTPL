@@ -1,0 +1,9 @@
+<h2>Mensajería</h2>
+
+<div class="message" *ngFor="let message of messages">
+    <p><b>Proyecto: </b>{{ message.project }}</p>
+    <p><b>{{ message.sender }}</b> <small>{{ message.dateMessage | date:'short' }}</small></p>
+    <p><b>Asunto: </b>{{ message.subject }}</p>
+    <button>PDF</button>
+    <p><a href="">Responder</a></p>
+</div>

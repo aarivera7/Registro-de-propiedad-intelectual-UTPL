@@ -1,0 +1,9 @@
+<p><b>Patente o modelo de utilidad</b></p>
+
+<input type="hidden" name="step" value="1">
+<label for="descriptiveMemory">Memoria descriptiva</label>
+<input type="file" accept=".pdf" id="descriptiveMemory" #upload>
+<p>Cargar en PDF</p>
+<p>Memoria descriptiva</p>
+<button (click)="uploadPDF(upload)">Guardar y enviar</button>
+<a href="{{urlFile}}" *ngIf="urlFile">Archivo Subido</a>

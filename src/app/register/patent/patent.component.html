@@ -1,0 +1,23 @@
+<h2>Registro de Propiedad Intelectual</h2>
+<app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
+
+<div>
+    <div>
+        <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
+        <h3>Requisitos para revisión estado de la técnica</h3>
+        <button *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
+    </div>
+
+    <div>
+        <h4>{{ project.getName }}</h4>
+        <p>{{ user.name }} {{ user.lastName }}</p>
+        <p>{{ project.getCreateDate | date:"longDate"}}</p>
+        <p><b>Patente o Modelo de Utilidad</b></p>
+    </div>
+    <ng-container [ngSwitch]="step">
+        <app-step1 *ngSwitchCase="0" [project]="project"></app-step1>
+        <app-step2 *ngSwitchCase="1" [project]="project"></app-step2>
+        <app-step3 *ngSwitchCase="2" [project]="project"></app-step3>
+        <app-step4 *ngSwitchCase="3" [project]="project"></app-step4>
+    </ng-container>
+</div>

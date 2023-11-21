@@ -1,0 +1,10 @@
+<div class="progressbar-content">
+    <ul class="progressbar">
+        <ng-container *ngFor="let step of steps; let i=index">
+            <li class="progressbar__option progressbar__option--active" *ngIf="i <= numStep else mensaje">{{step}}</li>
+            <ng-template #mensaje>
+                <li class="progressbar__option" >{{ step }}</li>
+            </ng-template>
+        </ng-container> 
+    </ul>
+</div>

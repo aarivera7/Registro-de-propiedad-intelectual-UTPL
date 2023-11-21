@@ -1,0 +1,15 @@
+<h2>Certificaciones</h2>
+<input type="search" name="certifications" id="certifications">
+<input type="submit" value="Buscar">
+
+<div class="certification" *ngFor="let certification of certifications">
+    <div>
+        <h3>{{ certification.name }}</h3>
+    </div>
+    <div>
+        <p><b>Registro realizado por: </b>{{ certification.realizedBy }}</p>
+        <p><b>Fecha de registro: </b>{{ certification.getRegisterDate() | date:'longDate' }}</p>
+        <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
+        <button>Abrir</button>
+    </div>
+</div>

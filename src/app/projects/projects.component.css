@@ -1,0 +1,11 @@
+.project{
+    display: flex;
+    justify-content: space-around;
+    width: 60vw;
+    background-color: lightcyan;
+    margin: 10px 0;
+}
+
+.registerpi {
+    margin-left: 20em;
+}

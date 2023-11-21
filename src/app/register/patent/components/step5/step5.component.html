@@ -1,0 +1,20 @@
+<div>
+    <div>
+        <span>Documento</span>
+        <span>Estado</span>
+        <span>Fecha</span>
+    </div>
+    <div *ngFor="let doc of typeDocuments  let i = index">
+        <span>{{ i+1 }}</span>
+        <div>
+            <span>doc</span>
+            <span>{{ project.documents[i].createDate.toDate() | date:"longDate" }}</span>
+            <span>{{ project.documents[i].state }}</span>
+            <div>
+                <button >Descargar</button>
+                <button (click)="updateDocuments">Subir</button>
+                <button>X</button>
+            </div>
+        </div>
+    </div>
+</div>
