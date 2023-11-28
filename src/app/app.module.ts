@@ -31,6 +31,7 @@ import { Step2Component } from './register/patent/components/step2/step2.compone
 import { Step3Component } from './register/patent/components/step3/step3.component';
 import { Step4Component } from './register/patent/components/step4/step4.component';
 import { Step5Component } from './register/patent/components/step5/step5.component';
+import { MultipleFileLoadComponent } from './register/components/multiple-file-load/multiple-file-load.component';
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
@@ -41,6 +42,7 @@ const appRoutes:Routes=[
   {path: 'messages', component: MessagesComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'calendar', component: CalendarComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'patent_form/:id/:step', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'patent_form/:id/:step/:typeDocument', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
 ]
 
 @NgModule({
@@ -59,6 +61,7 @@ const appRoutes:Routes=[
     Step3Component,
     Step4Component,
     Step5Component,
+    MultipleFileLoadComponent,
   ],
   imports: [
     BrowserModule,

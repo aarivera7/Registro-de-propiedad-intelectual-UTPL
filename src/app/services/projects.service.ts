@@ -27,11 +27,18 @@ export class ProjectsService {
     return project
   }
 
-  getProjects(): Observable<Project[]>{
+  getProjects(uid: string | undefined): Observable<Project[]>{
     if(this.projectCache){
       return this.projectCache as Observable<Project[]>
     }
     
+    if (uid) {
+      const projectRef = collection(this.firestore, 'patents')
+      const q = query(projectRef, where('uid', '==', uid))
+      const projects = collectionData(q, {idField: 'id'})
+      this.projectCache = projects
+      return projects as Observable<Project[]>
+    }
     const projectRef = collection(this.firestore, 'patents')
     const projects = collectionData(projectRef, {idField: 'id'})
     this.projectCache = projects
@@ -45,6 +52,9 @@ export class ProjectsService {
 
   updateProject(project: Project) : Promise<void>{
     const projectRef = doc(this.firestore, `patents/${project.getId}`)
-    return updateDoc(projectRef, {...project})
+    const p = {...project}
+    delete p.id 
+    console.log(p)
+    return updateDoc(projectRef, p)
   }
 }

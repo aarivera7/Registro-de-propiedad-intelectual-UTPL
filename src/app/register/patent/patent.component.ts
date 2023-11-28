@@ -24,11 +24,13 @@ export class PatentComponent {
   id!: string
   project!: Project
   user!: User
+  typeDocument?: string
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {
     this.route.params.subscribe(params => {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
+      this.typeDocument = params['typeDocument']
     })
     this.steps = [
     "Requisitos de estado",

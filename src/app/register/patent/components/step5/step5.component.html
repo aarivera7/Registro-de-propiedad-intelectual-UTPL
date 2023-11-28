@@ -1,20 +1,29 @@
-<div>
+<div *ngIf="!typeDocument">
     <div>
         <span>Documento</span>
         <span>Estado</span>
         <span>Fecha</span>
     </div>
-    <div *ngFor="let doc of typeDocuments  let i = index">
+    <div *ngFor=" let type of typeDocuments let i = index">
         <span>{{ i+1 }}</span>
         <div>
-            <span>doc</span>
-            <span>{{ project.documents[i].createDate.toDate() | date:"longDate" }}</span>
-            <span>{{ project.documents[i].state }}</span>
+            <span>{{ nameDocuments[i] }}</span>
+            <ng-template *ngIf="project.documents[type] else default">
+                <span>{{ project.documents[type].state }}</span>
+                <span>{{ project.documents[type].date.toDate() | date:"longDate" }}</span>
+            </ng-template>
+            <ng-template #default>
+                <span> Sin Fecha </span>
+                <span> No subido </span>
+            </ng-template>
             <div>
                 <button >Descargar</button>
-                <button (click)="updateDocuments">Subir</button>
+                <button (click)="redirectUpdateDocuments(type)">Subir</button>
                 <button>X</button>
             </div>
         </div>
     </div>
 </div>
+
+<app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [observation]="''"></app-multiple-file-load>
+

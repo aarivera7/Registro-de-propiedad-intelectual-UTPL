@@ -2,8 +2,8 @@
 
 <input type="hidden" name="step" value="1">
 <label for="descriptiveMemory">Memoria descriptiva</label>
-<input type="file" accept=".pdf" id="descriptiveMemory" #upload>
+<input type="file" accept=".pdf" id="descriptiveMemory" [value]="project.documents['descriptiveMemories'].documents[0]" #upload>
 <p>Cargar en PDF</p>
 <p>Memoria descriptiva</p>
 <button (click)="uploadPDF(upload)">Guardar y enviar</button>
-<a href="{{urlFile}}" *ngIf="urlFile">Archivo Subido</a>
+<a href="{{ project.documents.descriptiveMemories.documents[0] }}" *ngIf="project.documents.descriptiveMemories.documents.size() > 0">Archivo Subido</a>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Project } from 'src/app/models/project';
 
 @Component({
@@ -9,15 +10,32 @@ import { Project } from 'src/app/models/project';
 export class Step5Component {
   @Input() 
   project!: Project
-  typeDocuments: string[] = [
+  @Input()
+  typeDocument?: string
+
+  nameDocuments: string[] = [
     "Copias de cédulas y certificado de votación a color",
     "Certificado docentes y estudiantes",
     "Certificado de autores",
     "Datos de autores",
-    "Memores descriptiva",
+    "Memorias descriptivas",
+  ]
+  
+  typeDocuments: string[] = [
+    "idDocuments",
+    "teacherStudentCertificate",
+    "authorsCertificate",
+    "dataAuthors",
+    "descriptiveMemories",
   ]
 
-  updateDocuments(i: number, events: any){
-    this.project.documents[i] = events[i].target.value
+  constructor(private router: Router) { }
+
+  redirectUpdateDocuments(typeDocument: string){
+    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/5/${typeDocument}`])
+  }
+
+  getTitle(typeDocument: string): string{
+    return this.nameDocuments[this.typeDocuments.indexOf(typeDocument)]
   }
 }

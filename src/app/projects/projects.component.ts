@@ -56,11 +56,18 @@ export class ProjectsComponent {
   }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(projects => {
-      this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-    })
     this.loginService.getDataUser(this.loginService.uid).then(user => {
       this.user = Object.assign(new User("", "",  "",   ), user)
     }).catch(err => console.log(err))
+
+    if (this.user.rol == "admin") { 
+      this.projectService.getProjects(undefined).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+      })
+    } else {
+      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+    })
+    }
   }
 }

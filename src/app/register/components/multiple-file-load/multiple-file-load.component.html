@@ -1,0 +1,10 @@
+<h2>{{ title }}</h2>
+<p><b>Subir archivos</b></p>
+
+<input type="file" id="file" [accept]="type" #upload>
+<button (click)="uploadPDF(upload)">Agregar más</button>
+<h3>Archivos</h3>
+<a *ngFor="let url of documents" href="{{url}}">{{ url }}</a>
+
+<h3>Observación</h3>
+<p>{{ observation }}</p>
