@@ -16,9 +16,10 @@
     </div>
     <ng-container [ngSwitch]="step">
         <app-step1 *ngSwitchCase="0" [project]="project"></app-step1>
-        <app-step2 *ngSwitchCase="1" [project]="project"></app-step2>
+        <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
         <app-step3 *ngSwitchCase="2" [project]="project"></app-step3>
         <app-step4 *ngSwitchCase="3" [project]="project"></app-step4>
         <app-step5 *ngSwitchCase="4" [project]="project" [typeDocument]="typeDocument"></app-step5>
+        <app-step6 *ngSwitchCase="5" [project]="project"></app-step6>
     </ng-container>
 </div>

@@ -1,12 +1,38 @@
-<div>
-  <h1>Reunión de revisión de avances</h1>
-  <button (click)="confirmAssistance()">Confirmar asistencia</button>
-</div>
+<ng-container *ngIf="user.rol == 'user' else admin">
+  <div>
+    <h1>Reunión de revisión de avances</h1>
+    <button (click)="confirmAssistance()">Confirmar asistencia</button>
+  </div>
 
-<div>
-  <h2>Detalles de la reunión:</h2>
-  <p>Fecha: {{ project.progressReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
-  <p>Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
-  <p>Lugar: {{ project.progressReviewMeeting.place }}</p>
-  <p>Modalidad: {{ project.progressReviewMeeting.modality }}</p>
-</div>
+  <div>
+    <h2>Detalles de la reunión:</h2>
+    <p>Fecha: {{ project.progressReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
+    <p>Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
+    <p>Lugar: {{ project.progressReviewMeeting.place }}</p>
+    <p>Modalidad: {{ project.progressReviewMeeting.modality }}</p>
+  </div>
+</ng-container>
+
+<ng-template #admin>
+  <form >
+    <div>
+      <h1>Reunión de revisión de avances</h1>
+      <button (click)="confirmAssistance()">Guardar y Enviar</button>
+    </div>
+    <div>
+      <div><label for="date">Fecha: </label><input type="date" id="date" formControlName="timeStart"></div>
+      <div>
+        <label for="timeStart">Inicio: </label><input type="time" id="timeStart" required formControlName="timeStart">
+        <label for="timeFinish">Fin: </label><input type="time" id="timeFinish" required formControlName="timeFinish">
+      </div>
+      <div><label for="place"></label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
+      <div>
+        <select id="modality" required formControlName="modality">
+          <option selected disabled >Modalidad</option>
+          <option value="presencial">Presencial</option>
+          <option value="virtual">Virtual</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</ng-template>

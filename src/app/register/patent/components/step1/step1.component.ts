@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Project } from 'src/app/models/project';
+import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -11,6 +12,10 @@ import { ProjectsService } from 'src/app/services/projects.service';
 export class Step1Component {
   @Input() 
   project!: Project
+
+  @Input()
+  user!: User
+
   step1Form!: FormGroup
 
   constructor(private projectService: ProjectsService) { }
@@ -25,6 +30,11 @@ export class Step1Component {
       console.log("Project updated")
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
     }).catch(err => console.log(err))
+  }
+
+  approve(): void {
+    this.project.approveStep2 = true
+    this.projectService.updateProject(this.project)
   }
 
   ngOnInit(): void {

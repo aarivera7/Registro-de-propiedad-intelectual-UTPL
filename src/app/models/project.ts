@@ -16,6 +16,8 @@ export class Project{
     progressReviewMeeting: any
     finalReviewMeeting: any
     documents: any = {}
+    contract: any = {}
+    approveStep2: boolean = false
 
     constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: String){
         this.name = name

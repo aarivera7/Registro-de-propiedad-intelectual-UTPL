@@ -8,10 +8,10 @@
         <span>{{ i+1 }}</span>
         <div>
             <span>{{ nameDocuments[i] }}</span>
-            <ng-template *ngIf="project.documents[type] else default">
-                <span>{{ project.documents[type].state }}</span>
-                <span>{{ project.documents[type].date.toDate() | date:"longDate" }}</span>
-            </ng-template>
+            <ng-container *ngIf="project.documents[type] else default">
+                <span> {{ project.documents[type].status }} </span>
+                <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
+            </ng-container>
             <ng-template #default>
                 <span> Sin Fecha </span>
                 <span> No subido </span>

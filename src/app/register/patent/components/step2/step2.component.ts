@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { Project } from 'src/app/models/project';
+import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -12,6 +14,13 @@ import { ProjectsService } from 'src/app/services/projects.service';
 export class Step2Component {
   @Input() 
   project!: Project
+  url: string = ""
+  formObservations: FormGroup = new FormGroup({
+    observations: new FormControl('', Validators.nullValidator)
+  })
+
+  @Input()
+  user!: User
 
   constructor(private storage: Storage, private projectService: ProjectsService) { }
 
@@ -21,12 +30,29 @@ export class Step2Component {
     const file: File = input.files[0];
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/descriptiveMemories/${file.name}`);
     
-    getDownloadURL(uploadBytesResumable(pdfRef, file).snapshot.ref).then(url => {  
-      this.project.documents['descriptiveMemories'].documents.push(url)
-    }).catch();
-    this.project.numStep = 3
-    this.project.documents['descriptiveMemories'].status = "Pendiente"
-    this.project.documents['descriptiveMemories'].date = Timestamp.now()
+    uploadBytesResumable(pdfRef, file).then(task => {
+      getDownloadURL(task.ref).then(url => {  
+        this.project.documents['descriptiveMemories'].documents.push(url)
+        this.project.numStep = 3
+        this.project.documents['descriptiveMemories'].status = "Pendiente"
+        this.project.documents['descriptiveMemories'].date = Timestamp.now()
+        this.projectService.updateProject(this.project)
+        this.url = url
+      }).catch();
+    });
+  }
+
+  approve(): void {
+    this.project.documents['descriptiveMemories'].status = "Aprobado"
     this.projectService.updateProject(this.project)
+  }
+
+  updateObservations(): void {
+    this.project.documents['descriptiveMemories'].observation = this.formObservations.get('observations')?.value
+    this.projectService.updateProject(this.project)
+  }
+
+  ngOnInit(): void {
+    this.url = this.project.documents['descriptiveMemories'].documents[0]
   }
 }

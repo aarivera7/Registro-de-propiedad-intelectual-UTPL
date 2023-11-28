@@ -38,4 +38,8 @@ export class Step5Component {
   getTitle(typeDocument: string): string{
     return this.nameDocuments[this.typeDocuments.indexOf(typeDocument)]
   }
+
+  ngOnInit(): void {
+    console.log(this.project)
+  }
 }

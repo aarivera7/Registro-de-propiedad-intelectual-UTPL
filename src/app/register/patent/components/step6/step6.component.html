@@ -1,0 +1,6 @@
+<div>
+    <div><span>Elaboración del contrato</span></div>
+    <div><small>Detalles</small><span>{{ project.contract.date }}</span></div>
+    <div>Carga en PDF el contrato legalizado, con las firmas correspondientes</div>
+    <div><input type="file" #upload><button (click)="uploadPDF(upload)">Subir Archivo</button></div>
+</div>

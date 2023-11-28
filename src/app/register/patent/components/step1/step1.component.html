@@ -1,16 +1,20 @@
 <form [formGroup]="step1Form" (ngSubmit)="updateProject()">
     <div>
         <label for="keywords">1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro</label>
-        <input type="text" id="keywords" name="keywords" required formControlName="keywords">
+        <input type="text" id="keywords" name="keywords" required formControlName="keywords" [disabled]="user.rol == 'admin'">
     </div>
     <div>
         <label for="title">2. Un título Tentativo</label>
-        <input type="text" id="title" name="title" required formControlName="tentativeTitle">
+        <input type="text" id="title" name="title" required formControlName="tentativeTitle" [disabled]="user.rol == 'admin'">
     </div>
     <div>
         <label for="summary">3. Un breve resumen</label>
-        <input type="text" id="summary" name="summary" required formControlName="summary">
+        <input type="text" id="summary" name="summary" required formControlName="summary" [disabled]="user.rol == 'admin'">
     </div>
 
-    <input type="submit" value="Guardar y enviar">
+    <input type="submit" value="Guardar y enviar" *ngIf="user.rol == 'user'">
+    <div>
+        <button (click)="approve()">Aprobar</button>
+        <button>Enviar Correo</button>
+    </div>
 </form>

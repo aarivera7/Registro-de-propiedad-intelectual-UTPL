@@ -32,6 +32,7 @@ import { Step3Component } from './register/patent/components/step3/step3.compone
 import { Step4Component } from './register/patent/components/step4/step4.component';
 import { Step5Component } from './register/patent/components/step5/step5.component';
 import { MultipleFileLoadComponent } from './register/components/multiple-file-load/multiple-file-load.component';
+import { Step6Component } from './register/patent/components/step6/step6.component';
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
@@ -62,6 +63,7 @@ const appRoutes:Routes=[
     Step4Component,
     Step5Component,
     MultipleFileLoadComponent,
+    Step6Component,
   ],
   imports: [
     BrowserModule,
