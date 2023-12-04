@@ -16,14 +16,13 @@ export class ProjectsService {
     return addDoc(projectRef, project)
   }
 
-  async getProject(id: string){
+  getProject(id: string){
     /*const projectRef = collection(this.firestore, 'patents')
     let q = query(projectRef, where('id', '==', id))
     return collectionData(q) as Observable<Project[]>;*/
 
     const projectRef = doc(this.firestore, `patents/${id}`)
-    const project = (await getDoc(projectRef)).data() as Project
-    project['id'] = id
+    const project = getDoc(projectRef)
     return project
   }
 

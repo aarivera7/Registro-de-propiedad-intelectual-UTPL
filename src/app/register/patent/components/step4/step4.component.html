@@ -1,8 +1,9 @@
-<div>
+<ng-container *ngIf="user.rol == 'user'">
+  <div>
     <h1>Reunión de revisión de avances</h1>
     <button (click)="confirmAssistance()">Confirmar asistencia</button>
   </div>
-  
+    
   <div>
     <h2>Detalles de la reunión:</h2>
     <p>Fecha: {{ project.finalReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
@@ -10,3 +11,33 @@
     <p>Lugar: {{ project.finalReviewMeeting.place }}</p>
     <p>Modalidad: {{ project.finalReviewMeeting.modality }}</p>
   </div>
+</ng-container>
+
+<ng-container *ngIf="user.rol == 'admin'">
+  <form [formGroup]="formFinalMeeting" (ngSubmit)="createMeeting()">
+    <div>
+      <h1>Reunión de revisión de avances</h1>
+      <button>Guardar y Enviar</button>
+    </div>
+    <div>
+      <div>
+        <label for="date">Fecha: </label>
+        <input type="date" id="date" formControlName="date"></div>
+      <div>
+        <label for="timeStart">Inicio: </label>
+        <input type="time" id="timeStart" required formControlName="timeStart">
+
+        <label for="timeFinish">Fin: </label>
+        <input type="time" id="timeFinish" required formControlName="timeFinish">
+      </div>
+      <div><label for="place"></label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
+      <div>
+        <select id="modality" required formControlName="modality">
+          <option selected disabled >Modalidad</option>
+          <option value="Presencial">Presencial</option>
+          <option value="Virtual">Virtual</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</ng-container>

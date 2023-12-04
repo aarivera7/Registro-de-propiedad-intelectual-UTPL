@@ -20,7 +20,7 @@ export class Step2Component {
   })
 
   @Input()
-  user!: User
+  user: User = new User("", "",  "",   )
 
   constructor(private storage: Storage, private projectService: ProjectsService) { }
 
@@ -32,10 +32,20 @@ export class Step2Component {
     
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
+        if(this.project.documents == undefined)
+          console.log("Error")
+
+        if(this.project.documents['descriptiveMemories'] == undefined)
+          this.project.documents['descriptiveMemories'] = {}
+
+        if(this.project.documents['descriptiveMemories'].documents == undefined)
+          this.project.documents['descriptiveMemories'].documents = []
+
         this.project.documents['descriptiveMemories'].documents.push(url)
         this.project.numStep = 3
         this.project.documents['descriptiveMemories'].status = "Pendiente"
         this.project.documents['descriptiveMemories'].date = Timestamp.now()
+        this.project.documents['descriptiveMemories'].observation = ""
         this.projectService.updateProject(this.project)
         this.url = url
       }).catch();
@@ -52,7 +62,11 @@ export class Step2Component {
     this.projectService.updateProject(this.project)
   }
 
-  ngOnInit(): void {
-    this.url = this.project.documents['descriptiveMemories'].documents[0]
+  ngOnChanges(): void {
+    if(this.project.documents == undefined)
+      this.project.documents = {}
+    else
+      this.url = this.project.documents['descriptiveMemories'].documents[0]
   }
+
 }

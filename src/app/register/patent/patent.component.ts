@@ -11,7 +11,14 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./patent.component.css']
 })
 export class PatentComponent {
-  steps: string[]
+  steps: string[] = [
+    "Requisitos de estado",
+    "Reunión 2 Memoria descriptiva",
+    "Reunión 3 Avances",
+    "Reunión 4 Revisión Final",
+    "Requisitos",
+    "Contrato"
+    ]
   longTitleSteps: string[] = [
     "Requisitos para revisión estado de la técnica",
     "Reunión 2 Elaboración de memoria descriptiva",
@@ -22,25 +29,11 @@ export class PatentComponent {
   ]
   step: number = -1
   id!: string
-  project!: Project
-  user!: User
+  project: Project = new Project("", "", "", "", "", "")
+  user: User = new User("", "",  "",   )
   typeDocument?: string
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {
-    this.route.params.subscribe(params => {
-      this.step = parseInt(params['step'])-1
-      this.id = params['id']
-      this.typeDocument = params['typeDocument']
-    })
-    this.steps = [
-    "Requisitos de estado",
-    "Reunión 2 Memoria descriptiva",
-    "Reunión 3 Avances",
-    "Reunión 4 Revisión Final",
-    "Requisitos",
-    "Contrato"
-  ]
-  }
+  constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
   redirect(project: Project, numStep: number): void {
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
@@ -48,11 +41,19 @@ export class PatentComponent {
   }
 
   ngOnInit(): void {
-    this.projectService.getProject(this.id).then(project => {
-      this.project = Object.assign(new Project("", "", "", "", "", ""), project)
-    })
     this.loginService.getDataUser(this.loginService.uid).then(user => {
       this.user = Object.assign(new User("", "",  "",   ), user)
     }).catch(err => console.log(err))
+
+    this.route.params.subscribe(params => {
+      this.step = parseInt(params['step'])-1
+      this.id = params['id']
+      this.typeDocument = params['typeDocument']
+    })
+    
+    this.projectService.getProject(this.id).then(project => {
+      this.project = Object.assign(new Project("", "", "", "", "", ""), project.data())
+      this.project['id'] = project.id
+    })
   }
 }

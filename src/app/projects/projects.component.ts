@@ -25,7 +25,7 @@ export class ProjectsComponent {
     nameAuthor: new FormControl(''),
     description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
     createDate: new FormControl(Timestamp.now()),
-    type: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+    type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
     numStep: new FormControl(0),
     status: new FormControl('En Proceso'),
   })	
@@ -43,7 +43,7 @@ export class ProjectsComponent {
       id = doc.id
     })
     if(this.formProject.get('type')?.value == "patent"){
-      this.router.navigate([`/patent_form/${id}/0`])
+      this.router.navigate([`/patent_form/${id}/1`])
     }
   }
 
@@ -58,16 +58,16 @@ export class ProjectsComponent {
   ngOnInit(): void {
     this.loginService.getDataUser(this.loginService.uid).then(user => {
       this.user = Object.assign(new User("", "",  "",   ), user)
-    }).catch(err => console.log(err))
 
-    if (this.user.rol == "admin") { 
-      this.projectService.getProjects(undefined).subscribe(projects => {
-        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-      })
-    } else {
-      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
-        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-    })
-    }
+      if (this.user.rol == "admin") { 
+        this.projectService.getProjects(undefined).subscribe(projects => {
+          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        })
+      } else {
+        this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        })
+      }
+    }).catch(err => console.log(err))
   }
 }

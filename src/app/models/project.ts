@@ -15,15 +15,16 @@ export class Project{
     status?: string;
     progressReviewMeeting: any
     finalReviewMeeting: any
-    documents: any = {}
-    contract: any = {}
-    approveStep2: boolean = false
+    documents: any
+    contract: any
+    approveStep1!: boolean
+    approveStep2!: boolean
 
     constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: String){
         this.name = name
         this.uid = uid
         this.nameAuthor = nameAuthor
-        this.createDate = Timestamp.fromDate(new Date(create_date))
+        this.createDate = Timestamp.fromMillis(0)
         this.description = description
         this.type = type
     }
