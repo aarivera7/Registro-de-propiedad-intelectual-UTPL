@@ -7,13 +7,14 @@
     <p>Memoria descriptiva</p>
     <button (click)="uploadPDF(upload)">Guardar y enviar</button>
 </ng-container>
-<form *ngIf="user.rol == 'admin'" (ngSubmit)="updateObservations()">
+<form [formGroup]="formObservations" *ngIf="user.rol == 'admin'">
     <p>Descargar en PDF</p>
     <p>Memoria descriptiva</p> 
     <a href="{{ url }}" *ngIf="url != ''">Archivo Subido</a>
     <label for="observations"></label>
-    <input type="text" id="observations">
-    <input type="submit" value="Enviar Correciones">
+    <input type="text" id="observations" formControlName="observations">
+    <button *ngIf="user.rol == 'admin'" (click)="approve()">Aprobar</button>
+    <button (click)="updateObservations()" >Pedir correcciones</button>
 </form>
-<button (click)="approve()">Aprobar</button>
+
     

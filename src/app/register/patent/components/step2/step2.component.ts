@@ -32,13 +32,13 @@ export class Step2Component {
     
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
-        if(this.project.documents == undefined)
-          console.log("Error")
+        if(!this.project.documents)
+          this.project.documents = {}
 
-        if(this.project.documents['descriptiveMemories'] == undefined)
+        if(!this.project.documents['descriptiveMemories'])
           this.project.documents['descriptiveMemories'] = {}
 
-        if(this.project.documents['descriptiveMemories'].documents == undefined)
+        if(!this.project.documents['descriptiveMemories'].documents)
           this.project.documents['descriptiveMemories'].documents = []
 
         this.project.documents['descriptiveMemories'].documents.push(url)
@@ -53,7 +53,7 @@ export class Step2Component {
   }
 
   approve(): void {
-    this.project.documents['descriptiveMemories'].status = "Aprobado"
+    this.project.documents['descriptiveMemories'].status = "Aceptado"
     this.projectService.updateProject(this.project)
   }
 
@@ -63,10 +63,10 @@ export class Step2Component {
   }
 
   ngOnChanges(): void {
-    if(this.project.documents == undefined)
-      this.project.documents = {}
-    else
+    if(this.project.documents){
       this.url = this.project.documents['descriptiveMemories'].documents[0]
+      this.formObservations.get('observations')?.setValue(this.project.documents['descriptiveMemories'].observation)
+    }
   }
 
 }

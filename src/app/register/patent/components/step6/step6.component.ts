@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { Project } from 'src/app/models/project';
+import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -13,9 +14,31 @@ export class Step6Component {
   @Input() 
   project!: Project
 
+  @Input()
+  user: User = new User("", "",  "",   )
+
   constructor(private storage: Storage, private projectService: ProjectsService) { }
 
-  uploadPDF (input: HTMLInputElement){
+  uploadLegalizedContract (input: HTMLInputElement){
+    if (!input.files) return
+
+    if(!this.project.legalizedContract)
+      this.project.legalizedContract = {}
+    
+    const file: File = input.files[0];
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/legalizedContract/${file.name}`);
+    
+    uploadBytesResumable(pdfRef, file).then(task => {
+      getDownloadURL(task.ref).then(url => {  
+        this.project.legalizedContract.document = url
+        this.project.numStep = 6
+        this.project.legalizedContract.date = Timestamp.now()
+        this.projectService.updateProject(this.project)
+      }).catch();
+    });
+  }
+
+  uploadContract (input: HTMLInputElement){
     if (!input.files) return
     
     const file: File = input.files[0];
@@ -25,10 +48,34 @@ export class Step6Component {
       getDownloadURL(task.ref).then(url => {  
         this.project.contract.document = url
         this.project.numStep = 6
-        this.project.contract.status = "Pendiente"
         this.project.contract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
       }).catch();
     });
+  }
+
+  uploadApplication (input: HTMLInputElement){
+    if (!input.files) return
+
+    if(!this.project.application)
+      this.project.application = {}
+    
+    const file: File = input.files[0];
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/application/${file.name}`);
+    
+    uploadBytesResumable(pdfRef, file).then(task => {
+      getDownloadURL(task.ref).then(url => {  
+        this.project.application.document = url
+        this.project.numStep = 6
+        this.project.application.date = Timestamp.now()
+        this.projectService.updateProject(this.project)
+      }).catch();
+    });
+  }
+
+  ngOnChanges(): void {
+    if(!this.project.contract){
+      this.project.contract = {}
+    }
   }
 }

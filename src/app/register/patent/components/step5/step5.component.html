@@ -1,29 +1,60 @@
-<div *ngIf="!typeDocument">
+<form [formGroup]="formStatus"  *ngIf="!typeDocument">
+    <button (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
+    <button *ngIf="user.rol == 'admin'">Aprobar</button>
+
     <div>
-        <span>Documento</span>
-        <span>Estado</span>
-        <span>Fecha</span>
+        <span> Documento </span>
+        <span> Estado </span>
+        <span> Fecha </span>
+        <span *ngIf="user.rol == 'admin'">Observación</span>
     </div>
-    <div *ngFor=" let type of typeDocuments let i = index">
-        <span>{{ i+1 }}</span>
-        <div>
-            <span>{{ nameDocuments[i] }}</span>
-            <ng-container *ngIf="project.documents[type] else default">
-                <span> {{ project.documents[type].status }} </span>
-                <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
-            </ng-container>
-            <ng-template #default>
-                <span> Sin Fecha </span>
-                <span> No subido </span>
-            </ng-template>
+    
+    <ng-container *ngIf="project.documents"> 
+        <div *ngFor=" let type of typeDocuments let i = index">
+            <span>{{ i+1 }}</span>
             <div>
-                <button >Descargar</button>
-                <button (click)="redirectUpdateDocuments(type)">Subir</button>
-                <button>X</button>
+                <span>{{ nameDocuments[i] }}</span>
+
+                <ng-container *ngIf="project.documents[type] else default">
+
+                    <select *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Incompleto">Incompleto</option>
+                    </select>
+                    <span *ngIf="user.rol == 'user'">{{ project.documents[type].status }}</span>
+
+                    <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
+
+                    <div *ngIf="user.rol == 'admin'">
+                        <input type="text" formControlName="{{type}}Observation">
+                    </div>
+                </ng-container>
+                <ng-template #default>
+                    
+                    <select *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
+                        <option selected value="Pendiente">Pendiente</option>
+                        <option disabled value="Aceptado" >Aceptado</option>
+                        <option disabled value="Incompleto" >Incompleto</option>
+                    </select>
+                    <span *ngIf="user.rol == 'user'"> Pendiente </span>
+
+                    <span> Sin Fecha </span>
+
+                    <div *ngIf="user.rol == 'admin'">
+                        <input type="text" formControlName="{{type}}Observation">
+                    </div>
+                </ng-template>
+
+                <div *ngIf="user.rol == 'user'">
+                    <button>Descargar</button>
+                    <button (click)="redirectUpdateDocuments(type)">Subir</button>
+                    <button>X</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </ng-container>   
+</form>
 
 <app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [observation]="''"></app-multiple-file-load>
 

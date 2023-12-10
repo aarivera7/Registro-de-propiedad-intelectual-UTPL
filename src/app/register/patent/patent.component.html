@@ -5,7 +5,7 @@
     <div>
         <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
         <h3>Requisitos para revisión estado de la técnica</h3>
-        <button *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
+        <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
     </div>
 
     <div>
@@ -19,7 +19,7 @@
         <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
         <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
         <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
-        <app-step5 *ngSwitchCase="4" [project]="project" [typeDocument]="typeDocument"></app-step5>
-        <app-step6 *ngSwitchCase="5" [project]="project"></app-step6>
+        <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"></app-step5>
+        <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
     </ng-container>
 </div>

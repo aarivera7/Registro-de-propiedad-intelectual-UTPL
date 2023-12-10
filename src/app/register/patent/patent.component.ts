@@ -32,6 +32,7 @@ export class PatentComponent {
   project: Project = new Project("", "", "", "", "", "")
   user: User = new User("", "",  "",   )
   typeDocument?: string
+  nextStepDisabled: boolean = false
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
   redirect(project: Project, numStep: number): void {
@@ -42,13 +43,27 @@ export class PatentComponent {
 
   ngOnInit(): void {
     this.loginService.getDataUser(this.loginService.uid).then(user => {
-      this.user = Object.assign(new User("", "",  "",   ), user)
+      this.user = Object.assign(new User("", "",  ""), user)
     }).catch(err => console.log(err))
 
     this.route.params.subscribe(params => {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
       this.typeDocument = params['typeDocument']
+
+      this.nextStepDisabled = false
+
+      // if (this.user.rol == "admin") {
+      //   if (this.step == 0 && !this.project.documents) {
+      //     this.nextStepDisabled = true
+      //   }
+      // } else if (this.user.rol == "user") {
+      //   if (this.step == 0 && !this.project.approveStep1) {
+      //     this.nextStepDisabled = true
+      //   } else if (this.step == 1 && this.project.documents['descriptiveMemories'].status != "Aceptado") {
+      //     this.nextStepDisabled = true
+      //   }
+      // }
     })
     
     this.projectService.getProject(this.id).then(project => {

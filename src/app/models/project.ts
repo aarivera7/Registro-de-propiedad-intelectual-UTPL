@@ -17,6 +17,8 @@ export class Project{
     finalReviewMeeting: any
     documents: any
     contract: any
+    legalizedContract: any
+    application: any
     approveStep1!: boolean
     approveStep2!: boolean
 

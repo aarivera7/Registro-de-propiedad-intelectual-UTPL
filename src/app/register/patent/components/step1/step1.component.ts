@@ -44,7 +44,7 @@ export class Step1Component {
       summary: new FormControl(this.project?.summary, [Validators.required, Validators.nullValidator]),
     })
 
-    if (this.user.rol == "admin") {
+    if (this.user.rol == "admin" || this.project.approveStep1) {
       this.step1Form.get('keywords')?.disable()
       this.step1Form.get('tentativeTitle')?.disable() 
       this.step1Form.get('summary')?.disable()
