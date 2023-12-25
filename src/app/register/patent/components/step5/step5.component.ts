@@ -39,6 +39,10 @@ export class Step5Component {
     "descriptiveMemories",
   ]
 
+  isApprovable(): boolean{
+    return this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
+  }
+
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   changeStatus(): void {
@@ -57,6 +61,16 @@ export class Step5Component {
 
   getTitle(typeDocument: string): string{
     return this.nameDocuments[this.typeDocuments.indexOf(typeDocument)]
+  }
+
+  approve(): void {
+    
+    if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
+
+      this.project.approveStep5 = true
+      this.project.numStep = 6
+      this.projectsService.updateProject(this.project);
+    }
   }
 
   ngOnChanges(): void {

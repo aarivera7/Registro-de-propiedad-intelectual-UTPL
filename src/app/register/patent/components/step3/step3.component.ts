@@ -65,9 +65,12 @@ export class Step3Component {
     }
 
     this.formReviewMeeting = new FormGroup({
-      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1) + "-" + dStart.getDate().toString().padStart(2, '0'), [Validators.required, Validators.nullValidator]),
-      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes(), [Validators.required, Validators.nullValidator]),
-      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes(), [Validators.required, Validators.nullValidator]),
+      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1) + "-" + dStart.getDate().toString().padStart(2, '0'), 
+          [Validators.required, Validators.nullValidator]),
+      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes().toString().padStart(2, '0'), 
+          [Validators.required, Validators.nullValidator]),
+      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes().toString().padStart(2, '0'), 
+          [Validators.required, Validators.nullValidator]),
       place: new FormControl(this.project.progressReviewMeeting?.place),
       modality: new FormControl(this.project.progressReviewMeeting?.modality, [Validators.required, Validators.nullValidator]),
     })

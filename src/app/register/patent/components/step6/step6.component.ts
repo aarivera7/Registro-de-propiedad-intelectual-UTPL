@@ -26,7 +26,7 @@ export class Step6Component {
       this.project.legalizedContract = {}
     
     const file: File = input.files[0];
-    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/legalizedContract/${file.name}`);
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/legalizedContract.pdf`);
     
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
@@ -42,7 +42,7 @@ export class Step6Component {
     if (!input.files) return
     
     const file: File = input.files[0];
-    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract/${file.name}`);
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract.pdf`);
     
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
@@ -61,7 +61,7 @@ export class Step6Component {
       this.project.application = {}
     
     const file: File = input.files[0];
-    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/application/${file.name}`);
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/application.pdf`);
     
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
@@ -71,6 +71,11 @@ export class Step6Component {
         this.projectService.updateProject(this.project)
       }).catch();
     });
+  }
+
+  approveProject(): void {
+    this.project.status = "Aprobado"
+    this.projectService.updateProject(this.project)
   }
 
   ngOnChanges(): void {

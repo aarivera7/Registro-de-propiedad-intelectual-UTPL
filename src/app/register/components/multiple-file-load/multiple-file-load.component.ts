@@ -43,18 +43,29 @@ export class MultipleFileLoadComponent {
 
     getDownloadURL(pdfRef).then(url => {  
       console.log(url)
+
+      if (!this.project.documents[this.typeDocument]) 
+        this.project.documents[this.typeDocument] = {}
+
+      if (!this.project.documents[this.typeDocument].documents) 
+        this.project.documents[this.typeDocument].documents = []
+
       this.project.documents[this.typeDocument].documents.push(url) 
       this.project.documents[this.typeDocument].date = Timestamp.now() 
       this.project.documents[this.typeDocument].status = "Pendiente"
       this.project.numStep = 5
+      this.project.documents[this.typeDocument].observation = ""
       this.projectService.updateProject(this.project)
       this.documents = this.project.documents[this.typeDocument].documents
     }).catch()
   }
 
-  ngOnInit(): void {
-    if (this.project.documents[this.typeDocument] == undefined) 
-      this.project.documents[this.typeDocument] = {date: null, documents: [], status: "", observation: this.observation}
-    this.documents = this.project.documents[this.typeDocument].documents
+  ngOnChanges(): void {
+    if (this.project.documents) {
+      if (!this.project.documents[this.typeDocument]) 
+        this.project.documents[this.typeDocument] = {documents: []}
+      this.observation = this.project.documents[this.typeDocument].observation
+      this.documents = this.project.documents[this.typeDocument].documents
+    }
   }
 }

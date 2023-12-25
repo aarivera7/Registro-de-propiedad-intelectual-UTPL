@@ -1,6 +1,6 @@
 <form [formGroup]="formStatus"  *ngIf="!typeDocument">
     <button (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
-    <button *ngIf="user.rol == 'admin'">Aprobar</button>
+    <button [disabled]="!isApprovable" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
 
     <div>
         <span> Documento </span>
@@ -22,7 +22,7 @@
                         <option value="Aceptado">Aceptado</option>
                         <option value="Incompleto">Incompleto</option>
                     </select>
-                    <span *ngIf="user.rol == 'user'">{{ project.documents[type].status }}</span>
+                    <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
                     <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
 

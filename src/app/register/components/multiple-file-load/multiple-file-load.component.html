@@ -4,7 +4,7 @@
 <input type="file" id="file" [accept]="type" #upload>
 <button (click)="uploadPDF(upload)">Agregar más</button>
 <h3>Archivos</h3>
-<a *ngFor="let url of documents" href="{{url}}">{{ url }}</a>
+<a *ngFor="let url of documents; let i = index" href="{{url}}">Archivo {{ i + 1 }}</a>
 
 <h3>Observación</h3>
 <p>{{ observation }}</p>

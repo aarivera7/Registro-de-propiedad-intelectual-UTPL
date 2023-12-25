@@ -1,4 +1,4 @@
-<ng-container *ngIf="user.rol == 'user'">
+<ng-container *ngIf="user.rol == 'user' && project.finalReviewMeeting">
   <div>
     <h1>Reunión de revisión de avances</h1>
     <button (click)="confirmAssistance()">Confirmar asistencia</button>
@@ -30,7 +30,7 @@
         <label for="timeFinish">Fin: </label>
         <input type="time" id="timeFinish" required formControlName="timeFinish">
       </div>
-      <div><label for="place"></label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
+      <div><label for="place">Lugar: </label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
       <div>
         <select id="modality" required formControlName="modality">
           <option selected disabled >Modalidad</option>

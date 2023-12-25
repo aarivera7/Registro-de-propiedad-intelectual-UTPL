@@ -21,6 +21,7 @@ export class Project{
     application: any
     approveStep1!: boolean
     approveStep2!: boolean
+    approveStep5!: boolean
 
     constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: String){
         this.name = name

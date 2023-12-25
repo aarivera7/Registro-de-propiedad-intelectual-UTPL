@@ -2,15 +2,20 @@
 <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
 <div>
-    <div>
+    <div *ngIf="!typeDocument">
         <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
         <h3>Requisitos para revisión estado de la técnica</h3>
         <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
     </div>
 
+    <div *ngIf="typeDocument">
+        <button (click)="redirect(project, 4)">Volver</button>
+        <h3>Requisitos para revisión estado de la técnica</h3>
+    </div>
+
     <div>
         <h4>{{ project.getName }}</h4>
-        <p>{{ user.name }} {{ user.lastName }}</p>
+        <p>{{ project.nameAuthor }}</p>
         <p>{{ project.getCreateDate | date:"longDate"}}</p>
         <p><b>Patente o Modelo de Utilidad</b></p>
     </div>

@@ -28,6 +28,7 @@ export class ProjectsComponent {
     type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
     numStep: new FormControl(0),
     status: new FormControl('En Proceso'),
+    cellphone: new FormControl<string>('', [Validators.required, Validators.nullValidator, Validators.pattern("[0-9]{10}")]),
   })	
   
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }

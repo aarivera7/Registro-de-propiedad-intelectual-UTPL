@@ -24,10 +24,7 @@ export class Step4Component {
   confirmAssistance(): void {
     this.project.numStep = 5
     this.project.finalReviewMeeting.assistance = true
-    this.projectService.updateProject(this.project).then(project => {
-      console.log("Project updated")
-      this.project = Object.assign(new Project("", "", "", "", "", ""), project)
-    }).catch(err => console.log(err))
+    this.projectService.updateProject(this.project).then().catch(err => console.log(err))
   }
 
   createMeeting(): void {
@@ -56,14 +53,19 @@ export class Step4Component {
     let dFinish: Date
     if (this.project.finalReviewMeeting) {
       dStart = this.project.finalReviewMeeting.timeStart.toDate()
-    } else  
+      dFinish = this.project.finalReviewMeeting.timeFinish.toDate()
+    } else { 
       dStart = new Date()
       dFinish = new Date()
+    }
 
     this.formFinalMeeting = new FormGroup({
-      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1) + "-" + dStart.getDate().toString().padStart(2, '0'), [Validators.required, Validators.nullValidator]),
-      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes(), [Validators.required, Validators.nullValidator]),
-      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes(), [Validators.required, Validators.nullValidator]),
+      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1) + "-" + dStart.getDate().toString().padStart(2, '0'), 
+          [Validators.required, Validators.nullValidator]),
+      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes().toString().padStart(2, '0'),
+          [Validators.required, Validators.nullValidator]),
+      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes().toString().padStart(2, '0'),
+          [Validators.required, Validators.nullValidator]),
       place: new FormControl(this.project.finalReviewMeeting?.place, [Validators.required, Validators.nullValidator]),
       modality: new FormControl(this.project.finalReviewMeeting?.modality , [Validators.required, Validators.nullValidator]),
     })
