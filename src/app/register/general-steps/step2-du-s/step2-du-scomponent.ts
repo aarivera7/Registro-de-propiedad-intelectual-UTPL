@@ -6,11 +6,11 @@ import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
-  selector: 'app-step3',
-  templateUrl: './step3.component.html',
-  styleUrls: ['./step3.component.css']
+  selector: 'app-step2-du-s',
+  templateUrl: './step2-du-s.component.html',
+  styleUrls: ['./step2-du-s.component.css']
 })
-export class Step3Component {
+export class Step2DuSComponent {
   @Input()
   project!: Project
 
@@ -22,7 +22,7 @@ export class Step3Component {
   constructor(private projectService: ProjectsService) {}
 
   confirmAssistance(): void {
-    this.project.numStep = 4
+    this.project.numStep = 3
     this.project.progressReviewMeeting.assistance = true
     this.projectService.updateProject(this.project).then(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)

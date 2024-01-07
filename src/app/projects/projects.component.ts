@@ -16,20 +16,10 @@ import { Router } from '@angular/router';
 export class ProjectsComponent {
   title = "Registros"
   openModal: boolean | null = null
-  user: User = new User("", "",  "user",   )
+  user: User = new User("", "",  "",   )
   projects!: Project[]
 
-  formProject = new FormGroup({
-    name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-    uid: new FormControl(this.loginService.uid),
-    nameAuthor: new FormControl(''),
-    description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-    createDate: new FormControl(Timestamp.now()),
-    type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
-    numStep: new FormControl(0),
-    status: new FormControl('En Proceso'),
-    cellphone: new FormControl<string>('', [Validators.required, Validators.nullValidator, Validators.pattern("[0-9]{10}")]),
-  })	
+  formProject: FormGroup = new FormGroup({})
   
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
@@ -42,10 +32,13 @@ export class ProjectsComponent {
     this.formProject.setControl('numStep', new FormControl(1));
     this.projectService.addProject(this.formProject.value).then ( doc => {
       id = doc.id
+
+      if(this.formProject.get('type')?.value == "patent"){
+        this.router.navigate([`/patent_form/${id}/1`])
+      } else if (this.formProject.get('type')?.value == "copyright-software"){
+        this.router.navigate([`/copyright-software_form/${id}/1`])
+      }
     })
-    if(this.formProject.get('type')?.value == "patent"){
-      this.router.navigate([`/patent_form/${id}/1`])
-    }
   }
 
   redirect(project: Project): void {
@@ -69,6 +62,17 @@ export class ProjectsComponent {
           this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
         })
       }
+      this.formProject = new FormGroup({
+        name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+        uid: new FormControl(this.loginService.uid),
+        nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+        description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+        createDate: new FormControl(Timestamp.now()),
+        type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+        numStep: new FormControl(0),
+        status: new FormControl('En Proceso'),
+        //cellphone: new FormControl('', [Validators.required,  Validators.pattern("[0-9]{10}")]),
+      })	
     }).catch(err => console.log(err))
   }
 }

@@ -6,14 +6,14 @@
         <span> Documento </span>
         <span> Estado </span>
         <span> Fecha </span>
-        <span *ngIf="user.rol == 'admin'">Observación</span>
+        <span *ngIf="user.rol == 'admin'"> Observación </span>
     </div>
     
     <ng-container *ngIf="project.documents"> 
         <div *ngFor=" let type of typeDocuments let i = index">
             <span>{{ i+1 }}</span>
             <div>
-                <span>{{ nameDocuments[i] }}</span>
+                <span> {{ nameDocuments[i] }} </span>
 
                 <ng-container *ngIf="project.documents[type] else default">
 
@@ -24,7 +24,7 @@
                     </select>
                     <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
-                    <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
+                    <span *ngIf="project.documents[type].date"> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
 
                     <div *ngIf="user.rol == 'admin'">
                         <input type="text" formControlName="{{type}}Observation">
@@ -46,7 +46,7 @@
                     </div>
                 </ng-template>
 
-                <div *ngIf="user.rol == 'user'">
+                <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
                     <button>Descargar</button>
                     <button (click)="redirectUpdateDocuments(type)">Subir</button>
                     <button>X</button>
@@ -56,5 +56,6 @@
     </ng-container>   
 </form>
 
-<app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5"></app-multiple-file-load>
+<app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="1"></app-multiple-file-load>
+
 

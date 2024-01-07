@@ -1,32 +1,52 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
+import { LoginService } from 'src/app/services/login.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
-  selector: 'app-patent',
-  templateUrl: './patent.component.html',
-  styleUrls: ['./patent.component.css']
+  selector: 'app-copyright-database',
+  templateUrl: './copyright-database.component.html',
+  styleUrls: ['./copyright-database.component.css']
 })
-export class PatentComponent {
+export class CopyrightDatabaseComponent {
   steps: string[] = [
     "Requisitos de estado",
-    "Reunión 2 Memoria descriptiva",
-    "Reunión 3 Avances",
-    "Reunión 4 Revisión Final",
-    "Requisitos",
-    "Contrato"
-    ]
+    "Reunión 2 Revisión",
+    "Reunión 3 Contrato",
+  ]
+
   longTitleSteps: string[] = [
-    "Requisitos para revisión estado de la técnica",
-    "Reunión 2 Elaboración de memoria descriptiva",
-    "Reunión 3 Avances",
-    "Reunión 4 Revisión Final",
     "Requisitos",
+    "Reunión 2 Revisión",
     "Contrato"
   ]
+
+  nameDocuments: string[] = [
+    "Copias de cédulas y certificado de votación a color",
+    "Certificado docentes y estudiantes UTPL",
+    "Datos de autores",
+    "Certificado de autores",
+    "Ficha Técnica",	
+    "Manual de usuario",
+    "Resumen de las funcionalidades del programa",
+    "Conocer si la obra, esta publicada o es inédita",
+    "CD con codigo fuente",
+  ]
+
+  typeDocuments: string[] = [
+    "idDocuments",
+    "teacherStudentCertificate",
+    "dataAuthors",
+    "authorsCertificate",
+    "technicalSheet",
+    "userManual",
+    "softwareFeatures",
+    "publishedOrUnpublished",
+    "sourceCode",
+  ]
+
   step: number = -1
   id!: string
   project: Project = new Project("", "", "", "", "", "")
@@ -35,7 +55,7 @@ export class PatentComponent {
   nextStepDisabled: boolean = false
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
-  
+
   redirect(project: Project, numStep: number): void {
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
@@ -51,8 +71,9 @@ export class PatentComponent {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
       this.typeDocument = params['typeDocument']
+      
 
-      this.nextStepDisabled = false
+      // this.nextStepDisabled = false
 
       // if (this.user.rol == "admin") {
       //   if (this.step == 0 && !this.project.documents) {

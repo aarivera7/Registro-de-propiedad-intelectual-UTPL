@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { di } from '@fullcalendar/core/internal-common';
+import { Timestamp } from 'firebase/firestore';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
-  selector: 'app-step5',
-  templateUrl: './step5.component.html',
-  styleUrls: ['./step5.component.css']
+  selector: 'app-step1-du-s',
+  templateUrl: './step1-du-s.component.html',
+  styleUrls: ['./step1-du-s.component.css']
 })
-export class Step5Component {
+export class Step1DuSComponent {
   @Input() 
   project!: Project
   @Input()
@@ -23,21 +23,11 @@ export class Step5Component {
 
   formStatus!: FormGroup;
 
-  nameDocuments: string[] = [
-    "Copias de cédulas y certificado de votación a color",
-    "Certificado docentes y estudiantes UTPL",
-    "Certificado de autores",
-    "Datos de autores",
-    "Memorias descriptivas",
-  ]
+  @Input()
+  nameDocuments!: string[]
   
-  typeDocuments: string[] = [
-    "idDocuments",
-    "teacherStudentCertificate",
-    "authorsCertificate",
-    "dataAuthors",
-    "descriptiveMemories",
-  ]
+  @Input()
+  typeDocuments!: string[]
 
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
@@ -50,13 +40,16 @@ export class Step5Component {
       if(this.project.documents[typeDocument]){
         this.project.documents[typeDocument].status = this.formStatus.get(typeDocument)?.value
         this.project.documents[typeDocument].observation = this.formStatus.get(`${typeDocument}Observation`)?.value
+        if (this.project.documents[typeDocument].status == "Aceptado"  && typeDocument == "sourceCode"){
+          this.project.documents[typeDocument].date = Timestamp.now()
+        }
       }
     });
     this.projectsService.updateProject(this.project);
   }
 
   redirectUpdateDocuments(typeDocument: string){
-    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/5/${typeDocument}`])
+    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}`])
   }
 
   getTitle(typeDocument: string): string{
@@ -67,17 +60,22 @@ export class Step5Component {
     
     if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
 
-      this.project.approveStep5 = true
-      this.project.numStep = 6
+      this.project.approveStep1 = true
+      this.project.numStep = 2
       this.projectsService.updateProject(this.project);
     }
   }
 
   ngOnChanges(): void {
     this.formStatus = new FormGroup({})
-
+    
     this.typeDocuments.forEach(typeDocument => {
       if (this.project.documents){
+        if (!this.project.documents['sourceCode'] && this.project.type != "industrial-secret"){
+          this.project.documents['sourceCode'] = {}
+          this.project.documents['sourceCode'].status = "Pendiente"
+          this.project.documents['sourceCode'].observation = ""
+        }
         if (this.project.documents[typeDocument]){
           this.formStatus.addControl(typeDocument, new FormControl(this.project.documents[typeDocument].status))
           this.formStatus.addControl(`${typeDocument}Observation`, new FormControl(this.project.documents[typeDocument].observation))
@@ -87,5 +85,9 @@ export class Step5Component {
         }
       } 
     })
+
+    if(!this.project.documents){
+      this.project.documents = {}
+    }
   }
 }

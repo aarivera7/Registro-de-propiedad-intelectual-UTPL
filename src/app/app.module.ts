@@ -33,6 +33,12 @@ import { Step4Component } from './register/patent/components/step4/step4.compone
 import { Step5Component } from './register/patent/components/step5/step5.component';
 import { MultipleFileLoadComponent } from './register/components/multiple-file-load/multiple-file-load.component';
 import { Step6Component } from './register/patent/components/step6/step6.component';
+import { CopyrightSoftwareComponent } from './register/copyright-software/copyright-software.component';
+import { Step1DuSComponent } from './register/general-steps/step1-du-s/step1-du-s.component';
+import { Step2DuSComponent } from './register/general-steps/step2-du-s/step2-du-scomponent';
+import { Step3DuSComponent } from './register/general-steps/step3-du-s/step3-du-s.component';
+import { CopyrightDatabaseComponent } from './register/copyright-database/copyright-database.component';
+import { IndustrialSecretComponent } from './register/industrial-secret/industrial-secret.component';
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
@@ -44,6 +50,12 @@ const appRoutes:Routes=[
   {path: 'calendar', component: CalendarComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'patent_form/:id/:step', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'patent_form/:id/:step/:typeDocument', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-software_form/:id/:step', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-software_form/:id/:step/:typeDocument', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-database_form/:id/:step', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-database_form/:id/:step/:typeDocument', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'industrial-secret_form/:id/:step', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'industrial-secret_form/:id/:step/:typeDocument', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
 ]
 
 @NgModule({
@@ -64,6 +76,12 @@ const appRoutes:Routes=[
     Step5Component,
     MultipleFileLoadComponent,
     Step6Component,
+    CopyrightSoftwareComponent,
+    Step1DuSComponent,
+    Step2DuSComponent,
+    Step3DuSComponent,
+    CopyrightDatabaseComponent,
+    IndustrialSecretComponent,
   ],
   imports: [
     BrowserModule,

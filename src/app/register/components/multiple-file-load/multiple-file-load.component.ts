@@ -26,7 +26,9 @@ export class MultipleFileLoadComponent {
   project!: Project;
 
   @Input()
-  observation?: string;
+  numStep!: number;
+
+  observation: string = "";
   documents!: string[];
 
   constructor(private storage: Storage, private projectService: ProjectsService) { }
@@ -53,8 +55,8 @@ export class MultipleFileLoadComponent {
       this.project.documents[this.typeDocument].documents.push(url) 
       this.project.documents[this.typeDocument].date = Timestamp.now() 
       this.project.documents[this.typeDocument].status = "Pendiente"
-      this.project.numStep = 5
-      this.project.documents[this.typeDocument].observation = ""
+      this.project.numStep = this.numStep
+      this.project.documents[this.typeDocument].observation = this.observation
       this.projectService.updateProject(this.project)
       this.documents = this.project.documents[this.typeDocument].documents
     }).catch()
@@ -63,7 +65,7 @@ export class MultipleFileLoadComponent {
   ngOnChanges(): void {
     if (this.project.documents) {
       if (!this.project.documents[this.typeDocument]) 
-        this.project.documents[this.typeDocument] = {documents: []}
+        this.project.documents[this.typeDocument] = {documents: [], observation: ""}
       this.observation = this.project.documents[this.typeDocument].observation
       this.documents = this.project.documents[this.typeDocument].documents
     }
