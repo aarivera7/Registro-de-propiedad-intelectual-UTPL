@@ -27,36 +27,36 @@ export class CalendarComponent {
 
   constructor(private projectService: ProjectsService, private loginService: LoginService) { }
 
-  ngOnInit(): void {
-    this.loginService.getDataUser(this.loginService.uid).then(user => {
-      const uid = user.rol == "admin" ? undefined : this.loginService.uid
+  async ngOnInit(): Promise<void> {
+    const user = await this.loginService.getDataUser(this.loginService.uid)
 
-      this.projectService.getProjects(uid).subscribe(projects => {
-        this.calendarOptions.events = projects
-        .filter(project => project.progressReviewMeeting && project.progressReviewMeeting.assistance)
+    const uid = user.rol == "admin" ? undefined : this.loginService.uid
+
+    this.projectService.getProjects(uid).subscribe(projects => {
+      this.calendarOptions.events = projects
+      .filter(project => project.progressReviewMeeting && project.progressReviewMeeting.assistance)
+      .map(project => {
+        project = Object.assign(new Project("", "", "", "", "", ""), project)
+        return {
+          title: project.getName,
+          start: project.progressReviewMeeting.timeStart.toDate(),
+          end: project.progressReviewMeeting.timeFinish.toDate(),
+          display: 'block',
+        }
+      })
+
+      this.calendarOptions.events = this.calendarOptions.events.concat(projects
+        .filter(project => project.finalReviewMeeting && !project.finalReviewMeeting.assistance)
         .map(project => {
           project = Object.assign(new Project("", "", "", "", "", ""), project)
           return {
             title: project.getName,
-            start: project.progressReviewMeeting.timeStart.toDate(),
-            end: project.progressReviewMeeting.timeFinish.toDate(),
+            start: project.finalReviewMeeting.timeStart.toDate(),
+            end: project.finalReviewMeeting.timeFinish.toDate(),
             display: 'block',
           }
         })
-
-        this.calendarOptions.events = this.calendarOptions.events.concat(projects
-          .filter(project => project.finalReviewMeeting && !project.finalReviewMeeting.assistance)
-          .map(project => {
-            project = Object.assign(new Project("", "", "", "", "", ""), project)
-            return {
-              title: project.getName,
-              start: project.finalReviewMeeting.timeStart.toDate(),
-              end: project.finalReviewMeeting.timeFinish.toDate(),
-              display: 'block',
-            }
-          })
-        )
-      })
-    });
+      )
+    })
   }
 }

@@ -82,9 +82,8 @@ export class IndustrialSecretComponent {
       // }
     })
     
-    this.projectService.getProject(this.id).then(project => {
-      this.project = Object.assign(new Project("", "", "", "", "", ""), project.data())
-      this.project['id'] = project.id
+    this.projectService.getProject(this.id).subscribe(project => {
+      this.project = Object.assign(new Project("", "", "", "", "", ""), project)
     })
   }
 }

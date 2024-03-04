@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, deleteDoc, updateDoc, query, where, getDoc} from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, updateDoc, query, where, docData } from '@angular/fire/firestore';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 import { Observable } from 'rxjs';
 import { Project } from 'src/app/models/project';
 
@@ -9,21 +10,17 @@ import { Project } from 'src/app/models/project';
 export class ProjectsService {
   projectCache: any = null
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore, private functions: Functions) { }
 
   addProject(project: any) {
     const projectRef = collection(this.firestore, 'patents')
     return addDoc(projectRef, project)
   }
 
-  getProject(id: string){
-    /*const projectRef = collection(this.firestore, 'patents')
-    let q = query(projectRef, where('id', '==', id))
-    return collectionData(q) as Observable<Project[]>;*/
-
+  getProject(id: string): Observable<Project>{
     const projectRef = doc(this.firestore, `patents/${id}`)
-    const project = getDoc(projectRef)
-    return project
+    const project = docData(projectRef, {idField: 'id'})
+    return project as Observable<Project>
   }
 
   getProjects(uid: string | undefined): Observable<Project[]>{
@@ -44,9 +41,8 @@ export class ProjectsService {
     return projects as Observable<Project[]>
   }
 
-  deleteProject(project: Project) : Promise<void>{
-    const projectRef = doc(this.firestore, `patents/${project.getId}`)
-    return deleteDoc(projectRef)
+  deleteProject(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'deleteProject')({id: project.getId})
   }
 
   updateProject(project: Project) : Promise<void>{

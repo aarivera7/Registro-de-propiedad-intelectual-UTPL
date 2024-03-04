@@ -1,9 +1,43 @@
 <h2>Mensajería</h2>
-
-<div class="message" *ngFor="let message of messages">
-    <p><b>Proyecto: </b>{{ message.project }}</p>
-    <p><b>{{ message.sender }}</b> <small>{{ message.dateMessage | date:'short' }}</small></p>
+<button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
+<dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
+    <form [formGroup]="formNewMessage" (ngSubmit)="newMessage()">
+      <div>
+        <label for="type">Tipo de registro</label>
+        <select id="projectId" name="projectId" required formControlName="projectId">
+            <option *ngFor="let project of projects" [value]="project.id">{{ project.getName }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="sender">Autor del registro</label>
+        <input id="sender" type="text" formControlName="sender">
+        <label for="date">Fecha de registro</label>
+        <input id="date" type="text" disabled value="{{ getDate() | date:'longDate' }}">
+      </div>
+      <div>
+        <label for="evidence">Cargar Evidencia</label>
+        <input type="file" id="evidence" name="evidence" required >
+      </div>
+      <label for="subject">Asunto</label>
+      <textarea id="subject" name="subject" required formControlName="subject"></textarea>
+      <div>
+        <input type="submit" value="Aceptar" [disabled]="formNewMessage.invalid">
+        <input type="reset" value="Cancelar" (click)="openModal = null">
+      </div>
+    </form>
+  </dialog>
+<div class="message" *ngFor="let message of messages; let i = index">
+    <p><b>Proyecto: </b> {{ message.project }} </p>
+    <p><b> {{ message.sender }} </b> <small> {{ message.dateMessage | date:'short' }} </small></p>
     <p><b>Asunto: </b>{{ message.subject }}</p>
     <button>PDF</button>
-    <p><a href="">Responder</a></p>
+    <div *ngFor="let response of message.responses">
+        <p><b> {{ response.name }} </b> <small> {{ response.date.toDate() | date:'short' }} </small></p>
+        <p>{{ response.response }}</p>
+    </div>
+    <form *ngIf="inputMessages[i]" [formGroup]="formNewResponse" (ngSubmit)="newResponse(message.id, i)">
+      <input type="text" formControlName="response">
+      <input type="submit" value="Enviar" [disabled]="formNewResponse.invalid">
+    </form>
+    <p><button *ngIf="!inputMessages[i]" (click)="inputMessages[i] = true">Responder</button></p>
 </div>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Message } from '../models/message';
 import { Observable } from 'rxjs';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,31 @@ export class MessagesService {
 
   messagesCache: any = null
 
-  constructor(private firestore: Firestore) { }
+  constructor(private readonly firestore: Firestore, private readonly functions: Functions) { }
 
-  addMessage(message: Message){
-      const messageRef = collection(this.firestore, 'messages')
-      return addDoc(messageRef, message)
+  newResponse(response: string){
+    return httpsCallable(this.functions, 'newResponse')(response);
   }
 
-  getMessages(): Observable<Message[]>{
+  newMessage(message: any){
+    console.log(message);
+    return httpsCallable(this.functions, 'newMessage')(message);
+  }
+
+  getMessages(uid: string | undefined): Observable<Message[]>{
     if(this.messagesCache){
       return this.messagesCache as Observable<Message[]>;
-    } else{
-      const certificationRef = collection(this.firestore, 'messages')
-      this.messagesCache = collectionData(certificationRef)
+    } 
+
+    if(uid){
+      const messageRef = collection(this.firestore, 'messages')
+      const q = query(messageRef, where('senderUID', '==', uid))
+      this.messagesCache = collectionData(q, {idField: 'id'})
       return this.messagesCache as Observable<Message[]>
     }
+
+    const messageRef = collection(this.firestore, 'messages')
+    this.messagesCache = collectionData(messageRef, {idField: 'id'})
+    return this.messagesCache as Observable<Message[]>
   }
 }

@@ -41,6 +41,12 @@ export class ProjectsComponent {
     })
   }
 
+  deleteProject(project: Project): void {
+    this.projectService.deleteProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
+  }
+
   redirect(project: Project): void {
     this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
   }
