@@ -73,9 +73,13 @@ export class Step6Component {
     });
   }
 
-  approveProject(): void {
-    this.project.status = "Aprobado"
-    this.projectService.updateProject(this.project)
+  publishProject(): void {
+    // this.project.status = "Aprobado"
+    // this.projectService.updateProject(this.project)
+
+    this.projectService.publishProject(this.project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
   }
 
   ngOnChanges(): void {

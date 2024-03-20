@@ -43,8 +43,8 @@
     <span>Fecha de registro </span>
     <span>Tipo de propiedad intelectual </span>
   </div>
-  <div class="project" *ngFor="let project of projects">
-    <div (click)="redirect(project)">
+  <div class="project"  *ngFor="let project of projects">
+    <div class="project--details"  (click)="redirect(project)">
       <img src="" alt="Foto Proyecto" *ngIf="'user' == user.rol">
       <div>
         <p><small>{{ project.status }}</small></p>
@@ -52,13 +52,13 @@
       </div>
       <div>
         <p><small>Detalles</small></p>
-        <p>{{ project.getDescription }}</p>
+        <p>{{ types[project.type] }}</p>
       </div>
       <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
     </div>
     <div *ngIf="'admin' == user.rol">
-      <button>Aceptar</button>
-      <button>Negar</button>
+      <button (click)="approveProject(project)">Aceptar</button>
+      <button (click)="nonApproveProject(project)">Negar</button>
       <button (click)="deleteProject(project)">Borrar</button>
     </div>
   </div>

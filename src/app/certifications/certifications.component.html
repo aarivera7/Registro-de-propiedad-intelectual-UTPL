@@ -10,6 +10,6 @@
         <p><b>Registro realizado por: </b>{{ certification.realizedBy }}</p>
         <p><b>Fecha de registro: </b>{{ certification.getRegisterDate() | date:'longDate' }}</p>
         <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
-        <button>Abrir</button>
+        <a href="{{ certification.application.document }}"><button>Abrir</button></a>
     </div>
 </div>

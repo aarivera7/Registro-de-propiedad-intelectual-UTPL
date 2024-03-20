@@ -18,6 +18,12 @@ export class ProjectsComponent {
   openModal: boolean | null = null
   user: User = new User("", "",  "",   )
   projects!: Project[]
+  types: any = {
+    'patent': "Patente",
+    'industrial-secret': "Secreto Industrial",
+    'copyright-software': "Derechos de Autor /Software",
+    'copyright-database': "Derechos de Autor /Base de Datos",
+  };
 
   formProject: FormGroup = new FormGroup({})
   
@@ -39,6 +45,20 @@ export class ProjectsComponent {
         this.router.navigate([`/copyright-software_form/${id}/1`])
       }
     })
+
+    this.formProject.reset()
+  }
+
+  approveProject(project: Project): void {
+    this.projectService.approveProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
+  }
+
+  nonApproveProject(project: Project): void {
+    this.projectService.nonApproveProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
   }
 
   deleteProject(project: Project): void {

@@ -76,5 +76,5 @@
     </div>
 </ng-container>
 
-<button *ngIf="user.rol == 'admin' && project.status == 'En Proceso' && project.application" 
-    (click)="approveProject()">Aprobar finalización de proceso</button>
+<button *ngIf="user.rol == 'admin' && !project.publish && project.application" 
+    (click)="publishProject()">Aprobar finalización de proceso</button>

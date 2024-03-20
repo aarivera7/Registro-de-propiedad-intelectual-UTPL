@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Message } from '../models/message';
 import { Observable } from 'rxjs';
 import { Functions, httpsCallable } from '@angular/fire/functions';
+import { limit } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,8 @@ export class MessagesService {
     }
 
     const messageRef = collection(this.firestore, 'messages')
-    this.messagesCache = collectionData(messageRef, {idField: 'id'})
+    const q = query(messageRef, limit(10))
+    this.messagesCache = collectionData(q, {idField: 'id'})
     return this.messagesCache as Observable<Message[]>
   }
 }

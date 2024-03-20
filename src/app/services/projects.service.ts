@@ -41,15 +41,27 @@ export class ProjectsService {
     return projects as Observable<Project[]>
   }
 
-  deleteProject(project: Project) : Promise<unknown>{
-    return httpsCallable(this.functions, 'deleteProject')({id: project.getId})
-  }
-
   updateProject(project: Project) : Promise<void>{
     const projectRef = doc(this.firestore, `patents/${project.getId}`)
     const p = {...project}
     delete p.id 
     console.log(p)
     return updateDoc(projectRef, p)
+  }
+
+  deleteProject(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'deleteProject')({id: project.getId})
+  }
+
+  approveProject(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'approveProject')({id: project.getId})
+  }
+
+  nonApproveProject(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'nonApproveProject')({id: project.getId})
+  }
+
+  publishProject(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'publishProject')({id: project.getId})
   }
 }

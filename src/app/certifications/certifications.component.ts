@@ -21,16 +21,18 @@ export class CertificationsComponent {
     this.user = new User("", "", "", )
   }
   
-  ngOnInit(): void {
-    this.certificationService.getCertifications().subscribe(certifications => {
-      console.log(certifications);
-      this.certifications = certifications.map(x => Object.assign(new Certification("", "", "", ""), x))
-    })
-    
-    this.loginService.getDataUser(this.loginService.uid).then(user =>{
-      console.log(user)
-      this.user = user
-    })
-  }
+  async ngOnInit() {
+    this.user = await this.loginService.getDataUser(this.loginService.uid)
 
+    if (this.user.rol == "admin") { 
+      this.certificationService.getCertifications(undefined).subscribe(certifications => {
+        this.certifications = certifications.map(x => Object.assign(new Certification("", "", "", ""), x))
+      })
+    } else {
+      this.certificationService.getCertifications(this.loginService.uid).subscribe(certifications => {
+        console.log(certifications);
+        this.certifications = certifications.map(x => Object.assign(new Certification("", "", "", ""), x))
+      })
+    }
+  }
 }

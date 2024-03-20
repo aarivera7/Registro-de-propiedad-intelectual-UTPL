@@ -8,7 +8,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from '@angular/fire/firestore';
 import { ProjectsService } from '../services/projects.service';
 import { Project } from '../models/project';
-import { co } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'app-messages',
@@ -18,7 +17,6 @@ import { co } from '@fullcalendar/core/internal-common';
 export class MessagesComponent {
   projects: Project[]
   messages: Message[]
-  //messages=[new Message("Diana Elizabeth Ramirez Cuenca", "Propiedad Intelectual 2.0", "Los lideres colocaran todas las actividades a realizar en el planner", "Prueba xd", "11/10/2023")]
   inputMessages: boolean[]
   openModal: boolean | null = null
   user: User = new User("", "",  "",   )
@@ -44,6 +42,8 @@ export class MessagesComponent {
     this.messagesService.newMessage(this.formNewMessage.value).then(response  => {
       console.log(response);
     })
+
+    this.formNewMessage.reset()
   }
 
   newResponse(messageId: string, i: number): void {
@@ -53,6 +53,8 @@ export class MessagesComponent {
     this.messagesService.newResponse(this.formNewResponse.value).then(response  => {
       console.log(response);
     }).catch(err => console.log(err));
+
+    this.formNewResponse.reset()
   }
 
   getDate(): Date {

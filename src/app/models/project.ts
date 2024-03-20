@@ -7,7 +7,7 @@ export class Project{
     nameAuthor: String
     private createDate: Timestamp
     description: String
-    type: String
+    type: string
     keywords!: string;
     tentativeTitle?: String;
     summary?: String;
@@ -22,8 +22,9 @@ export class Project{
     approveStep1!: boolean
     approveStep2!: boolean
     approveStep5!: boolean
+    publish!: boolean
 
-    constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: String){
+    constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: string){
         this.name = name
         this.uid = uid
         this.nameAuthor = nameAuthor
