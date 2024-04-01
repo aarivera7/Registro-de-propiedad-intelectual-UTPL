@@ -16,6 +16,8 @@ export class Step1DuSComponent {
   project!: Project
   @Input()
   typeDocument?: string
+  @Input()
+  operation?: string
 
   // Se coloca una instancia sin valores para que no de error ya que a veces tarda mucho en cargar los datos
   @Input()
@@ -48,8 +50,8 @@ export class Step1DuSComponent {
     this.projectsService.updateProject(this.project);
   }
 
-  redirectUpdateDocuments(typeDocument: string){
-    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}`])
+  redirectUpdateDocuments(typeDocument: string, operation: string){
+    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}/${operation}`])
   }
 
   getTitle(typeDocument: string): string{

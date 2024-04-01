@@ -19,8 +19,7 @@ export class MessagesService {
   }
 
   newMessage(message: any){
-    console.log(message);
-    return httpsCallable(this.functions, 'newMessage')(message);
+    return httpsCallable<any, any>(this.functions, 'newMessage')(message);
   }
 
   getMessages(uid: string | undefined): Observable<Message[]>{

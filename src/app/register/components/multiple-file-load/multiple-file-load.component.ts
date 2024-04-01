@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Project } from 'src/app/models/project';
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { Storage, ref, uploadBytesResumable, getDownloadURL, deleteObject, updateMetadata, FullMetadata } from '@angular/fire/storage';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { Timestamp } from 'firebase/firestore';
 
@@ -28,6 +28,9 @@ export class MultipleFileLoadComponent {
   @Input()
   numStep!: number;
 
+  @Input()
+  operation!: string;
+
   observation: string = "";
   documents!: string[];
 
@@ -44,8 +47,6 @@ export class MultipleFileLoadComponent {
     }).catch();
 
     getDownloadURL(pdfRef).then(url => {  
-      console.log(url)
-
       if (!this.project.documents[this.typeDocument]) 
         this.project.documents[this.typeDocument] = {}
 
@@ -60,6 +61,26 @@ export class MultipleFileLoadComponent {
       this.projectService.updateProject(this.project)
       this.documents = this.project.documents[this.typeDocument].documents
     }).catch()
+  }
+
+  async deletePDF(url: string){
+    const urlParts = url.split('/') 
+    const filePath = urlParts[urlParts.length - 1].split('?')[0].replace('%2F', '/')
+
+    const pdfRef = ref(this.storage, filePath);
+    await deleteObject(pdfRef).then(() => {
+      this.project.documents[this.typeDocument].documents = this.project.documents[this.typeDocument].documents
+          .filter((doc: string) => doc !== url)
+
+      this.documents = this.project.documents[this.typeDocument].documents
+    }).catch()
+  }
+
+  getFileName(url: string): string {
+    const urlParts = url.split('/') 
+    const filePath = urlParts[urlParts.length - 1].split('?')[0]
+    const fileName = filePath.split('%2F')[filePath.split('%2F').length - 1]
+    return fileName.replaceAll('%20', ' ')
   }
 
   ngOnChanges(): void {

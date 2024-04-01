@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from '@angular/fire/firestore';
 import { ProjectsService } from '../services/projects.service';
 import { Project } from '../models/project';
+import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-messages',
@@ -31,19 +32,33 @@ export class MessagesComponent {
     private messagesService: MessagesService, 
     private loginService: LoginService, 
     protected router: Router,
-    private projectService: ProjectsService
+    private projectService: ProjectsService,
+    private storage: Storage
   ){
     this.messages = []
     this.projects = []
     this.inputMessages = []
   }
 
-  newMessage(): void {
-    this.messagesService.newMessage(this.formNewMessage.value).then(response  => {
-      console.log(response);
-    })
+  async newMessage(input: HTMLInputElement): Promise<void> {
+    const resultId = (await this.messagesService.newMessage(this.formNewMessage.value)).data;
 
     this.formNewMessage.reset()
+
+    this.openModal = null;
+
+    if (!input.files) return;
+    
+    const file: File = input.files[0];
+    let pdfRef = ref(this.storage, `messages/${resultId.messageId}/${file.name}`);
+
+    await uploadBytesResumable(pdfRef, file).then(task => {
+      pdfRef = task.ref
+    }).catch();
+
+    getDownloadURL(pdfRef).then(url => {  
+      this.messages[this.messages.length - 1].evidence = url
+    }).catch();
   }
 
   newResponse(messageId: string, i: number): void {
@@ -90,7 +105,6 @@ export class MessagesComponent {
       projectId: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       date: new FormControl(Timestamp.now()),
       subject: new FormControl<string>('', [Validators.required, Validators.nullValidator, Validators.minLength(1)]),
-      evidence: new FormControl(''),
     })	
   }
 }

@@ -26,7 +26,8 @@
             [user]="user" 
             [typeDocument]="typeDocument"
             [nameDocuments]="nameDocuments" 
-            [typeDocuments]="typeDocuments"></app-step1-du-s>
+            [typeDocuments]="typeDocuments"
+            [operation]="operation"></app-step1-du-s>
         <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
         <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
     </ng-container>

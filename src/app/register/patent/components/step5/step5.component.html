@@ -46,15 +46,15 @@
                     </div>
                 </ng-template>
 
-                <div *ngIf="user.rol == 'user'">
-                    <button>Descargar</button>
-                    <button (click)="redirectUpdateDocuments(type)">Subir</button>
-                    <button>X</button>
+                <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
+                    <button (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
+                    <button (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
+                    <button (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
                 </div>
             </div>
         </div>
     </ng-container>   
 </form>
 
-<app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5"></app-multiple-file-load>
+<app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation"></app-multiple-file-load>
 

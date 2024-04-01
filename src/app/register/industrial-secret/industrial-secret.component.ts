@@ -47,6 +47,7 @@ export class IndustrialSecretComponent {
   user: User = new User("", "",  "",   )
   typeDocument?: string
   nextStepDisabled: boolean = false
+  operation?: string
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
 
@@ -65,8 +66,8 @@ export class IndustrialSecretComponent {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
       this.typeDocument = params['typeDocument']
+      this.operation = params['operation']
       
-
       // this.nextStepDisabled = false
 
       // if (this.user.rol == "admin") {
