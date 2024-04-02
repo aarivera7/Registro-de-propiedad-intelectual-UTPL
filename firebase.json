@@ -1,1 +1,16 @@
-{}
+{
+  "hosting": {
+    "public": "dist/propiedad_intelectual",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
