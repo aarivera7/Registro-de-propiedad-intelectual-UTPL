@@ -29,24 +29,46 @@ export class ProjectsComponent {
   
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
-  addProject(): void {
-    let id: string = ""
+  async addProject(): Promise<void> {
     this.formProject.setControl('nameAuthor', new FormControl(this.user.name + " " + this.user.lastName, [
       Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)
     ]));
     this.formProject.setControl('createDate', new FormControl(Timestamp.now()));
     this.formProject.setControl('numStep', new FormControl(1));
-    this.projectService.addProject(this.formProject.value).then ( doc => {
-      id = doc.id
 
-      if(this.formProject.get('type')?.value == "patent"){
-        this.router.navigate([`/patent_form/${id}/1`])
-      } else if (this.formProject.get('type')?.value == "copyright-software"){
-        this.router.navigate([`/copyright-software_form/${id}/1`])
-      }
-    })
+    console.log(this.formProject.value);
 
-    this.formProject.reset()
+    await this.projectService.addProject(this.formProject.value)
+    
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}$")]),
+    })	
+
+    this.openModal = null
+  }
+
+  openModalAddProject(): void {
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
+    })	
+    
+    this.openModal = true
   }
 
   approveProject(project: Project): void {
@@ -68,7 +90,9 @@ export class ProjectsComponent {
   }
 
   redirect(project: Project): void {
-    this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
+    if (project.status == "Aprobado") {
+      this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
+    }
   }
 
   getDate(): Date {
@@ -97,7 +121,7 @@ export class ProjectsComponent {
         type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
         numStep: new FormControl(0),
         status: new FormControl('En Proceso'),
-        //cellphone: new FormControl('', [Validators.required,  Validators.pattern("[0-9]{10}")]),
+        cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
       })	
     }).catch(err => console.log(err))
   }

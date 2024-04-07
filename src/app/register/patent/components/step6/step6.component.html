@@ -18,9 +18,9 @@
         </div>
         <div>Carga en PDF el contrato legalizado, con las firmas correspondientes</div>
         <div>
-            <input type="file" #uploadLegalized>
-            <button (click)="uploadLegalizedContract(uploadLegalized)">Subir Archivo</button>
-            <a *ngIf="project.legalizedContract" href="{{ project.legalizedContract.document }}">Archivo Subido</a>
+            <input [disabled]="!project.contract.document || project.publish" accept=".pdf" type="file" #uploadLegalized>
+            <button [disabled]="!project.contract.document || project.publish" (click)="uploadLegalizedContract(uploadLegalized)">Subir Archivo</button>
+            <a *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Archivo Subido</a>
         </div>
     </div>
     <div>
@@ -45,9 +45,9 @@
         </div>
         <div>Carga en PDF el contrato, para la aplicación de la firma</div>
         <div>
-            <input type="file" #uploadContractF>
-            <button (click)="uploadContract(uploadContractF)">Subir Archivo</button>
-            <a *ngIf="project.contract" href="{{ project.contract.document }}">Archivo Subido</a>
+            <input [disabled]="project.publish" type="file" accept=".pdf" #uploadContractF>
+            <button [disabled]="project.publish"  (click)="uploadContract(uploadContractF)">Subir Archivo</button>
+            <a *ngIf="project.contract.document" [href]="project.contract.document">Archivo Subido</a>
         </div>
     </div>
     <div>
@@ -69,8 +69,8 @@
         </div>
         <div>Aqui puedes descargar la solicitud que se ha enviado para solicitar la patente</div>
         <div>
-            <input type="file" [disabled]="!project.contract.document" #uploadApply>
-            <button [disabled]="!project.contract.document" (click)="uploadApplication(uploadApply)">Subir Archivo</button>
+            <input [disabled]="!project.legalizedContract || project.publish" type="file" accept=".pdf" #uploadApply>
+            <button [disabled]="!project.legalizedContract || project.publish" (click)="uploadApplication(uploadApply)">Subir Archivo</button>
             <a *ngIf="project.application" href="{{ project.application.document }}">Archivo Subido</a>
         </div>
     </div>

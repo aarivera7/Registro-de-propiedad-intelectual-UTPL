@@ -1,18 +1,18 @@
 <div *ngIf="projects">
   <h2>Registro de Propiedad Intelectual</h2>
   <h3>{{ title }}</h3>
-  <button *ngIf="user.rol == 'user'" (click)="openModal = true">Crear registro PI</button>
+  <button *ngIf="user.rol == 'user'" (click)="openModalAddProject()">Crear registro PI</button>
   <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formProject" (ngSubmit)="addProject()">
       <div>
-        <label for="name">Nombre de la invensión “preliminar”</label>
-        <input type="text" id="name" name="name" required formControlName="name" autocomplete="off">
+        <label for="name-project">Nombre de la invensión “preliminar”</label>
+        <input type="text" id="name-project" name="name-project" required formControlName="name" autocomplete="off">
         <input type="text" formControlName="nameAuthor">
         <input type="text" disabled value="{{ getDate() | date:'longDate' }}">
       </div>
       <div>
         <label for="cellphone">Número de celular o ext</label>
-        <input type="tel" id="cellphone" name="cellphone" required >
+        <input type="tel" id="cellphone" name="cellphone" formControlName="cellphone" required >
         <label for="type">Tipo de registro</label>
         <select id="type" name="type" required formControlName="type">
           <option value="patent">Patente o modelo de utilidad</option>

@@ -91,6 +91,10 @@ export class CopyrightSoftwareComponent {
     
     this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
+      
+      if (this.project.status != "Aprobado"){
+        this.router.navigate(['/not_found'])
+      }
     })
   }
 }

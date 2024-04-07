@@ -36,10 +36,15 @@ export class Step6Component {
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   uploadContract (input: HTMLInputElement){
     if (!input.files) return
+
+    if(!this.project.contract)
+      this.project.contract = {}
     
     const file: File = input.files[0];
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract.pdf`);
@@ -52,6 +57,8 @@ export class Step6Component {
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   uploadApplication (input: HTMLInputElement){
@@ -71,13 +78,12 @@ export class Step6Component {
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   publishProject(): void {
-    // this.project.status = "Aprobado"
-    // this.projectService.updateProject(this.project)
-
-    this.projectService.publishProject(this.project).then((data) => {
+  this.projectService.publishProject(this.project).then((data) => {
       console.log(data);
     }).catch(err => console.log(err));
   }

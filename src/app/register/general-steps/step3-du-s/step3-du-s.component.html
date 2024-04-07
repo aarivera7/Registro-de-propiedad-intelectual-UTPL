@@ -47,7 +47,7 @@
         <div>
             <input type="file" #uploadContractF>
             <button (click)="uploadContract(uploadContractF)">Subir Archivo</button>
-            <a *ngIf="project.contract.document" href="{{ project.contract.document }}">Archivo Subido</a>
+            <a *ngIf="project.contract.document" [href]="project.contract.document">Archivo Subido</a>
         </div>
     </div>
     <div>

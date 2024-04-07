@@ -66,9 +66,7 @@ export class Step5Component {
   }
 
   approve(): void {
-    
-    if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
-
+  if(this.isApprovable()){
       this.project.approveStep5 = true
       this.project.numStep = 6
       this.projectsService.updateProject(this.project);

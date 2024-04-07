@@ -5,6 +5,7 @@ import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
+
 @Component({
   selector: 'app-patent',
   templateUrl: './patent.component.html',
@@ -43,10 +44,9 @@ export class PatentComponent {
     this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
   }
 
-  ngOnInit(): void {
-    this.loginService.getDataUser(this.loginService.uid).then(user => {
-      this.user = Object.assign(new User("", "",  ""), user)
-    }).catch(err => console.log(err))
+  async ngOnInit(): Promise<void> {
+
+    this.user = await this.loginService.getDataUser(this.loginService.uid)
 
     this.route.params.subscribe(params => {
       this.step = parseInt(params['step'])-1
@@ -54,23 +54,67 @@ export class PatentComponent {
       this.typeDocument = params['typeDocument']
       this.operation = params['operation']
 
-      this.nextStepDisabled = false
-
-      // if (this.user.rol == "admin") {
-      //   if (this.step == 0 && !this.project.documents) {
-      //     this.nextStepDisabled = true
-      //   }
-      // } else if (this.user.rol == "user") {
-      //   if (this.step == 0 && !this.project.approveStep1) {
-      //     this.nextStepDisabled = true
-      //   } else if (this.step == 1 && this.project.documents['descriptiveMemories'].status != "Aceptado") {
-      //     this.nextStepDisabled = true
-      //   }
-      // }
+      this.controlStep()
     })
     
     this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
+          
+      this.controlStep()
+
+      if (this.project.status != "Aprobado"){
+        this.router.navigate(['/not_found'])
+      }
     })
+  }
+
+  controlStep()  {
+    if (this.user.rol == "admin") {
+      if (this.step == 0 && !this.project.approveStep1) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && this.project.documents && this.project.documents['descriptiveMemories'].status != "Aceptado") {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && !this.project.documents) {
+        this.nextStepDisabled = true
+      } else if (this.step == 2 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else if (this.step == 2 && !this.project.progressReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 3 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else if (this.step == 3 && !this.project.finalReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 4 && !this.project.approveStep5) {
+        this.nextStepDisabled = true
+      } else {
+        this.nextStepDisabled = false
+      }
+    } else if (this.user.rol == "user") {
+      if (this.step == 2 && !this.project.progressReviewMeeting) {
+        this.step -= 1
+      } else if (this.step == 3 && !this.project.finalReviewMeeting) {
+        this.step -= 1
+      }
+
+      if (this.step == 0 && !this.project.approveStep1) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && this.project.documents && this.project.documents['descriptiveMemories'].status != "Aceptado") {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && !this.project.documents) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && !this.project.progressReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 2 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else if (this.step == 2 && !this.project.finalReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 3 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else if (this.step == 4 && !this.project.approveStep5) {
+        this.nextStepDisabled = true
+      } else {
+        this.nextStepDisabled = false
+      }
+    }
   }
 }

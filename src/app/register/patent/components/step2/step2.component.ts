@@ -42,7 +42,6 @@ export class Step2Component {
           this.project.documents['descriptiveMemories'].documents = []
 
         this.project.documents['descriptiveMemories'].documents.push(url)
-        this.project.numStep = 3
         this.project.documents['descriptiveMemories'].status = "Pendiente"
         this.project.documents['descriptiveMemories'].date = Timestamp.now()
         this.project.documents['descriptiveMemories'].observation = ""
@@ -67,6 +66,8 @@ export class Step2Component {
       this.url = this.project.documents['descriptiveMemories'].documents[0]
       this.formObservations.get('observations')?.setValue(this.project.documents['descriptiveMemories'].observation)
     }
+    if (this.project.documents && this.project.documents['descriptiveMemories'].status == "Aceptado") {
+      this.formObservations.get('observations')?.disable()
+    }
   }
-
 }

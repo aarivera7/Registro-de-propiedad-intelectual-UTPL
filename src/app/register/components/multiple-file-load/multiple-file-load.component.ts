@@ -61,6 +61,7 @@ export class MultipleFileLoadComponent {
       this.projectService.updateProject(this.project)
       this.documents = this.project.documents[this.typeDocument].documents
     }).catch()
+    input.value = ''
   }
 
   async deletePDF(url: string){

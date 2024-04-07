@@ -1,7 +1,7 @@
 <ng-container *ngIf="user.rol == 'user' && project.finalReviewMeeting">
   <div>
     <h1>Reunión de revisión de avances</h1>
-    <button (click)="confirmAssistance()">Confirmar asistencia</button>
+    <button [disabled]="project.finalReviewMeeting.assistance" (click)="confirmAssistance()">Confirmar asistencia</button>
   </div>
     
   <div>
@@ -32,6 +32,7 @@
       </div>
       <div><label for="place">Lugar: </label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
       <div>
+        <label for="modality">Modalidad: </label>
         <select id="modality" required formControlName="modality">
           <option selected disabled >Modalidad</option>
           <option value="Presencial">Presencial</option>
