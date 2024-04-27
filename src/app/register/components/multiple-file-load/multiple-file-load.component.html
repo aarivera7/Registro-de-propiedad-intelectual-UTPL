@@ -1,18 +1,20 @@
 <h2>{{ title }}</h2>
 <p><b>Subir archivos</b></p>
 <div *ngIf="operation == 'upload'">
-    <input type="file" id="file" [accept]="type" #upload>
-    <button (click)="uploadPDF(upload)">Agregar más</button>
+    <input type="file" id="file" (change)="uploadPDF($event)" [accept]="type" #upload>
+    <!-- button [disabled]="upload.value == ''">Agregar más</button -->
 </div>
 
-<h3>Archivos</h3>
+<h3>Archivos Subidos</h3>
 <div *ngIf="operation == 'upload'">
-    <a *ngFor="let url of documents" href="{{url}}">{{ getFileName(url) }}</a>
+    <p *ngFor="let url of documents">
+        <a target="_blank" [href]="url">{{ getFileName(url) }}</a>
+    </p>
 </div>
 
 <div *ngIf="operation == 'download'">
     <p *ngFor="let url of documents">
-        {{ getFileName(url) }} <a href="{{url}}" download >Descargar</a>
+        {{ getFileName(url) }} <a target="_blank" [href]="url" download >Descargar</a>
     </p>
 </div>
 
@@ -23,4 +25,8 @@
     </div>
 </div>
 <h3>Observación</h3>
-<p>{{ observation }}</p>
+<p *ngIf="rol == 'user'">{{ observation == '' ? 'No hay observaciones' : observation }}</p>
+<form *ngIf="rol == 'admin'" [formGroup]="formObservations">
+    <input type="text" formControlName="observations">
+    <button [disabled]="formObservations.invalid" (click)="updateObservation()">Guardar</button>
+</form>

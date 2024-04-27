@@ -64,5 +64,5 @@
     </ng-container>   
 </form>
 
-<app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation"></app-multiple-file-load>
+<app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation" [rol]="user.rol"></app-multiple-file-load>
 

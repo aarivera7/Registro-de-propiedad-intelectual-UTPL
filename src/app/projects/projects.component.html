@@ -1,4 +1,4 @@
-<div *ngIf="projects">
+<div *ngIf="projects && user">
   <h2>Registro de Propiedad Intelectual</h2>
   <h3>{{ title }}</h3>
   <button *ngIf="user.rol == 'user'" (click)="openModalAddProject()">Crear registro PI</button>
@@ -30,12 +30,23 @@
     </form>
   </dialog>
   
+
   <div>
-    <input type="text"> <input type="submit" value="Buscar">
-    <input list="types-properties">
-    <datalist id="types-properties">
+    <input (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
+    <button (click)="filterResults(filter.value)">Buscar</button>
+    <select [disabled]="true" id="types-properties">
+      <option selected disabled>Eliga una opción</option>
       <option value="patent">Patente</option>
-    </datalist>
+      <option value="copyright-software">Derechos de Autor / Software</option>
+      <option value="copyright-database">Derechos de Autor / Base de datos</option>
+      <option value="industrial-secret">Secreto industrial</option>
+    </select>
+
+    <!-- select id="types-properties">
+      <option value="copyright-software">Nombre</option>
+      <option value="copyright-database">Fecha de registro</option>
+      <option value="industrial-secret">Tipo de propiedad intelectual</option>
+    </select -->
   </div>
   <div class="project">
     <span *ngIf="'user' == user.rol">Foto</span>
@@ -43,9 +54,10 @@
     <span>Fecha de registro </span>
     <span>Tipo de propiedad intelectual </span>
   </div>
-  <div class="project"  *ngFor="let project of projects">
+  <div class="project"  *ngFor="let project of filteredProjects">
     <div class="project--details"  (click)="redirect(project)">
       <img src="" alt="Foto Proyecto" *ngIf="'user' == user.rol">
+      <p *ngIf="user.rol == 'admin'">{{ project.nameAuthor }}</p>
       <div>
         <p><small>{{ project.status }}</small></p>
         <p>{{ project.getName }}</p>
@@ -57,9 +69,9 @@
       <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
     </div>
     <div *ngIf="'admin' == user.rol">
-      <button (click)="approveProject(project)">Aceptar</button>
-      <button (click)="nonApproveProject(project)">Negar</button>
-      <button (click)="deleteProject(project)">Borrar</button>
+      <button [disabled]="project.publish" (click)="approveProject(project)">Aceptar</button>
+      <button [disabled]="project.publish" (click)="nonApproveProject(project)">Negar</button>
+      <button [disabled]="project.publish" (click)="deleteProject(project)">Borrar</button>
     </div>
   </div>
 </div>

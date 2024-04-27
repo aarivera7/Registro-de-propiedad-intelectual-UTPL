@@ -1,14 +1,14 @@
 <div>
   <!---->
-  <form #login="ngForm" (ngSubmit)="loginAuth(login)">
+  <form #login="ngForm" [formGroup]="formLogin" (ngSubmit)="loginAuth()">
     <div>
       <label for="email">Email </label>
-      <input id="email" name="email" type="email" ngModel>
+      <input id="email" name="email" type="email" formControlName="email">
     </div>
     <div>
-      <label for="password">Contraseña </label>
-      <input id="password" name="password" type="password" ngModel>
+      <label [hidden]="isPasswordHidden" for="password">Contraseña </label>
+      <input [hidden]="isPasswordHidden"  id="password" name="password" type="password" formControlName="password">
     </div>
-    <input type="submit" value="Iniciar Sesion">
+    <input type="submit" value="Iniciar Sesión">
   </form>
 </div>

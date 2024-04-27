@@ -30,7 +30,7 @@
     <p><b>Proyecto: </b> {{ message.project }} </p>
     <p><b> {{ message.sender }} </b> <small> {{ message.dateMessage | date:'short' }} </small></p>
     <p><b>Asunto: </b>{{ message.subject }}</p>
-    <a *ngIf="message.evidence" href="{{ message.evidence }}"><button >PDF</button></a>
+    <a target="_blank" *ngIf="message.evidence" [href]="message.evidence"><button >PDF</button></a>
     <div *ngFor="let response of message.responses">
         <p><b> {{ response.name }} </b> <small> {{ response.date.toDate() | date:'short' }} </small></p>
         <p>{{ response.response }}</p>

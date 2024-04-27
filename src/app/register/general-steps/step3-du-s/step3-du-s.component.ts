@@ -31,15 +31,19 @@ export class Step3DuSComponent {
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
         this.project.legalizedContract.document = url
-        this.project.numStep = 3
         this.project.legalizedContract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   uploadContract (input: HTMLInputElement){
     if (!input.files) return
+
+    if(!this.project.contract)
+      this.project.contract = {}
     
     const file: File = input.files[0];
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract.pdf`);
@@ -47,11 +51,12 @@ export class Step3DuSComponent {
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
         this.project.contract.document = url
-        this.project.numStep = 3
         this.project.contract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   uploadApplication (input: HTMLInputElement){
@@ -66,20 +71,19 @@ export class Step3DuSComponent {
     uploadBytesResumable(pdfRef, file).then(task => {
       getDownloadURL(task.ref).then(url => {  
         this.project.application.document = url
-        this.project.numStep = 3
         this.project.application.date = Timestamp.now()
         this.projectService.updateProject(this.project)
       }).catch();
     });
+
+    input.value = ''
   }
 
   publishProject(): void {
-    // this.project.status = "Aprobado"
-    // this.projectService.updateProject(this.project)
-
-    this.projectService.publishProject(this.project).then((data) => {
+  this.projectService.publishProject(this.project).then((data) => {
       console.log(data);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err)
+    );
   }
 
   ngOnChanges(): void {

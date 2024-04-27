@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Auth, signInWithEmailAndPassword, signOut, user } from "@angular/fire/auth";
+import { Auth, signInWithEmailAndPassword, signOut, user, signInWithRedirect, OAuthProvider, linkWithPopup } from "@angular/fire/auth";
 import { Firestore, getDoc, doc } from '@angular/fire/firestore';
 
 import { User } from "../models/user";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -16,13 +17,47 @@ export class LoginService {
 
     constructor(public auth: Auth, private firestore: Firestore){ 
         this.user$.subscribe(aUser => {
-            this.uid = aUser!.uid
+            if (!aUser) return
+            this.uid = aUser.uid
             this.getDataUser(this.uid)
         })
     }
 
     login({email, password}: any){
         return signInWithEmailAndPassword(this.auth, email, password)
+    }
+
+    loginWithMicrosoft(email: string){
+        const provider = new OAuthProvider('microsoft.com');
+        provider.setCustomParameters({
+            // Force re-consent.
+            prompt: 'consent',
+            // Target specific email with login hint.
+            login_hint: email,
+            tenant: environment.tenant
+        });
+
+        return signInWithRedirect(this.auth, provider)
+    }
+
+    linkWithMicrosoft(){
+        const provider = new OAuthProvider('microsoft.com');
+        provider.setCustomParameters({
+            tenant: environment.tenant
+        });
+
+        linkWithPopup(this.auth.currentUser!, provider).then((result) => {
+            // Microsoft credential is linked to the current user.
+            // IdP data available in result.additionalUserInfo.profile.
+
+            // Get the OAuth access token and ID Token
+            const credential = OAuthProvider.credentialFromResult(result);
+            const accessToken = credential!.accessToken;
+            const idToken = credential!.idToken;
+            })
+        .catch((error) => {
+            // Handle error.
+        });
     }
 
     logout(){
@@ -38,7 +73,7 @@ export class LoginService {
             this.userCache = user;
             return user.data() as Promise<User>
         }
-      }
+    }
 
     /*async getDataUser(): Promise<User>{
         

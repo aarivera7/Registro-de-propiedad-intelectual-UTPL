@@ -1,7 +1,7 @@
 <ng-container *ngIf="user.rol == 'user' && project.progressReviewMeeting">
     <div>
       <h1>Reunión de revisión de avances</h1>
-      <button (click)="confirmAssistance()">Confirmar asistencia</button>
+      <button [disabled]="project.progressReviewMeeting.assistance" (click)="confirmAssistance()">Confirmar asistencia</button>
     </div>
   
     <div>
@@ -10,6 +10,7 @@
       <p>Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
       <p>Lugar: {{ project.progressReviewMeeting.place }}</p>
       <p>Modalidad: {{ project.progressReviewMeeting.modality }}</p>
+      <p *ngIf="project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
     </div>
   </ng-container>
   
@@ -32,12 +33,14 @@
         </div>
         <div><label for="place">Lugar: </label><textarea id="place" cols="30" rows="10" formControlName="place"></textarea></div>
         <div>
+          <label for="modality">Modalidad: </label>
           <select id="modality" required formControlName="modality">
             <option selected disabled >Modalidad</option>
             <option value="Presencial">Presencial</option>
             <option value="Virtual">Virtual</option>
           </select>
         </div>
+        <p *ngIf="project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
       </div>
     </form>
   </ng-container>

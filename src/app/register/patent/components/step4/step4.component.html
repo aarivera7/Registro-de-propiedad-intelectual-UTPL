@@ -10,6 +10,7 @@
     <p>Hora: {{ project.finalReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.finalReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
     <p>Lugar: {{ project.finalReviewMeeting.place }}</p>
     <p>Modalidad: {{ project.finalReviewMeeting.modality }}</p>
+    <p *ngIf="project.finalReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
   </div>
 </ng-container>
 
@@ -39,6 +40,7 @@
           <option value="Virtual">Virtual</option>
         </select>
       </div>
+      <p *ngIf="project.finalReviewMeeting && project.finalReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
     </div>
   </form>
 </ng-container>

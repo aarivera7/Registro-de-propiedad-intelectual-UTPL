@@ -1,7 +1,7 @@
 <h2>Registro de Propiedad Intelectual</h2>
 <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
-<div>
+<div *ngIf="project && user">
     <div *ngIf="!typeDocument">
         <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
         <h3>Requisitos para revisión estado de la técnica</h3>

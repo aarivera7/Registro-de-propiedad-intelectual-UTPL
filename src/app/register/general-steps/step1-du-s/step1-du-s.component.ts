@@ -34,7 +34,8 @@ export class Step1DuSComponent {
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   isApprovable(): boolean{
-    return this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
+    return this.typeDocuments.filter(typeDocument => 
+      this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
   }
 
   changeStatus(): void {
@@ -59,9 +60,7 @@ export class Step1DuSComponent {
   }
 
   approve(): void {
-    
-    if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
-
+    if(this.isApprovable()){
       this.project.approveStep1 = true
       this.project.numStep = 2
       this.projectsService.updateProject(this.project);
@@ -88,8 +87,8 @@ export class Step1DuSComponent {
       } 
     })
 
-    if(!this.project.documents){
-      this.project.documents = {}
+    if (this.project.approveStep1) {
+      this.formStatus.disable()
     }
   }
 }

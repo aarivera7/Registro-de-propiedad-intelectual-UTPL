@@ -63,12 +63,16 @@ export class Step4Component {
     this.formFinalMeeting = new FormGroup({
       date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1).toString().padStart(2, '0') + "-" + dStart.getDate().toString().padStart(2, '0'), 
           [Validators.required, Validators.nullValidator]),
-      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes().toString().padStart(2, '0'),
+      timeStart: new FormControl(dStart.getHours().toString().padStart(2, '0') + ":" + dStart.getMinutes().toString().padStart(2, '0'),
           [Validators.required, Validators.nullValidator]),
-      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes().toString().padStart(2, '0'),
+      timeFinish: new FormControl(dFinish.getHours().toString().padStart(2, '0') + ":" + dFinish.getMinutes().toString().padStart(2, '0'),
           [Validators.required, Validators.nullValidator]),
       place: new FormControl(this.project.finalReviewMeeting?.place, [Validators.required, Validators.nullValidator]),
       modality: new FormControl(this.project.finalReviewMeeting?.modality , [Validators.required, Validators.nullValidator]),
     })
+
+    if (this.project.finalReviewMeeting && this.project.finalReviewMeeting.assistance) {
+      this.formFinalMeeting.disable()
+    }
   }
 }

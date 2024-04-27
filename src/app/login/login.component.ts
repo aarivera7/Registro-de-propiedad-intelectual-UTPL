@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service'
 import { Router } from '@angular/router';
 
@@ -10,30 +10,39 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   formLogin: FormGroup;
+  isPasswordHidden: boolean = true;
+
   constructor(private loginService:LoginService, private router: Router){
     this.formLogin = new FormGroup({
-      email: new FormControl(),
+      email: new FormControl('', Validators.email),
       password: new FormControl()
     })
   }
 
-  ngOnInit(): void {
-    
-  }
+  loginAuth(): void {
+    if(this.formLogin.invalid) return;
 
-  loginAuth(form: NgForm) {
-    this.loginService.login(form.value)
+    if(this.formLogin.get('email')?.value.matchAll("^[a-z0-9._%+-]+@utpl.edu.ec$")
+      && this.formLogin.get('email')?.value != 'mapineda8@utpl.edu.ec'){
+      this.loginAuthMicrosoft(this.formLogin.get('email')?.value);
+      return;
+    }
+
+    if (this.isPasswordHidden) this.isPasswordHidden = false;
+
+    this.loginService.login(this.formLogin.value)
     .then(res => {
-      console.log(res);
+      this.isPasswordHidden = true;
       this.router.navigate(['/projects'])
     })
     .catch(err => console.log(err))
   }
 
-  /*loginAuth(form:NgForm){
-    const email = form.value.email
-    const password = form.value.password
-
-    this.loginService.login(email, password);
-  }*/
+  loginAuthMicrosoft(email: string){
+    this.loginService.loginWithMicrosoft(email)
+    .then(res => {
+      this.router.navigate(['/projects'])
+    })
+    .catch(err => console.log(err));
+  }
 }

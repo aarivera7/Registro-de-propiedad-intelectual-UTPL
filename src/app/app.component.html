@@ -1,5 +1,5 @@
 
-<aside class="sidebar active" id="sidebar" *ngIf="user != null">
+<aside class="sidebar active" id="sidebar" *ngIf="user">
   <!--div class="close-btn" id="toggle-sidebar-btn"><span>&#9776;</span></div-->
   <a href="https://tec.utpl.edu.ec/">
       <img src="" alt="LiiD UTPL">
@@ -10,7 +10,8 @@
   <a href="./certifications">  Certificaciones</a>    
   <a href="./messages"> Mensajes</a>   
   <a href="./calendar"> Mi calendario</a>
-  <a href="" (click)="logout()">  Cerrar sesión</a>
+  <a (click)="logout()">  Cerrar sesión</a>
+  <!-- a (click)="loginService.linkWithMicrosoft()" >  Microsoft</a-->
   <p class="sidebar__p">{{ user.name }} {{ user.lastName }}</p>
   <p class="sidebar__p--normal">{{ user.rol }}</p>
 </aside>

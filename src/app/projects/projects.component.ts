@@ -16,8 +16,10 @@ import { Router } from '@angular/router';
 export class ProjectsComponent {
   title = "Registros"
   openModal: boolean | null = null
-  user: User = new User("", "",  "",   )
-  projects!: Project[]
+  user?: User
+  projects?: Project[]
+  filteredProjects?: Project[]
+  filterText?: string
   types: any = {
     'patent': "Patente",
     'industrial-secret': "Secreto Industrial",
@@ -29,14 +31,28 @@ export class ProjectsComponent {
   
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
+  filterResults(text: string | undefined) {
+    if (!this.projects) return
+    if (!text) {
+      this.filterText = undefined
+      this.filteredProjects = this.projects;
+      return;
+    }
+  
+    this.filterText = text
+    this.filteredProjects = this.projects.filter(
+      project => project?.getName.toLowerCase().includes(text.toLowerCase())
+    );
+  }
+
   async addProject(): Promise<void> {
+    if (!this.user) return
+
     this.formProject.setControl('nameAuthor', new FormControl(this.user.name + " " + this.user.lastName, [
       Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)
     ]));
     this.formProject.setControl('createDate', new FormControl(Timestamp.now()));
     this.formProject.setControl('numStep', new FormControl(1));
-
-    console.log(this.formProject.value);
 
     await this.projectService.addProject(this.formProject.value)
     
@@ -56,6 +72,8 @@ export class ProjectsComponent {
   }
 
   openModalAddProject(): void {
+    if (!this.user) return
+
     this.formProject = new FormGroup({
       name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       uid: new FormControl(this.loginService.uid),
@@ -65,7 +83,7 @@ export class ProjectsComponent {
       type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
-      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
     })	
     
     this.openModal = true
@@ -99,30 +117,30 @@ export class ProjectsComponent {
     return new Date()
   }
 
-  ngOnInit(): void {
-    this.loginService.getDataUser(this.loginService.uid).then(user => {
-      this.user = Object.assign(new User("", "",  "",   ), user)
+  async ngOnInit(): Promise<void> {
+    this.user = await this.loginService.getDataUser(this.loginService.uid)
 
-      if (this.user.rol == "admin") { 
-        this.projectService.getProjects(undefined).subscribe(projects => {
-          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-        })
-      } else {
-        this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
-          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-        })
-      }
-      this.formProject = new FormGroup({
-        name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-        uid: new FormControl(this.loginService.uid),
-        nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
-        description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-        createDate: new FormControl(Timestamp.now()),
-        type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
-        numStep: new FormControl(0),
-        status: new FormControl('En Proceso'),
-        cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
-      })	
-    }).catch(err => console.log(err))
+    if (this.user.rol == "admin") { 
+      this.projectService.getProjects(undefined).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        this.filterResults(this.filterText)
+      })
+    } else if (this.user.rol == "user") {
+      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        this.filterResults(this.filterText)
+      })
+    }
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
+    })	
   }
 }

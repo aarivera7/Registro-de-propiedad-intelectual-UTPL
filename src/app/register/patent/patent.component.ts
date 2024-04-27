@@ -30,8 +30,8 @@ export class PatentComponent {
   ]
   step: number = -1
   id!: string
-  project: Project = new Project("", "", "", "", "", "")
-  user: User = new User("", "",  "",   )
+  project?: Project
+  user?: User
   typeDocument?: string
   nextStepDisabled: boolean = false
   operation?: string
@@ -69,8 +69,13 @@ export class PatentComponent {
   }
 
   controlStep()  {
+    if (this.project && this.user)
     if (this.user.rol == "admin") {
-      if (this.step == 0 && !this.project.approveStep1) {
+      if (this.step == 1 && (!this.project.documents || (this.project.documents && !this.project.documents['descriptiveMemories']))) {
+        this.step -= 1
+      } 
+
+      if (this.step == 0 && (!this.project.documents || (this.project.documents && !this.project.documents['descriptiveMemories']))) {
         this.nextStepDisabled = true
       } else if (this.step == 1 && this.project.documents && this.project.documents['descriptiveMemories'].status != "Aceptado") {
         this.nextStepDisabled = true
@@ -98,7 +103,7 @@ export class PatentComponent {
 
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true
-      } else if (this.step == 1 && this.project.documents && this.project.documents['descriptiveMemories'].status != "Aceptado") {
+      } else if (this.step == 1 && this.project.documents && this.project.documents['descriptiveMemories'] && this.project.documents['descriptiveMemories'].status != "Aceptado") {
         this.nextStepDisabled = true
       } else if (this.step == 1 && !this.project.documents) {
         this.nextStepDisabled = true

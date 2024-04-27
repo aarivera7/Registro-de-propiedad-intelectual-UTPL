@@ -44,7 +44,8 @@ export class Step5Component {
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   isApprovable(): boolean{
-    return this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
+    return this.typeDocuments.filter(typeDocument => 
+      this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
   }
 
   changeStatus(): void {
@@ -87,5 +88,9 @@ export class Step5Component {
         }
       } 
     })
+
+    if (this.project.approveStep5) {
+      this.formStatus.disable()
+    }
   }
 }
