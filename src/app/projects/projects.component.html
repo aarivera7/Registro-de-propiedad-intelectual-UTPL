@@ -34,12 +34,13 @@
   <div>
     <input (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
     <button (click)="filterResults(filter.value)">Buscar</button>
-    <select [disabled]="true" id="types-properties">
+    <select id="types-properties">
       <option selected disabled>Eliga una opción</option>
-      <option value="patent">Patente</option>
+      <!-- option value="patent">Patente</option>
       <option value="copyright-software">Derechos de Autor / Software</option>
       <option value="copyright-database">Derechos de Autor / Base de datos</option>
-      <option value="industrial-secret">Secreto industrial</option>
+      <option value="industrial-secret">Secreto industrial</option-->
+      <option value="name">Nombre</option>
     </select>
 
     <!-- select id="types-properties">
