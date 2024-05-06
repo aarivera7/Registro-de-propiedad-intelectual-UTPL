@@ -1,20 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 <form [formGroup]="step1Form">
-    <div>
-        <label for="keywords">1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro</label>
-        <input type="text" id="keywords" name="keywords" required formControlName="keywords">
-    </div>
-    <div>
-        <label for="title">2. Un título Tentativo</label>
-        <input type="text" id="title" name="title" required formControlName="tentativeTitle">
-    </div>
-    <div>
-        <label for="summary">3. Un breve resumen</label>
-        <input type="text" id="summary" name="summary" required formControlName="summary">
-    </div>
-
+  <div>
+    <label for="keywords">1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro</label>
+    <input type="text" id="keywords" name="keywords" required formControlName="keywords">
+  </div>
+  <div>
+    <label for="title">2. Un título Tentativo</label>
+    <input type="text" id="title" name="title" required formControlName="tentativeTitle">
+  </div>
+  <div>
+    <label for="summary">3. Un breve resumen</label>
+    <input type="text" id="summary" name="summary" required formControlName="summary">
+  </div>
+  <div class="contBoton">
     <button [disabled]="project.approveStep1" (click)="updateProject()" *ngIf="user.rol == 'user'">Guardar y enviar</button>
-    <div *ngIf="user.rol == 'admin'">
-        <button [disabled]="project.approveStep1" (click)="approve()">Aprobar</button>
-        <button>Enviar Correo</button>
-    </div>
+  </div>
+
+  <div *ngIf="user.rol == 'admin'">
+    <button [disabled]="project.approveStep1" (click)="approve()">Aprobar</button>
+    <button>Enviar Correo</button>
+  </div>
 </form>
+
+
+</body>
+</html>
+
+

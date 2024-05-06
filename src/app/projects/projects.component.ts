@@ -14,13 +14,13 @@ import { Router } from '@angular/router';
 })
 
 export class ProjectsComponent {
-  title = "Registros"
+  title = "Tus registros"
   openModal: boolean | null = null
   user: User = new User("", "",  "",   )
   projects!: Project[]
 
   formProject: FormGroup = new FormGroup({})
-  
+
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
   addProject(): void {
@@ -49,11 +49,24 @@ export class ProjectsComponent {
     return new Date()
   }
 
+  getStatusColor(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'aprobado':
+        return 'aprobado';
+      case 'no aprobado':
+        return 'no-aprobado';
+      case 'en proceso':
+        return 'en-proceso';
+      default:
+        return ''; // Puedes agregar un estilo predeterminado aquí si es necesario
+    }
+  }
+
   ngOnInit(): void {
     this.loginService.getDataUser(this.loginService.uid).then(user => {
       this.user = Object.assign(new User("", "",  "",   ), user)
 
-      if (this.user.rol == "admin") { 
+      if (this.user.rol == "admin") {
         this.projectService.getProjects(undefined).subscribe(projects => {
           this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
         })
@@ -72,7 +85,7 @@ export class ProjectsComponent {
         numStep: new FormControl(0),
         status: new FormControl('En Proceso'),
         //cellphone: new FormControl('', [Validators.required,  Validators.pattern("[0-9]{10}")]),
-      })	
+      })
     }).catch(err => console.log(err))
   }
 }

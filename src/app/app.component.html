@@ -6,26 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-
+<body >
 
 <aside class="sidebar active" id="sidebar" *ngIf="user != null">
-  <div class="close-btn" id="toggle-sidebar-btn"><span>&#9776;</span></div>
-  <div>
+  <div class="top">
     <a href="" class="sidebar__a--button"></a>
-    <a href="./projects" *ngIf="user.rol == 'user'">  Información</a>
-    <a href="./projects">  Registro de Propiedad</a>
-    <a href="./certifications">  Certificaciones</a>
-    <a href="./messages"> Mensajes</a>
-    <a href="./calendar"> Mi calendario</a>
+    <a href="./info" *ngIf="user.rol == 'user'">
+      <div class="asideA">
+        <img src="assets/icons/informacion.svg">
+        <span>Información</span>
+      </div>
+    </a>
+    <a href="./projects">
+      <div class="asideA">
+        <img src="assets/icons/regP.svg">
+        <span>Registro de Propiedad</span>
+      </div>
+    </a>
+    <a href="./certifications" >
+      <div class="asideA">
+        <img src="assets/icons/certificaciones.svg">
+        <span>Certificaciones</span>
+      </div>
+    </a>
+    <a href="./messages">
+      <div class="asideA">
+        <img src="assets/icons/mensaje.svg">
+        <span>Mensajes</span>
+      </div>
+    </a>
+    <a href="./calendar">
+      <div class="asideA">
+        <img src="assets/icons/calendario.svg">
+        <span>Mi Calendario</span>
+      </div>
+    </a>
+    <img class="imgA" src="assets/images/imagenAside.png">
   </div>
+
   <div class="bottom">
-    <p class="sidebar__p">{{ user.name }} {{ user.lastName }}</p>
+    <p class="sidebar__p">
+      <span class="ellipsis">{{ user.name + ' ' + user.lastName }}</span>
+    </p>
     <div class="closeS">
       <p class="sidebar__p--normal">{{ user.rol }}</p>
-      <a href="" (click)="logout()">  <img src="assets/icons/on.svg"></a>
+      <a class="btn-off" (click)="logout()"><img src="assets/icons/on.svg"></a>
     </div>
   </div>
+
+
 
 </aside>
 
@@ -39,6 +68,7 @@
 
 
 </div>
+<div class="overlay" [ngClass]="{'overlay-admin': user?.rol === 'admin'}" *ngIf="user != null"></div>
 
 </body>
 </html>

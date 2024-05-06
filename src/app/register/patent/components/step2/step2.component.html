@@ -1,20 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 <label for="descriptiveMemory">Memoria descriptiva</label>
 <ng-container *ngIf="user.rol == 'user'">
-    <input type="file" accept=".pdf" id="descriptiveMemory" #upload>
-    <!--[value]="project.documents['descriptiveMemories'].documents[0]"-->
-    <a href="{{ url }}" *ngIf="url != ''">Archivo Subido</a>
+  <input type="file" accept=".pdf" id="descriptiveMemory" #upload>
+  <!--[value]="project.documents['descriptiveMemories'].documents[0]"-->
+  <a href="{{ url }}" *ngIf="url != ''">Archivo Subido</a>
+  <div class="texto">
     <p>Cargar en PDF</p>
     <p>Memoria descriptiva</p>
+  </div>
+
+  <div class="contBoton">
     <button (click)="uploadPDF(upload)">Guardar y enviar</button>
+  </div>
 </ng-container>
 <form [formGroup]="formObservations" *ngIf="user.rol == 'admin'">
-    <p>Descargar en PDF</p>
-    <p>Memoria descriptiva</p> 
-    <a href="{{ url }}" *ngIf="url != ''">Archivo Subido</a>
-    <label for="observations"></label>
-    <input type="text" id="observations" formControlName="observations">
-    <button *ngIf="user.rol == 'admin'" (click)="approve()">Aprobar</button>
-    <button (click)="updateObservations()" >Pedir correcciones</button>
+  <p>Descargar en PDF</p>
+  <p>Memoria descriptiva</p>
+  <a href="{{ url }}" *ngIf="url != ''">Archivo Subido</a>
+  <label for="observations"></label>
+  <input type="text" id="observations" formControlName="observations">
+  <button *ngIf="user.rol == 'admin'" (click)="approve()">Aprobar</button>
+  <button (click)="updateObservations()" >Pedir correcciones</button>
 </form>
 
-    
+</body>
+</html>
+

@@ -39,11 +39,13 @@ import { Step2DuSComponent } from './register/general-steps/step2-du-s/step2-du-
 import { Step3DuSComponent } from './register/general-steps/step3-du-s/step3-du-s.component';
 import { CopyrightDatabaseComponent } from './register/copyright-database/copyright-database.component';
 import { IndustrialSecretComponent } from './register/industrial-secret/industrial-secret.component';
+import {InfoComponent} from "./info/info";
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
   {path:'', component:LoginComponent, ...canActivate(() => redirectLoggedInTo(['/projects']))},
   {path:'login', component: LoginComponent, ...canActivate(() => redirectLoggedInTo(['/projects']))},
+  {path:'info', component:InfoComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path:'projects', component:ProjectsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path:'certifications', component:CertificationsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'messages', component: MessagesComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
@@ -82,6 +84,7 @@ const appRoutes:Routes=[
     Step3DuSComponent,
     CopyrightDatabaseComponent,
     IndustrialSecretComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,

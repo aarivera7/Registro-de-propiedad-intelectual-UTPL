@@ -1,0 +1,47 @@
+.moveStep{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+h3{
+  font-weight: 400;
+  font-size: 26px;
+  text-align: center;
+  color: #172D5A;
+}
+
+.contenedor{
+  border-radius: 10px;
+  background: rgba(176, 183, 197, 0.1);
+  overflow: hidden;
+}
+
+h2{
+  font-weight: 500;
+  color: #172D5A;
+}
+
+.info{
+  text-align: center;
+}
+
+h4{
+  font-weight: 400;
+  font-size: 14px;
+}
+
+p{
+  font-weight: 400;
+  font-size: 12px;
+}
+
+b{
+  font-weight: 600;
+  font-size: 12px;
+}
+
+button{
+  background: transparent;
+  border: none;
+}

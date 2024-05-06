@@ -1,11 +1,248 @@
+h2{
+  color: #172D5A;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+h3{
+  color: #172D5A;
+  font-weight: 400;
+  font-size: 26px;
+}
+
+button {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border: none;
+}
+
+.btnBuscar{
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border: none;
+}
+
+.p1 input{
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border: none;
+
+}
+
+.bus{
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  width: 370px;
+}
+
+.list{
+  border-bottom-color: #172D5A;
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.p1{
+  display: flex;
+}
+
+.p1 input{
+  text-align: start;
+}
+
+.buscar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.titulo{
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.contenido{
+  font-weight: 400;
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.botones{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.desc{
+  color: #172D5A;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+dialog{
+  background-color: #F6F9FF;
+  border: none;
+  border-top: 3px solid #172D5A;
+  margin: 20px;
+}
+
+.superior{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.parte1{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px 40px;
+}
+
+.parte2{
+  display: flex;
+  flex-direction: column;
+  margin: 5px 40px;
+}
+
+.parte1 input{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+  width: 445px;
+}
+
+.parte2 input{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+}
+
+.parte2 select{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+}
+
+#date,#nameAuthor{
+  border: none;
+  background: transparent;
+}
+
+#date,#nameAuthor input{
+  color: #A5A5A5;
+}
+
+label{
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.inferior{
+  display: flex;
+  flex-direction: column;
+  margin: 0 40px;
+}
+
+#description{
+  margin: 5px;
+  border-radius: 6px;
+  height: 79px;
+  border: 1px solid #172D5A;
+}
+
+.botones{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+  align-items: center;
+}
+
+.cancelar {
+  border-radius: 10px;
+  color: #172D5A;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 30px;
+  border: none;
+}
+.aceptar {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 30px;
+  border: none;
+}
+
 .project{
     display: flex;
     justify-content: space-around;
     width: 60vw;
-    background-color: lightcyan;
+    background-color: white;
     margin: 10px 0;
+    height: 122px;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.project img{
+  height: 100px;
+}
+
+.botones img{
+  height: 40px;
 }
 
 .registerpi {
-    margin-left: 20em;
+    margin-left: 29em;
+}
+
+.btn{
+  padding: 0;
+  background-color: white;
+  border: none;
+  box-shadow: none;
+  margin: 5px;
+}
+
+h6{
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+}
+
+a{
+  font-size: 12px;
+  font-weight: 700;
+  color: black;
+}
+
+.aprobado {
+  color: #6EAC31;
+}
+
+.no-aprobado {
+  color: #E86E8B;
+}
+
+.en-proceso {
+  color: #6486CB;
 }

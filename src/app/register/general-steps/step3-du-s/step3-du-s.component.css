@@ -1,0 +1,14 @@
+
+
+.contenedor{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.info{
+  background-color: white;
+  border-radius: 20px;
+  margin: 10px;
+
+}

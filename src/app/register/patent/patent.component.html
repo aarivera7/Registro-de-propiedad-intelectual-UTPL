@@ -1,30 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 <h2>Registro de Propiedad Intelectual</h2>
 <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
 <div>
-    <div *ngIf="!typeDocument">
-        <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
-        <h3>Requisitos para revisión estado de la técnica</h3>
-        <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
+  <div *ngIf="!typeDocument" class="moveStep">
+    <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
+    <h3>Requisitos para revisión estado de la técnica</h3>
+    <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
+  </div>
+
+  <div *ngIf="typeDocument" class="moveStep">
+    <button (click)="redirect(project, 4)">Volver</button>
+    <h3>Requisitos para revisión estado de la técnica</h3>
+  </div>
+
+  <div class="contenedor">
+    <div class="info">
+      <h4>{{ project.getName }}</h4>
+      <p>{{ project.nameAuthor }}</p>
+      <p>{{ project.getCreateDate | date:"longDate"}}</p>
+      <p><b>Patente o Modelo de Utilidad</b></p>
     </div>
 
-    <div *ngIf="typeDocument">
-        <button (click)="redirect(project, 4)">Volver</button>
-        <h3>Requisitos para revisión estado de la técnica</h3>
-    </div>
 
-    <div>
-        <h4>{{ project.getName }}</h4>
-        <p>{{ project.nameAuthor }}</p>
-        <p>{{ project.getCreateDate | date:"longDate"}}</p>
-        <p><b>Patente o Modelo de Utilidad</b></p>
-    </div>
-    <ng-container [ngSwitch]="step">
-        <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
-        <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
-        <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
-        <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
-        <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"></app-step5>
-        <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
-    </ng-container>
+  </div>
+  <ng-container [ngSwitch]="step">
+    <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
+    <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
+    <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
+    <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
+    <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"></app-step5>
+    <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
+  </ng-container>
 </div>
+
+</body>
+</html>

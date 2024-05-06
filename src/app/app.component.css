@@ -10,15 +10,15 @@
 /* Estilos para el sidebar */
 .sidebar {
   height: 100%;
-  width: 11.5rem;
+  width: 14.5rem;
   position: fixed;
   background-color: #172D5A;
-  padding-top: 60px;
+  padding-top: 10px;
   transition: all 90ms linear;
   left: -200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   /* Ocultar sidebar en dispositivos móviles */
 }
 
@@ -50,6 +50,8 @@
 
 .sidebar.active {
   left: 0;
+  /*background: url('../assets/images/imagenAside.png'), #172D5A 100px 100px ;*/
+
 }
 
 .sidebar__a--button {
@@ -71,14 +73,19 @@
 }
 
 .bottom img{
-  width: 75%;
+  width: 100%;
   fill: white;
+  opacity: 0.8;
 }
 
 .closeS{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.closeS a{
+  margin-right: 17px;
 }
 
 .sidebar__p--normal {
@@ -207,3 +214,64 @@ svg#clouds {
     visibility: hidden;
   }
 }
+
+.info{
+  display: flex;
+}
+
+.asideA{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.asideA img{
+  margin-right: 7px;
+}
+
+.imgA{
+  height: 400px;
+  border-bottom: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 320px;
+  left: 161px;
+  width: 3%;
+  height: 41%;
+  background-color: #172D5A;
+}
+
+.overlay-admin {
+  position: fixed;
+  top: 280px;
+  left: 161px;
+  width: 3%;
+  height: 41%;
+  background-color: #172D5A;
+}
+
+
+
+.overlay-none {
+  display: none;
+}
+
+.bottom{
+  margin-top: 0;
+}
+
+.btn-off img{
+  padding: 0 0 0 0;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 170px; /* ajusta el valor según sea necesario */
+}
+
+

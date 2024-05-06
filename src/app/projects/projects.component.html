@@ -1,63 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
 <div *ngIf="projects">
-  <h2>Registro de Propiedad Intelectual</h2>
+  <h2>Registro de propiedad intelectual</h2>
   <h3>{{ title }}</h3>
+  <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
+    <a href="/info" style="text-decoration: underline;">AQUI</a>
+  </h6>
   <button *ngIf="user.rol == 'user'" (click)="openModal = true">Crear registro PI</button>
   <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formProject" (ngSubmit)="addProject()">
-      <div>
-        <label for="name">Nombre de la invensión “preliminar”</label>
-        <input type="text" id="name" name="name" required formControlName="name" autocomplete="off">
-        <input type="text" formControlName="nameAuthor">
-        <input type="text" disabled value="{{ getDate() | date:'longDate' }}">
+      <div class="superior">
+        <div class="parte1">
+          <label for="name">Nombre de la invensión “preliminar”</label>
+          <input type="text" id="name" name="name" required formControlName="name" autocomplete="off">
+          <label for="nameAuthor">Autor solicitante</label>
+          <input type="text" formControlName="nameAuthor" id="nameAuthor">
+          <label for="date">Fecha solicitud</label>
+          <input type="text" id="date" disabled value="{{ getDate() | date:'longDate' }}">
+        </div>
+        <div class="parte2">
+          <label for="cellphone">Número de celular o ext</label>
+          <input type="tel" id="cellphone" name="cellphone" required >
+          <label for="type">Tipo de registro</label>
+          <select id="type" name="type" required formControlName="type">
+            <option value="patent">Patente o modelo de utilidad</option>
+            <option value="copyright-software">Derechos de Autor / Software</option>
+            <option value="copyright-database">Derechos de Autor / Base de datos</option>
+            <option value="industrial-secret">Secreto industrial</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label for="cellphone">Número de celular o ext</label>
-        <input type="tel" id="cellphone" name="cellphone" required >
-        <label for="type">Tipo de registro</label>
-        <select id="type" name="type" required formControlName="type">
-          <option value="patent">Patente o modelo de utilidad</option>
-          <option value="copyright-software">Derechos de Autor / Software</option>
-          <option value="copyright-database">Derechos de Autor / Base de datos</option>
-          <option value="industrial-secret">Secreto industrial</option>
-        </select>
+      <div class="inferior">
+        <label for="description">Descripción breve de la invensión</label>
+        <textarea id="description" name="description" required formControlName="description"></textarea>
       </div>
-      <label for="description">Descripción breve de la invensión</label>
-      <textarea id="description" name="description" required formControlName="description"></textarea>
-      <div>
-        <input type="submit" value="Aceptar" [disabled]="formProject.invalid">
-        <input type="reset" value="Cancelar" (click)="openModal = null">
+
+      <div class="botones">
+        <input class="cancelar" type="reset" value="Cancelar" (click)="openModal = null">
+        <input class="aceptar" type="submit" value="Aceptar" [disabled]="formProject.invalid">
       </div>
     </form>
   </dialog>
-  
-  <div>
-    <input type="text"> <input type="submit" value="Buscar">
-    <input list="types-properties">
+
+  <div class="buscar" *ngIf="user.rol === 'admin'">
+    <div class="p1">
+      <input class="bus" type="text" placeholder="Buscar por nombre de registro..."> <input type="submit"  class="btnBuscar" value="Buscar">
+    </div>
+    <input class="list" list="types-properties">
     <datalist id="types-properties">
       <option value="patent">Patente</option>
     </datalist>
   </div>
-  <div class="project">
-    <span *ngIf="'user' == user.rol">Foto</span>
-    <span>Nombre </span>
-    <span>Fecha de registro </span>
-    <span>Tipo de propiedad intelectual </span>
+
+  <div *ngIf="!openModal">
+    <h3 class="desc">Descripción</h3>
+    <div class="project" *ngFor="let project of projects" (click)="redirect(project)">
+      <img src="../../assets/images/prueba.png" alt="Foto Proyecto" *ngIf="'user' == user.rol">
+      <div>
+        <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No Aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
+        <p class="contenido">{{ project.getName }}</p>
+      </div>
+      <div>
+        <p class="titulo"><small>Detalles</small></p>
+        <p class="contenido">{{ project.getDescription }}</p>
+      </div>
+      <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
+      <div *ngIf="'admin' == user.rol" class="botones">
+        <button class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
+        <button class="btn"><img src="assets/icons/NoAprobar.svg"></button>
+        <button class="btn"><img src="assets/icons/eliminar.svg"></button>
+      </div>
+    </div>
+
   </div>
-  <div class="project" *ngFor="let project of projects" (click)="redirect(project)">
-    <img src="" alt="Foto Proyecto" *ngIf="'user' == user.rol">
-    <div>
-      <p><small>{{ project.status }}</small></p>
-      <p>{{ project.getName }}</p>
-    </div>
-    <div>
-      <p><small>Detalles</small></p>
-      <p>{{ project.getDescription }}</p>
-    </div>
-    <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
-    <div *ngIf="'admin' == user.rol">
-      <button>Ok</button>
-      <button>X</button>
-      <button>T</button>
-    </div>
-  </div>
+
+
 </div>
+
+</body>
+</html>
+
+
+
+
+
