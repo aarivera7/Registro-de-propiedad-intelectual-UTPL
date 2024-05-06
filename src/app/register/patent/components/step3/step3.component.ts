@@ -22,7 +22,6 @@ export class Step3Component {
   constructor(private projectService: ProjectsService) {}
 
   confirmAssistance(): void {
-    this.project.numStep = 4
     this.project.progressReviewMeeting.assistance = true
     this.projectService.updateProject(this.project).then(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
@@ -47,6 +46,7 @@ export class Step3Component {
     this.project.progressReviewMeeting.assistance = false
     this.project.progressReviewMeeting.place = this.formReviewMeeting.get('place')?.value
     this.project.progressReviewMeeting.modality = this.formReviewMeeting.get('modality')?.value
+    this.project.numStep = 3
     this.projectService.updateProject(this.project).catch(err => console.log(err))
   }
 
@@ -63,14 +63,18 @@ export class Step3Component {
     }
 
     this.formReviewMeeting = new FormGroup({
-      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1) + "-" + dStart.getDate().toString().padStart(2, '0'), 
+      date: new FormControl(dStart.getFullYear() + "-" + (dStart.getMonth() + 1).toString().padStart(2, '0') + "-" + dStart.getDate().toString().padStart(2, '0'), 
           [Validators.required, Validators.nullValidator]),
-      timeStart: new FormControl(dStart.getHours() + ":" + dStart.getMinutes().toString().padStart(2, '0'), 
+      timeStart: new FormControl(dStart.getHours().toString().padStart(2, '0') + ":" + dStart.getMinutes().toString().padStart(2, '0'), 
           [Validators.required, Validators.nullValidator]),
-      timeFinish: new FormControl(dFinish.getHours() + ":" + dFinish.getMinutes().toString().padStart(2, '0'), 
+      timeFinish: new FormControl(dFinish.getHours().toString().padStart(2, '0') + ":" + dFinish.getMinutes().toString().padStart(2, '0'), 
           [Validators.required, Validators.nullValidator]),
       place: new FormControl(this.project.progressReviewMeeting?.place),
       modality: new FormControl(this.project.progressReviewMeeting?.modality, [Validators.required, Validators.nullValidator]),
     })
+
+    if (this.project.progressReviewMeeting && this.project.progressReviewMeeting.assistance) {
+      this.formReviewMeeting.disable()
+    }
   }
 }

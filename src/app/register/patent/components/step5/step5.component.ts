@@ -16,6 +16,8 @@ export class Step5Component {
   project!: Project
   @Input()
   typeDocument?: string
+  @Input()
+  operation?: string
 
   // Se coloca una instancia sin valores para que no de error ya que a veces tarda mucho en cargar los datos
   @Input()
@@ -42,7 +44,8 @@ export class Step5Component {
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   isApprovable(): boolean{
-    return this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
+    return this.typeDocuments.filter(typeDocument => 
+      this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
   }
 
   changeStatus(): void {
@@ -55,8 +58,8 @@ export class Step5Component {
     this.projectsService.updateProject(this.project);
   }
 
-  redirectUpdateDocuments(typeDocument: string){
-    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/5/${typeDocument}`])
+  redirectUpdateDocuments(typeDocument: string, operation: string){
+    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/5/${typeDocument}/${operation}`])
   }
 
   getTitle(typeDocument: string): string{
@@ -64,9 +67,7 @@ export class Step5Component {
   }
 
   approve(): void {
-    
-    if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
-
+  if(this.isApprovable()){
       this.project.approveStep5 = true
       this.project.numStep = 6
       this.projectsService.updateProject(this.project);
@@ -87,5 +88,9 @@ export class Step5Component {
         }
       } 
     })
+
+    if (this.project.approveStep5) {
+      this.formStatus.disable()
+    }
   }
 }

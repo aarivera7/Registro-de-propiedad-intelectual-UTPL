@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
 <h2>Registro de Propiedad Intelectual</h2>
 <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
-<div>
+<div *ngIf="project && user">
   <div *ngIf="!typeDocument" class="moveStep">
     <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
     <h3>Requisitos para revisión estado de la técnica</h3>
@@ -29,17 +21,14 @@
       <p><b>Patente o Modelo de Utilidad</b></p>
     </div>
 
-
-  </div>
-  <ng-container [ngSwitch]="step">
-    <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
-    <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
-    <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
-    <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
-    <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"></app-step5>
-    <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
-  </ng-container>
+    <ng-container [ngSwitch]="step">
+        <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
+        <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
+        <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
+        <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
+        <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"
+            [operation]="operation"></app-step5>
+        <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
+    </ng-container>
+    </div>
 </div>
-
-</body>
-</html>

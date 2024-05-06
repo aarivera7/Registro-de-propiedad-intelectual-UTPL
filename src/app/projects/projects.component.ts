@@ -16,33 +16,101 @@ import { Router } from '@angular/router';
 export class ProjectsComponent {
   title = "Tus registros"
   openModal: boolean | null = null
-  user: User = new User("", "",  "",   )
-  projects!: Project[]
+  user?: User
+  projects?: Project[]
+  filteredProjects?: Project[]
+  filterText?: string
+  types: any = {
+    'patent': "Patente",
+    'industrial-secret': "Secreto Industrial",
+    'copyright-software': "Derechos de Autor /Software",
+    'copyright-database': "Derechos de Autor /Base de Datos",
+  };
 
   formProject: FormGroup = new FormGroup({})
 
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
-  addProject(): void {
-    let id: string = ""
+  filterResults(text: string | undefined) {
+    if (!this.projects) return
+    if (!text) {
+      this.filterText = undefined
+      this.filteredProjects = this.projects;
+      return;
+    }
+
+    this.filterText = text
+    this.filteredProjects = this.projects.filter(
+      project => project?.getName.toLowerCase().includes(text.toLowerCase())
+    );
+  }
+
+  async addProject(): Promise<void> {
+    if (!this.user) return
+
     this.formProject.setControl('nameAuthor', new FormControl(this.user.name + " " + this.user.lastName, [
       Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)
     ]));
     this.formProject.setControl('createDate', new FormControl(Timestamp.now()));
     this.formProject.setControl('numStep', new FormControl(1));
-    this.projectService.addProject(this.formProject.value).then ( doc => {
-      id = doc.id
 
-      if(this.formProject.get('type')?.value == "patent"){
-        this.router.navigate([`/patent_form/${id}/1`])
-      } else if (this.formProject.get('type')?.value == "copyright-software"){
-        this.router.navigate([`/copyright-software_form/${id}/1`])
-      }
+    await this.projectService.addProject(this.formProject.value)
+
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}$")]),
     })
+
+    this.openModal = null
+  }
+
+  openModalAddProject(): void {
+    if (!this.user) return
+
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
+    })
+
+    this.openModal = true
+  }
+
+  approveProject(project: Project): void {
+    this.projectService.approveProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
+  }
+
+  nonApproveProject(project: Project): void {
+    this.projectService.nonApproveProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
+  }
+
+  deleteProject(project: Project): void {
+    this.projectService.deleteProject(project).then((data) => {
+      console.log(data);
+    }).catch(err => console.log(err));
   }
 
   redirect(project: Project): void {
-    this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
+    if (project.status == "Aprobado") {
+      this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
+    }
   }
 
   getDate(): Date {
@@ -62,30 +130,30 @@ export class ProjectsComponent {
     }
   }
 
-  ngOnInit(): void {
-    this.loginService.getDataUser(this.loginService.uid).then(user => {
-      this.user = Object.assign(new User("", "",  "",   ), user)
+  async ngOnInit(): Promise<void> {
+    this.user = await this.loginService.getDataUser(this.loginService.uid)
 
-      if (this.user.rol == "admin") {
-        this.projectService.getProjects(undefined).subscribe(projects => {
-          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-        })
-      } else {
-        this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
-          this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
-        })
-      }
-      this.formProject = new FormGroup({
-        name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-        uid: new FormControl(this.loginService.uid),
-        nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
-        description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-        createDate: new FormControl(Timestamp.now()),
-        type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
-        numStep: new FormControl(0),
-        status: new FormControl('En Proceso'),
-        //cellphone: new FormControl('', [Validators.required,  Validators.pattern("[0-9]{10}")]),
+    if (this.user.rol == "admin") {
+      this.projectService.getProjects(undefined).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        this.filterResults(this.filterText)
       })
-    }).catch(err => console.log(err))
+    } else if (this.user.rol == "user") {
+      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+        this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
+        this.filterResults(this.filterText)
+      })
+    }
+    this.formProject = new FormGroup({
+      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      uid: new FormControl(this.loginService.uid),
+      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
+      createDate: new FormControl(Timestamp.now()),
+      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
+      numStep: new FormControl(0),
+      status: new FormControl('En Proceso'),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
+    })
   }
 }

@@ -7,20 +7,20 @@
             <ng-template #dateC><span> Sin Fecha </span></ng-template>
         </div>
         <div>Descarga el siguiente PDF para aplicar la firma</div>
-        <div><a *ngIf="project.contract.document" [href]="project.contract.document">Descargar Archivo</a></div>
+        <div><a target="_blank" *ngIf="project.contract.document" [href]="project.contract.document">Descargar Archivo</a></div>
     </div>
     <div>
         <div><span>Recepción de contrato legalizado</span></div>
         <div>
             <small>Detalles</small>
-            <span *ngIf="project.legalizedContract else dateCL"> {{ project.legalizedContract.date.toDate() | date:"mediumDate" }} </span>
+            <span *ngIf="project.legalizedContract && project.legalizedContract.date else dateCL"> {{ project.legalizedContract.date.toDate() | date:"mediumDate" }} </span>
             <ng-template #dateCL><span> Sin Fecha </span></ng-template>
         </div>
         <div>Carga en PDF el contrato legalizado, con las firmas correspondientes</div>
         <div>
-            <input type="file" #uploadLegalized>
-            <button (click)="uploadLegalizedContract(uploadLegalized)">Subir Archivo</button>
-            <a *ngIf="project.legalizedContract" href="{{ project.legalizedContract.document }}">Archivo Subido</a>
+            <input [disabled]="!project.contract.document || project.publish" accept=".pdf" type="file" #uploadLegalized>
+            <button [disabled]="!project.contract.document || project.publish" (click)="uploadLegalizedContract(uploadLegalized)">Subir Archivo</button>
+            <a target="_blank" *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Archivo Subido</a>
         </div>
     </div>
     <div>
@@ -31,7 +31,7 @@
             <ng-template #dateA><span> Sin Fecha </span></ng-template>
         </div>
         <div>Aqui puedes descargar la solicitud que se ha enviado para solicitar la patente</div>
-        <div><a *ngIf="project.application" [href]="project.application.document">Descargar Archivo</a></div>
+        <div><a target="_blank" *ngIf="project.application" [href]="project.application.document">Descargar Archivo</a></div>
     </div>
 </ng-container>
 
@@ -45,9 +45,9 @@
         </div>
         <div>Carga en PDF el contrato, para la aplicación de la firma</div>
         <div>
-            <input type="file" #uploadContractF>
-            <button (click)="uploadContract(uploadContractF)">Subir Archivo</button>
-            <a *ngIf="project.contract" href="{{ project.contract.document }}">Archivo Subido</a>
+            <input [disabled]="project.publish" type="file" accept=".pdf" #uploadContractF>
+            <button [disabled]="project.publish"  (click)="uploadContract(uploadContractF)">Subir Archivo</button>
+            <a target="_blank" *ngIf="project.contract.document" [href]="project.contract.document">Archivo Subido</a>
         </div>
     </div>
     <div>
@@ -58,22 +58,22 @@
             <ng-template #dateLC><span> Sin Fecha </span></ng-template>
         </div>
         <div>Descargar en PDF el contrato legalizado, con las firmas correspondientes</div>
-        <div><a *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Descargar Archivo</a></div>
+        <div><a target="_blank" *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Descargar Archivo</a></div>
     </div>
     <div>
         <div><span>Solicitud de patente</span></div>
         <div>
             <small>Detalles</small>
-            <span *ngIf="project.application else dateA"> {{ project.application.date.toDate() | date:"mediumDate" }} </span>
+            <span *ngIf="project.application && project.application.date else dateA"> {{ project.application.date.toDate() | date:"mediumDate" }} </span>
             <ng-template #dateA><span> Sin Fecha </span></ng-template>
         </div>
         <div>Aqui puedes descargar la solicitud que se ha enviado para solicitar la patente</div>
         <div>
-            <input type="file" [disabled]="!project.contract.document" #uploadApply>
-            <button [disabled]="!project.contract.document" (click)="uploadApplication(uploadApply)">Subir Archivo</button>
-            <a *ngIf="project.application" href="{{ project.application.document }}">Archivo Subido</a>
+            <input [disabled]="!project.legalizedContract || project.publish" type="file" accept=".pdf" #uploadApply>
+            <button [disabled]="!project.legalizedContract || project.publish" (click)="uploadApplication(uploadApply)">Subir Archivo</button>
+            <a target="_blank" *ngIf="project.application" [href]="project.application.document">Archivo Subido</a>
         </div>
     </div>
 </ng-container>
 
-<button *ngIf="user.rol == 'admin' && project.status == 'En Proceso'" (click)="approveProject()">Aprobar finalización de proceso</button>
+<button *ngIf="user.rol == 'admin' && !project.publish && project.application" (click)="publishProject()">Aprobar finalización de proceso</button>

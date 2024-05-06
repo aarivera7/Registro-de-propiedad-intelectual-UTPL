@@ -16,6 +16,8 @@ export class Step1DuSComponent {
   project!: Project
   @Input()
   typeDocument?: string
+  @Input()
+  operation?: string
 
   // Se coloca una instancia sin valores para que no de error ya que a veces tarda mucho en cargar los datos
   @Input()
@@ -32,7 +34,8 @@ export class Step1DuSComponent {
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   isApprovable(): boolean{
-    return this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
+    return this.typeDocuments.filter(typeDocument => 
+      this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
   }
 
   changeStatus(): void {
@@ -48,8 +51,8 @@ export class Step1DuSComponent {
     this.projectsService.updateProject(this.project);
   }
 
-  redirectUpdateDocuments(typeDocument: string){
-    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}`])
+  redirectUpdateDocuments(typeDocument: string, operation: string){
+    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}/${operation}`])
   }
 
   getTitle(typeDocument: string): string{
@@ -57,9 +60,7 @@ export class Step1DuSComponent {
   }
 
   approve(): void {
-    
-    if(this.typeDocuments.filter(typeDocument => this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length){
-
+    if(this.isApprovable()){
       this.project.approveStep1 = true
       this.project.numStep = 2
       this.projectsService.updateProject(this.project);
@@ -86,8 +87,8 @@ export class Step1DuSComponent {
       } 
     })
 
-    if(!this.project.documents){
-      this.project.documents = {}
+    if (this.project.approveStep1) {
+      this.formStatus.disable()
     }
   }
 }

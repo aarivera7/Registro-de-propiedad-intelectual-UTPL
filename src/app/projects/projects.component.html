@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-
-<div *ngIf="projects">
+<div *ngIf="projects && user">
   <h2>Registro de propiedad intelectual</h2>
   <h3>{{ title }}</h3>
   <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
@@ -49,15 +40,17 @@
     </form>
   </dialog>
 
-  <div class="buscar" *ngIf="user.rol === 'admin'">
-    <div class="p1">
-      <input class="bus" type="text" placeholder="Buscar por nombre de registro..."> <input type="submit"  class="btnBuscar" value="Buscar">
-    </div>
-    <input class="list" list="types-properties">
-    <datalist id="types-properties">
-      <option value="patent">Patente</option>
-    </datalist>
-  </div>
+  <input class="bus" (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
+  <button class="btnBuscar" (click)="filterResults(filter.value)">Buscar</button>
+  <select id="types-properties">
+    <option selected disabled>Eliga una opción</option>
+    <!-- option value="patent">Patente</option>
+    <option value="copyright-software">Derechos de Autor / Software</option>
+    <option value="copyright-database">Derechos de Autor / Base de datos</option>
+    <option value="industrial-secret">Secreto industrial</option-->
+    <option value="name">Nombre</option>
+  </select>
+
 
   <div *ngIf="!openModal">
     <h3 class="desc">Descripción</h3>
@@ -73,9 +66,9 @@
       </div>
       <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
       <div *ngIf="'admin' == user.rol" class="botones">
-        <button class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
-        <button class="btn"><img src="assets/icons/NoAprobar.svg"></button>
-        <button class="btn"><img src="assets/icons/eliminar.svg"></button>
+        <button [disabled]="project.publish" (click)="approveProject(project)" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
+        <button [disabled]="project.publish" (click)="nonApproveProject(project)" class="btn"><img src="assets/icons/NoAprobar.svg"></button>
+        <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn"><img src="assets/icons/eliminar.svg"></button>
       </div>
     </div>
 
@@ -84,8 +77,6 @@
 
 </div>
 
-</body>
-</html>
 
 
 

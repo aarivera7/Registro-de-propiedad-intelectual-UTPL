@@ -1,32 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+
 <h2>Certificaciones</h2>
-<div class="buscar" *ngIf="user.rol === 'admin'">
-  <div class="p1">
-    <input class="bus" type="text" placeholder="Buscar por nombre de registro..."> <input type="submit"  class="btnBuscar" value="Buscar">
-  </div>
-</div>
 
-<div class="certification" *ngFor="let certification of certifications">
+<input *ngIf="user.rol === 'admin'" (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="text" #filter>
+<button *ngIf="user.rol === 'admin'" class="primary" type="button" (click)="filterResults(filter.value)">Buscar</button>
 
-  <div class="cards">
-    <div class="cardInfo">
-
-      <div>
+<div class="certification" *ngFor="let certification of filteredCertifications">
+    <div>
         <h3>{{ certification.name }}</h3>
       </div>
       <div>
         <p><b>Registro realizado por: </b>{{ certification.realizedBy }}</p>
         <p><b>Fecha de registro: </b>{{ certification.getRegisterDate() | date:'longDate' }}</p>
         <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
-        <button>Abrir</button>
-      </div>
+        <a target="_blank" [download] [href]="certification.application.document"><button>Abrir</button></a>
     </div>
 
   </div>
@@ -34,8 +20,4 @@
 
 
 </div>
-
-
-</body>
-</html>
 

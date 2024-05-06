@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Storage, ref, uploadBytesResumable, getDownloadURL, getMetadata, updateMetadata } from '@angular/fire/storage';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
@@ -20,40 +20,42 @@ export class Step2Component {
   })
 
   @Input()
-  user: User = new User("", "",  "",   )
+  user?: User
 
   constructor(private storage: Storage, private projectService: ProjectsService) { }
 
-  uploadPDF (input: HTMLInputElement){
+  async uploadPDF (input: HTMLInputElement): Promise<void> {
     if (!input.files) return
     
     const file: File = input.files[0];
-    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/descriptiveMemories/${file.name}`);
+    const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/descriptiveMemories/descriptiveMemories_${this.project.getId}.pdf`);
+
+    await updateMetadata(pdfRef, {customMetadata: {isReplaced: 'true'}}).catch(() => console.log("No se pudo actualizar el archivo"));
     
-    uploadBytesResumable(pdfRef, file).then(task => {
-      getDownloadURL(task.ref).then(url => {  
-        if(!this.project.documents)
-          this.project.documents = {}
+    const task = await uploadBytesResumable(pdfRef, file)
 
-        if(!this.project.documents['descriptiveMemories'])
-          this.project.documents['descriptiveMemories'] = {}
+    this.url = await getDownloadURL(task.ref)
 
-        if(!this.project.documents['descriptiveMemories'].documents)
-          this.project.documents['descriptiveMemories'].documents = []
+    if(!this.project.documents)
+      this.project.documents = {}
 
-        this.project.documents['descriptiveMemories'].documents.push(url)
-        this.project.numStep = 3
-        this.project.documents['descriptiveMemories'].status = "Pendiente"
-        this.project.documents['descriptiveMemories'].date = Timestamp.now()
-        this.project.documents['descriptiveMemories'].observation = ""
-        this.projectService.updateProject(this.project)
-        this.url = url
-      }).catch();
-    });
+    if(!this.project.documents['descriptiveMemories'])
+      this.project.documents['descriptiveMemories'] = {}
+
+    if(!this.project.documents['descriptiveMemories'].documents)
+      this.project.documents['descriptiveMemories'].documents = []
+
+    const idx = this.project.documents['descriptiveMemories'].documents.findIndex((doc: string) => doc == this.url)
+    this.project.documents['descriptiveMemories'].documents[idx == -1 ? 0 : idx] = this.url
+    this.project.documents['descriptiveMemories'].status = "Pendiente"
+    this.project.documents['descriptiveMemories'].date = Timestamp.now()
+    this.project.documents['descriptiveMemories'].observation = ""
+    this.projectService.updateProject(this.project)
   }
 
   approve(): void {
     this.project.documents['descriptiveMemories'].status = "Aceptado"
+    this.project.documents['descriptiveMemories'].observation = this.formObservations.get('observations')?.value
     this.projectService.updateProject(this.project)
   }
 
@@ -62,11 +64,17 @@ export class Step2Component {
     this.projectService.updateProject(this.project)
   }
 
-  ngOnChanges(): void {
-    if(this.project.documents){
-      this.url = this.project.documents['descriptiveMemories'].documents[0]
+  async ngOnChanges(): Promise<void> {
+    if(this.project.documents && this.project.documents['descriptiveMemories']){
       this.formObservations.get('observations')?.setValue(this.project.documents['descriptiveMemories'].observation)
+      if (this.project.documents['descriptiveMemories'].documents) {
+        const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/descriptiveMemories/descriptiveMemories_${this.project.getId}.pdf`)
+        this.url = await getDownloadURL(pdfRef);
+      }
     }
-  }
+    if (this.project.documents && this.project.documents['descriptiveMemories'] && this.project.documents['descriptiveMemories'].status == "Aceptado") {
+      this.formObservations.get('observations')?.disable()
+    }
 
+  }
 }

@@ -1,6 +1,6 @@
-<form [formGroup]="formStatus"  *ngIf="!typeDocument">
-    <button (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
-    <button [disabled]="!isApprovable" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
+<form [formGroup]="formStatus"  *ngIf="!typeDocument && project.documents">
+    <button [disabled]="project.approveStep5" (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
+    <button [disabled]="!isApprovable() || project.approveStep5" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
 
     <div>
         <span> Documento </span>
@@ -25,11 +25,19 @@
                     <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
                     <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
+                    <button *ngIf="user.rol == 'admin'" (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
 
                     <div *ngIf="user.rol == 'admin'">
                         <input type="text" formControlName="{{type}}Observation">
                     </div>
+
+                    <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
+                        <button (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
+                        <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
+                        <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
+                    </div>
                 </ng-container>
+                
                 <ng-template #default>
                     
                     <select *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
@@ -44,17 +52,17 @@
                     <div *ngIf="user.rol == 'admin'">
                         <input type="text" formControlName="{{type}}Observation">
                     </div>
-                </ng-template>
 
-                <div *ngIf="user.rol == 'user'">
-                    <button>Descargar</button>
-                    <button (click)="redirectUpdateDocuments(type)">Subir</button>
-                    <button>X</button>
-                </div>
+                    <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
+                        <button [disabled]="true" (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
+                        <button (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
+                        <button [disabled]="true" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </ng-container>   
 </form>
 
-<app-multiple-file-load *ngIf="typeDocument" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5"></app-multiple-file-load>
+<app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation" [rol]="user.rol"></app-multiple-file-load>
 

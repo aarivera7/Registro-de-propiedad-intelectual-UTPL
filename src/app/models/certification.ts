@@ -1,12 +1,16 @@
 import { Timestamp } from "firebase/firestore"
 
 export class Certification {
-    name: String
+    name: string
     realizedBy: String
+    uid!: string
     private registerDate: Timestamp
     private finishDate: Timestamp
+    application: any
+    project: any
+    projectType!: string
 
-    constructor (name: String, realizedBy: String, registerDate: string, finishedDate: string){
+    constructor (name: string, realizedBy: String, registerDate: string, finishedDate: string){
         this.name = name
         this.realizedBy = realizedBy
         this.registerDate = Timestamp.fromDate(new Date(registerDate))

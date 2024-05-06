@@ -24,7 +24,6 @@ export class Step1Component {
     this.project.keywords = this.step1Form.get('keywords')?.value
     this.project.tentativeTitle = this.step1Form.get('tentativeTitle')?.value
     this.project.setSummary = this.step1Form.get('summary')?.value
-    this.project.numStep = 2
     this.project.approveStep1 = false
 
     this.projectService.updateProject(this.project).then(project => {
@@ -34,6 +33,7 @@ export class Step1Component {
 
   approve(): void {
     this.project.approveStep1 = true
+    this.project.numStep = 2
     this.projectService.updateProject(this.project)
   }
 

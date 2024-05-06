@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
 
 <h2>Registro de Propiedad Intelectual</h2>
 <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
-<div>
-  <div *ngIf="!typeDocument" class="moveStep">
-    <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
-    <h3> {{ longTitleSteps[step] }} </h3>
-    <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
-  </div>
+<div *ngIf="project && user">
+    <div *ngIf="!typeDocument"  class="moveStep">
+        <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
+        <h3> {{ longTitleSteps[step] }} </h3>
+        <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
+    </div>
 
   <div *ngIf="typeDocument" class="moveStep">
     <button (click)="redirect(project, 0)">Volver</button>
@@ -29,25 +21,18 @@
       <p><b>Derecho de autor /Software</b></p>
     </div>
 
-
-  </div>
-  <ng-container [ngSwitch]="step">
-    <app-step1-du-s *ngSwitchCase="0"
-                    [project]="project"
-                    [user]="user"
-                    [typeDocument]="typeDocument"
-                    [nameDocuments]="nameDocuments"
-                    [typeDocuments]="typeDocuments"></app-step1-du-s>
-    <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
-    <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
-  </ng-container>
-
+    <ng-container [ngSwitch]="step">
+        <app-step1-du-s *ngSwitchCase="0"
+            [project]="project"
+            [user]="user"
+            [typeDocument]="typeDocument"
+            [nameDocuments]="nameDocuments"
+            [typeDocuments]="typeDocuments"
+            [operation]="operation"></app-step1-du-s>
+        <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
+        <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
+    </ng-container>
 </div>
-
-
-</body>
-</html>
-
 
 
 

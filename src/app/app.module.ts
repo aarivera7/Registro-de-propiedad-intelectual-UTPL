@@ -51,13 +51,13 @@ const appRoutes:Routes=[
   {path: 'messages', component: MessagesComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'calendar', component: CalendarComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'patent_form/:id/:step', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'patent_form/:id/:step/:typeDocument', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'patent_form/:id/:step/:typeDocument/:operation', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'copyright-software_form/:id/:step', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-software_form/:id/:step/:typeDocument', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-software_form/:id/:step/:typeDocument/:operation', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'copyright-database_form/:id/:step', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-database_form/:id/:step/:typeDocument', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'copyright-database_form/:id/:step/:typeDocument/:operation', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path: 'industrial-secret_form/:id/:step', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'industrial-secret_form/:id/:step/:typeDocument', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
+  {path: 'industrial-secret_form/:id/:step/:typeDocument/:operation', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
 ]
 
 @NgModule({

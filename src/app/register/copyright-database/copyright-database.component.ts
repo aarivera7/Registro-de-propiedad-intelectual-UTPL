@@ -49,10 +49,11 @@ export class CopyrightDatabaseComponent {
 
   step: number = -1
   id!: string
-  project: Project = new Project("", "", "", "", "", "")
-  user: User = new User("", "",  "",   )
+  project?: Project
+  user?: User
   typeDocument?: string
   nextStepDisabled: boolean = false
+  operation?: string
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
 
@@ -62,35 +63,59 @@ export class CopyrightDatabaseComponent {
     this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
   }
 
-  ngOnInit(): void {
-    this.loginService.getDataUser(this.loginService.uid).then(user => {
-      this.user = Object.assign(new User("", "",  ""), user)
-    }).catch(err => console.log(err))
+  async ngOnInit(): Promise<void> {
+    this.user = await this.loginService.getDataUser(this.loginService.uid)
 
     this.route.params.subscribe(params => {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
       this.typeDocument = params['typeDocument']
-      
+      this.operation = params['operation']
 
-      // this.nextStepDisabled = false
-
-      // if (this.user.rol == "admin") {
-      //   if (this.step == 0 && !this.project.documents) {
-      //     this.nextStepDisabled = true
-      //   }
-      // } else if (this.user.rol == "user") {
-      //   if (this.step == 0 && !this.project.approveStep1) {
-      //     this.nextStepDisabled = true
-      //   } else if (this.step == 1 && this.project.documents['descriptiveMemories'].status != "Aceptado") {
-      //     this.nextStepDisabled = true
-      //   }
-      // }
+      this.controlStep()
     })
     
-    this.projectService.getProject(this.id).then(project => {
-      this.project = Object.assign(new Project("", "", "", "", "", ""), project.data())
-      this.project['id'] = project.id
+    this.projectService.getProject(this.id).subscribe(project => {
+      this.project = Object.assign(new Project("", "", "", "", "", ""), project)
+      
+      if (this.project.status != "Aprobado"){
+        this.router.navigate(['/not_found'])
+      }
+
+      this.controlStep()
+      
+      if (!this.project.documents){
+        this.project.documents = {}
+      }
     })
+  }
+
+  controlStep()  {
+    if (this.project && this.user)
+    if (this.user.rol == "admin") {
+      if (this.step == 0 && !this.project.approveStep1) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && !this.project.progressReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else {
+        this.nextStepDisabled = false
+      }
+    } else if (this.user.rol == "user") {
+      if (this.step == 1 &&  !this.project.progressReviewMeeting) {
+        this.step -= 1
+      }
+      
+      if (this.step == 0 && !this.project.approveStep1) {
+        this.nextStepDisabled = true
+      } if (this.step == 0 && !this.project.progressReviewMeeting) {
+        this.nextStepDisabled = true
+      } else if (this.step == 1 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+        this.nextStepDisabled = true
+      } else {
+        this.nextStepDisabled = false
+      }
+    }
   }
 }
