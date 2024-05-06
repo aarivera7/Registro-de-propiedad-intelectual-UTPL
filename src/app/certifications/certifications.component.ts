@@ -14,6 +14,7 @@ export class CertificationsComponent {
   filteredCertifications?: Certification[]
   filterText?: string
   user?: User
+  filter1: any
 
   constructor(private certificationService: CertificationsService, private loginService: LoginService){}
 
@@ -24,17 +25,17 @@ export class CertificationsComponent {
       this.filteredCertifications = this.certifications;
       return;
     }
-  
+
     this.filterText = text
     this.filteredCertifications = this.certifications.filter(
       certification => certification?.name.toLowerCase().includes(text.toLowerCase())
     );
   }
-  
+
   async ngOnInit(): Promise<void> {
     this.user = await this.loginService.getDataUser(this.loginService.uid)
 
-    if (this.user.rol == "admin") { 
+    if (this.user.rol == "admin") {
       this.certificationService.getCertifications(undefined).subscribe(certifications => {
         this.certifications = certifications.map(x => Object.assign(new Certification("", "", "", ""), x))
         this.filterResults(this.filterText)

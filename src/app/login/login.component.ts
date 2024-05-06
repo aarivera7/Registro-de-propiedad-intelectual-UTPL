@@ -34,15 +34,15 @@ export class LoginComponent {
         this.router.navigate(['/projects'])
       })
       .catch(err => console.log(err))
-    } 
+    }
     else if(this.formLogin.get('email')?.value.match("^[a-z0-9._%+-]+@utpl.edu.ec$")){
       this.loginAuthMicrosoft(this.formLogin.get('email')?.value);
       return;
-    } 
+    }
     else if(this.formLogin.get('email')?.value.match("^[a-z0-9._%+-]+@gmail.com$")){
       this.loginAuthGoogle(this.formLogin.get('email')?.value);
       return;
-    } 
+    }
     else {
       alert("Error al iniciar sesión: El correo no es válido.")
     }
