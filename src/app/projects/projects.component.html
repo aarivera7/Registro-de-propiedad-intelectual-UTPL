@@ -54,7 +54,7 @@
 
   <div *ngIf="!openModal">
     <h3 class="desc">Descripción</h3>
-    <div class="project" *ngFor="let project of projects" (click)="redirect(project)">
+    <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)">
       <img src="../../assets/images/prueba.png" alt="Foto Proyecto" *ngIf="'user' == user.rol">
       <div>
         <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No Aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
@@ -71,14 +71,5 @@
         <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn"><img src="assets/icons/eliminar.svg"></button>
       </div>
     </div>
-
   </div>
-
-
 </div>
-
-
-
-
-
-

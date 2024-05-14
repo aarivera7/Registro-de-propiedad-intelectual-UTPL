@@ -153,7 +153,7 @@ export class ProjectsComponent {
       type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
-      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}")]),
+      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
     })
   }
 }

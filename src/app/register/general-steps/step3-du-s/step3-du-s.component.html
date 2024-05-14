@@ -39,7 +39,7 @@
 </ng-container>
 
 <ng-container *ngIf="project.contract && user.rol == 'admin'">
-    <div>
+    <div class="info">
         <div><span>Elaboración del contrato</span></div>
         <div>
             <small>Detalles</small>
@@ -53,7 +53,7 @@
             <a target="_blank" *ngIf="project.contract.document" [href]="project.contract.document">Archivo Subido</a>
         </div>
     </div>
-    <div>
+    <div class="info">
         <div><span>Recepción de contrato legalizado</span></div>
         <div>
             <small>Detalles</small>
@@ -63,7 +63,7 @@
         <div>Descargar en PDF el contrato legalizado, con las firmas correspondientes</div>
         <div><a target="_blank" *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Descargar Archivo</a></div>
     </div>
-    <div>
+    <div class="info">
         <div><span>Solicitud de patente</span></div>
         <div>
             <small>Detalles</small>

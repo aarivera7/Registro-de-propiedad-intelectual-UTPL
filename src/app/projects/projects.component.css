@@ -192,6 +192,13 @@ label{
   border: none;
 }
 
+.aceptar:disabled, button:disabled {
+  /* Agrega aquí los estilos que desees para el botón desactivado */
+  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
+}
+
+
 .project{
     display: flex;
     justify-content: space-around;

@@ -33,6 +33,12 @@ button {
   margin-top: 250px;
 }
 
+button:disabled, input:disabled {
+  /* Agrega aquí los estilos que desees para el botón desactivado */
+  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
+}
+
 .contBoton{
   display: flex;
   justify-content: center;

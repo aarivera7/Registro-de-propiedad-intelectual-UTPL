@@ -43,10 +43,10 @@ export class CalendarComponent {
           end: project.progressReviewMeeting.timeFinish.toDate(),
           display: 'block',
         }
-      })
+      });
 
       this.calendarOptions.events = this.calendarOptions.events.concat(projects
-        .filter(project => project.finalReviewMeeting && !project.finalReviewMeeting.assistance)
+        .filter(project => project.finalReviewMeeting && project.finalReviewMeeting.assistance)
         .map(project => {
           project = Object.assign(new Project("", "", "", "", "", ""), project)
           return {
@@ -57,6 +57,6 @@ export class CalendarComponent {
           }
         })
       )
-    })
+    });
   }
 }
