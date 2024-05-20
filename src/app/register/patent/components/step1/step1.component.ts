@@ -37,6 +37,12 @@ export class Step1Component {
     this.projectService.updateProject(this.project)
   }
 
+  sendEmail(): void {
+    this.projectService.sendEmail(this.project)
+    .then(a => console.log(a))
+    .catch(err => console.log(err))
+  }
+
   ngOnChanges(): void {
     this.step1Form  = new FormGroup({
       keywords: new FormControl(this.project?.keywords, [Validators.required, Validators.nullValidator]),

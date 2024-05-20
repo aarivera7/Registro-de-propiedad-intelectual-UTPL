@@ -64,4 +64,8 @@ export class ProjectsService {
   publishProject(project: Project) : Promise<unknown>{
     return httpsCallable(this.functions, 'publishProject')({id: project.getId})
   }
+
+  sendEmail(project: Project) : Promise<unknown>{
+    return httpsCallable(this.functions, 'sendEmail')({id: project.getId})
+  }
 }

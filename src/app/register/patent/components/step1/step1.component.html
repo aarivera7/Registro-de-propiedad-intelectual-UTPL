@@ -25,7 +25,7 @@
 
   <div *ngIf="user.rol == 'admin'">
     <button [disabled]="project.approveStep1" (click)="approve()">Aprobar</button>
-    <button>Enviar Correo</button>
+    <button (click)="sendEmail()">Enviar Correo</button>
   </div>
 </form>
 
