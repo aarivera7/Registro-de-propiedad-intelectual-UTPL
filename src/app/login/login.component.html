@@ -5,29 +5,28 @@
   <title>Document</title>
 </head>
 <body>
-<h1>Registro Propiedad Intelectual</h1>
-<div class="cuerpo">
-  <div>
-    <h3>Inicia sesion con tu correo institucional</h3>
-    <form #login="ngForm" [formGroup]="formLogin" (ngSubmit)="loginAuth()">
-      <div class="email">
-        <label for="email">Email </label>
-        <input id="email" name="email" type="email" formControlName="email">
-      </div>
-      <div class="password">
-        <label [hidden]="isPasswordHidden" for="password">Contraseña </label>
-        <input [hidden]="isPasswordHidden"  id="password" name="password" type="password" formControlName="password">
-      </div>
-      <input class="btn_log" type="submit" value="Iniciar Sesión">
-    </form>
-    <p>Términos y Condiciones</p>
+<div class="background-image"></div>
+<div class="container">
+  <div class="title">
+    <h1>Registro Propiedad Intelectual</h1>
   </div>
-  <div class="img">
-    <img src="assets/images/login.png">
+  <div class="cuerpo">
+    <div class="form">
+      <h3>Inicia sesion con tu correo institucional</h3>
+      <form #login="ngForm" [formGroup]="formLogin" (ngSubmit)="loginAuth()">
+        <div class="email">
+          <label for="email">Email </label>
+          <input id="email" name="email" type="email" formControlName="email">
+        </div>
+        <div class="password">
+          <label [hidden]="isPasswordHidden" for="password">Contraseña </label>
+          <input [hidden]="isPasswordHidden" id="password" name="password" type="password" formControlName="password">
+        </div>
+        <input class="btn_log" type="submit" value="Iniciar Sesión">
+      </form>
+      <p>Términos y Condiciones</p>
+    </div>
   </div>
 </div>
-
 </body>
 </html>
-
-

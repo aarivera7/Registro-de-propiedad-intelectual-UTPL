@@ -11,7 +11,7 @@ h3{
   font-size: 26px;
 }
 
-button {
+.title button{
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -21,8 +21,21 @@ button {
   border: none;
   margin-left: 5%;
   height: 2.5rem;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 5%;
+  width: 100%;
+}
+
+button {
+
+}
+
+
+
+small{
+  font-size: 15px;
+  color: #636363;
+  margin-left: 10px;
 }
 
 a{
@@ -84,8 +97,17 @@ dialog{
   background-color: #F6F9FF;
   border: none;
   border-top: 3px solid #172D5A;
-  margin-left: 15%;
+  margin-left: 20%;
+  width: 70%;
+  padding: 20px;
 }
+
+.center{
+  display: flex;
+  flex-direction: column;
+}
+
+
 
 .cardInfo{
   border-radius: 20px;
@@ -107,6 +129,7 @@ dialog{
 
 .title{
   display: flex;
+  justify-content: space-between;
 }
 
 .superior{
@@ -114,11 +137,17 @@ dialog{
   justify-content: space-evenly;
 }
 
+
+
 .parte1{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 5px 40px;
+}
+
+.cont{
+  width: 100%;
 }
 
 .parte2{
@@ -149,12 +178,12 @@ dialog{
   border: 1px solid #172D5A;
 }
 
-#date,#nameAuthor{
+#date,#nameAuthor, #sender{
   border: none;
   background: transparent;
 }
 
-#date,#nameAuthor input{
+#date,#nameAuthor, #sender input{
   color: #A5A5A5;
 }
 
@@ -163,9 +192,44 @@ label{
   font-size: 16px;
 }
 
+#subject{
+  margin: 5px;
+  border-radius: 6px;
+  height: 79px;
+  border: 1px solid #172D5A;
+}
+
 .inferior{
   display: flex;
   flex-direction: column;
-  margin: 0 40px;
+  margin: 10px 50px;
 }
+
+.botones{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+  align-items: center;
+}
+
+.cancelar {
+  border-radius: 10px;
+  color: #172D5A;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 30px;
+  border: none;
+}
+.aceptar {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 30px;
+  border: none;
+}
+
+
 

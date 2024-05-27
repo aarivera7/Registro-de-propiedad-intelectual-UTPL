@@ -65,9 +65,9 @@
       </div>
       <div>
         <p class="titulo"><small>Detalles</small></p>
-        <p class="contenido">{{ project.getDescription }}</p>
+        <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div>{{ project.getCreateDate | date:'mediumDate' }}</div>
+      <div>{{ project.type }}</div>
       <div *ngIf="'admin' == user.rol" class="botones">
         <button [disabled]="project.publish" (click)="approveProject(project)" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
         <button [disabled]="project.publish" (click)="nonApproveProject(project)" class="btn"><img src="assets/icons/NoAprobar.svg"></button>

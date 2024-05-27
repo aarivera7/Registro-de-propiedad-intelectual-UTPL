@@ -1,19 +1,20 @@
-<div class="title">
-  <h2>Mensajería</h2>
+<div class="cont">
+  <div class="title">
+    <h2>Mensajería</h2>
 
-  <button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
-</div>
+    <button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
+  </div>
 
-<dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
+  <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formNewMessage" (ngSubmit)="newMessage(upload)" >
-      <div>
-        <div>
+      <div class="superior">
+        <div class="parte2">
           <label for="projectId">Nombre de mis registros</label>
           <select id="projectId" name="projectId" required formControlName="projectId">
             <option *ngFor="let project of projects" [value]="project.id">{{ project.getName }}</option>
           </select>
         </div>
-        <div>
+        <div class="center">
           <label for="sender">Autor del registro</label>
           <input id="sender" type="text" formControlName="sender">
           <label for="date">Fecha de registro</label>
@@ -24,29 +25,31 @@
           <input type="file" id="evidence" name="evidence" accept=".pdf" required  #upload>
         </div>
       </div>
-      <div>
+      <div class="inferior">
         <label for="subject">Asunto</label>
         <textarea id="subject" name="subject" required formControlName="subject"></textarea>
-        <div class="inferior">
-          <input type="submit" value="Aceptar" [disabled]="formNewMessage.invalid">
-          <input type="reset" value="Cancelar" (click)="openModal = null">
-        </div>
+      </div>
+      <div class="botones">
+        <input class="cancelar" type="reset" value="Cancelar" (click)="openModal = null">
+        <input class="aceptar" type="submit" value="Aceptar" [disabled]="formNewMessage.invalid">
       </div>
 
     </form>
   </dialog>
-<div class="message" *ngFor="let message of messages; let i = index">
+  <div class="message" *ngFor="let message of messages; let i = index">
     <p><b>Proyecto: </b> {{ message.project }} </p>
     <p><b> {{ message.sender }} </b> <small> {{ message.dateMessage | date:'short' }} </small></p>
     <p><b>Asunto: </b>{{ message.subject }}</p>
     <a target="_blank" *ngIf="message.evidence" [href]="message.evidence"><button >PDF</button></a>
     <div *ngFor="let response of message.responses">
-        <p><b> {{ response.name }} </b> <small> {{ response.date.toDate() | date:'short' }} </small></p>
-        <p>{{ response.response }}</p>
+      <p><b> {{ response.name }} </b> <small> {{ response.date.toDate() | date:'short' }} </small></p>
+      <p>{{ response.response }}</p>
     </div>
     <form *ngIf="inputMessages[i]" [formGroup]="formNewResponse" (ngSubmit)="newResponse(message.id, i)">
       <input type="text" formControlName="response">
       <input type="submit" value="Enviar" [disabled]="formNewResponse.invalid">
     </form>
     <p><a *ngIf="!inputMessages[i]" (click)="inputMessages[i] = true">Responder</a></p>
+  </div>
+
 </div>
