@@ -107,6 +107,12 @@
   /*max-width: 960px;*/
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  background-color: #F6F9FF;
+}
+
+.contentLogin{
+  background-color: white;
 }
 
 svg.material-icons {

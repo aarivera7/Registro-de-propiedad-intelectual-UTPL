@@ -1,30 +1,38 @@
-<h2>Mensajería</h2>
+<div class="title">
+  <h2>Mensajería</h2>
 
-<button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
+  <button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
+</div>
+
 <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formNewMessage" (ngSubmit)="newMessage(upload)" >
       <div>
-        <label for="projectId">Nombre de mis registros</label>
-        <select id="projectId" name="projectId" required formControlName="projectId">
+        <div>
+          <label for="projectId">Nombre de mis registros</label>
+          <select id="projectId" name="projectId" required formControlName="projectId">
             <option *ngFor="let project of projects" [value]="project.id">{{ project.getName }}</option>
-        </select>
+          </select>
+        </div>
+        <div>
+          <label for="sender">Autor del registro</label>
+          <input id="sender" type="text" formControlName="sender">
+          <label for="date">Fecha de registro</label>
+          <input id="date" type="text" disabled value="{{ getDate() | date:'longDate' }}">
+        </div>
+        <div>
+          <label for="evidence">Cargar Evidencia</label>
+          <input type="file" id="evidence" name="evidence" accept=".pdf" required  #upload>
+        </div>
       </div>
       <div>
-        <label for="sender">Autor del registro</label>
-        <input id="sender" type="text" formControlName="sender">
-        <label for="date">Fecha de registro</label>
-        <input id="date" type="text" disabled value="{{ getDate() | date:'longDate' }}">
+        <label for="subject">Asunto</label>
+        <textarea id="subject" name="subject" required formControlName="subject"></textarea>
+        <div class="inferior">
+          <input type="submit" value="Aceptar" [disabled]="formNewMessage.invalid">
+          <input type="reset" value="Cancelar" (click)="openModal = null">
+        </div>
       </div>
-      <div>
-        <label for="evidence">Cargar Evidencia</label>
-        <input type="file" id="evidence" name="evidence" accept=".pdf" required  #upload>
-      </div>
-      <label for="subject">Asunto</label>
-      <textarea id="subject" name="subject" required formControlName="subject"></textarea>
-      <div>
-        <input type="submit" value="Aceptar" [disabled]="formNewMessage.invalid">
-        <input type="reset" value="Cancelar" (click)="openModal = null">
-      </div>
+
     </form>
   </dialog>
 <div class="message" *ngFor="let message of messages; let i = index">
@@ -40,5 +48,5 @@
       <input type="text" formControlName="response">
       <input type="submit" value="Enviar" [disabled]="formNewResponse.invalid">
     </form>
-    <p><button *ngIf="!inputMessages[i]" (click)="inputMessages[i] = true">Responder</button></p>
+    <p><a *ngIf="!inputMessages[i]" (click)="inputMessages[i] = true">Responder</a></p>
 </div>

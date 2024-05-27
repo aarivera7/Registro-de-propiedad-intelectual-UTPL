@@ -55,16 +55,17 @@
   </div>
 </aside>
 
-<div class="content" role="main">
+<div class="content" role="main" *ngIf="user">
   <!-- <button (click)="loginService.linkWithMicrosoft()">Microsoft</button> -->
   <router-outlet></router-outlet>
 
   <!-- Footer -->
   <footer>
-
   </footer>
+</div>
 
-
+<div class="contentLogin" role="main" *ngIf="!user">
+  <router-outlet></router-outlet>
 </div>
 <div class="overlay" [ngClass]="{'overlay-admin': user.rol === 'admin'}" *ngIf="user != null"></div>
 

@@ -2,7 +2,7 @@ h2{
   color: #172D5A;
   font-weight: 600;
   font-size: 26px;
-  margin-left: 65px;
+
 }
 
 h3{
@@ -12,15 +12,29 @@ h3{
 }
 
 button {
-  border-radius: 2px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 10px;
+  border: none;
+  margin-left: 5%;
+  height: 2.5rem;
+  font-size: 10px;
+  margin-top: 5%;
+}
+
+a{
+  text-decoration: underline;
   color: #172D5A;
   cursor: pointer;
-  border: 0.5px solid #172D5A;
-  background: #DBE5F8;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 15px;
-  margin: 10px;
-  width: 8%;
+}
+
+.message{
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .btnBuscar{
@@ -66,6 +80,12 @@ button {
   justify-content: space-evenly;
 }
 
+dialog{
+  background-color: #F6F9FF;
+  border: none;
+  border-top: 3px solid #172D5A;
+  margin-left: 15%;
+}
 
 .cardInfo{
   border-radius: 20px;
@@ -85,4 +105,67 @@ button {
   padding: 10px 0;
 }
 
+.title{
+  display: flex;
+}
+
+.superior{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.parte1{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px 40px;
+}
+
+.parte2{
+  display: flex;
+  flex-direction: column;
+  margin: 5px 40px;
+}
+
+.parte1 input{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+  width: 445px;
+}
+
+.parte2 input{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+}
+
+.parte2 select{
+  margin: 5px;
+  border-radius: 6px;
+  height: 48px;
+  border: 1px solid #172D5A;
+}
+
+#date,#nameAuthor{
+  border: none;
+  background: transparent;
+}
+
+#date,#nameAuthor input{
+  color: #A5A5A5;
+}
+
+label{
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.inferior{
+  display: flex;
+  flex-direction: column;
+  margin: 0 40px;
+}
 

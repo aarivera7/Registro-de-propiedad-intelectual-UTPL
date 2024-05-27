@@ -42,4 +42,15 @@ button:disabled, input:disabled {
 .contBoton{
   display: flex;
   justify-content: center;
+  margin-top: 1px;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#descriptiveMemory{
+  background-color: #D3ECBA;
 }
