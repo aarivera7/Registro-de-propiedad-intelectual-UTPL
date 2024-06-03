@@ -36,9 +36,9 @@
 </ng-container>
 
 <ng-container *ngIf="project.contract && user.rol == 'admin'">
-    <div>
+    <div class="eCont">
         <div><span>Elaboración del contrato</span></div>
-        <div>
+        <div class="date">
             <small>Detalles</small>
             <span *ngIf="project.contract.date else dateC"> {{ project.contract.date.toDate() | date:"mediumDate" }} </span>
             <ng-template #dateC><span> Sin Fecha </span></ng-template>
@@ -50,9 +50,9 @@
             <a target="_blank" *ngIf="project.contract.document" [href]="project.contract.document">Archivo Subido</a>
         </div>
     </div>
-    <div>
+    <div class="rCont">
         <div><span>Recepción de contrato legalizado</span></div>
-        <div>
+        <div class="date">
             <small>Detalles</small>
             <span *ngIf="project.legalizedContract else dateLC"> {{ project.legalizedContract.date.toDate() | date:"mediumDate" }} </span>
             <ng-template #dateLC><span> Sin Fecha </span></ng-template>
@@ -60,9 +60,9 @@
         <div>Descargar en PDF el contrato legalizado, con las firmas correspondientes</div>
         <div><a target="_blank" *ngIf="project.legalizedContract" [href]="project.legalizedContract.document">Descargar Archivo</a></div>
     </div>
-    <div>
+    <div class="sPat">
         <div><span>Solicitud de patente</span></div>
-        <div>
+        <div class="date">
             <small>Detalles</small>
             <span *ngIf="project.application && project.application.date else dateA"> {{ project.application.date.toDate() | date:"mediumDate" }} </span>
             <ng-template #dateA><span> Sin Fecha </span></ng-template>

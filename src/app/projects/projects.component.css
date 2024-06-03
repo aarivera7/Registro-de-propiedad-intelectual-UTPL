@@ -15,7 +15,7 @@ button {
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border: none;
 }
@@ -25,29 +25,54 @@ button {
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 15px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+  padding: 10px;
   border: none;
+  width: 100px;
+}
+
+#types-properties{
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid #172D5A;
 }
 
 .p1 input{
   border-radius: 10px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border: none;
 
+}
+
+.buscar input{
+  border-radius: 10px 0  0 10px;
 }
 
 .bus{
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   width: 370px;
+  padding: 10px;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.10);
 }
+
+.stroke{
+  display: flex;
+  align-items: center;
+}
+
+.name{
+  margin-right: 10px;
+}
+
 
 .list{
   border-bottom-color: #172D5A;
   border-radius: 10px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border-top: none;
   border-left: none;
@@ -65,6 +90,7 @@ button {
 .buscar{
   display: flex;
   justify-content: space-between;
+
 }
 
 .titulo{
@@ -175,12 +201,17 @@ label{
   align-items: center;
 }
 
+.top{
+  position: relative;
+}
+
+
 .cancelar {
   border-radius: 10px;
   color: #172D5A;
   cursor: pointer;
   background: white;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 10px 30px;
   border: none;
 }
@@ -189,7 +220,7 @@ label{
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 10px 30px;
   border: none;
 }
@@ -230,6 +261,7 @@ label{
 .registerpi {
     margin-left: 29em;
 }
+
 
 .btn{
   padding: 0;

@@ -54,3 +54,39 @@ button:disabled, input:disabled {
 #descriptiveMemory{
   background-color: #D3ECBA;
 }
+
+.contBoton1{
+  display: flex;
+  justify-content: center;
+}
+
+.contBoton1 button{
+  margin: 20px ;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.correo{
+  background-color: #6486CB;
+  border: none;
+}
+
+.texto1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.texto1 p{
+  margin: 5px;
+}
+
+h4{
+  color: #172D5A;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.texto1 input{
+  width: 99%;
+}

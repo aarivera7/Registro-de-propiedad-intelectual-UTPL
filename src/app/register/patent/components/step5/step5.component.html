@@ -1,23 +1,27 @@
 <form [formGroup]="formStatus"  *ngIf="!typeDocument && project.documents">
-    <button [disabled]="project.approveStep5" (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
-    <button [disabled]="!isApprovable() || project.approveStep5" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
 
-    <div>
+  <div class="contBoton1">
+    <button class="correo" [disabled]="project.approveStep5" (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
+    <button  [disabled]="!isApprovable() || project.approveStep5" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
+  </div>
+
+
+    <div class="titulos">
         <span> Documento </span>
         <span> Estado </span>
         <span> Fecha </span>
         <span *ngIf="user.rol == 'admin'">Observación</span>
     </div>
-    
-    <ng-container *ngIf="project.documents"> 
-        <div *ngFor=" let type of typeDocuments let i = index">
+
+    <ng-container *ngIf="project.documents">
+        <div *ngFor=" let type of typeDocuments let i = index" class="documentos">
             <span>{{ i+1 }}</span>
-            <div>
-                <span>{{ nameDocuments[i] }}</span>
+            <div class="contDoc">
+                <span class="truncar-texto">{{ nameDocuments[i] }}</span>
 
                 <ng-container *ngIf="project.documents[type] else default">
 
-                    <select *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
+                    <select class="slc" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
                         <option value="Pendiente">Pendiente</option>
                         <option value="Aceptado">Aceptado</option>
                         <option value="Incompleto">Incompleto</option>
@@ -37,10 +41,10 @@
                         <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
                     </div>
                 </ng-container>
-                
+
                 <ng-template #default>
-                    
-                    <select *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
+
+                    <select class="slc" *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
                         <option selected value="Pendiente">Pendiente</option>
                         <option disabled value="Aceptado" >Aceptado</option>
                         <option disabled value="Incompleto" >Incompleto</option>
@@ -61,7 +65,7 @@
                 </ng-template>
             </div>
         </div>
-    </ng-container>   
+    </ng-container>
 </form>
 
 <app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation" [rol]="user.rol"></app-multiple-file-load>

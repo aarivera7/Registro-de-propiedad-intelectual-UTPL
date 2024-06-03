@@ -13,7 +13,6 @@ export class Project{
     summary?: String;
     numStep?: number;
     status?: string;
-    progressReviewMeeting: any
     finalReviewMeeting: any
     documents: any
     contract: any
@@ -23,6 +22,7 @@ export class Project{
     approveStep2!: boolean
     approveStep5!: boolean
     publish!: boolean
+    progressReviewMeeting: any;
 
     constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: string){
         this.name = name
@@ -44,11 +44,11 @@ export class Project{
     public get getName() : string {
         return this.name
     }
-    
+
     public get getDescription() : String {
         return this.description
     }
-    
+
     public set setKeywords(value: string) {
         this.keywords = value;
     }

@@ -37,7 +37,7 @@ export class PatentComponent {
   operation?: string
 
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
-  
+
   redirect(project: Project, numStep: number): void {
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
@@ -56,10 +56,10 @@ export class PatentComponent {
 
       this.controlStep()
     })
-    
+
     this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
-          
+
       this.controlStep()
 
       if (this.project.status != "Aprobado"){
@@ -73,7 +73,7 @@ export class PatentComponent {
     if (this.user.rol == "admin") {
       if (this.step == 1 && (!this.project.documents || (this.project.documents && !this.project.documents['descriptiveMemories']))) {
         this.step -= 1
-      } 
+      }
 
       if (this.step == 0 && (!this.project.documents || (this.project.documents && !this.project.documents['descriptiveMemories']))) {
         this.nextStepDisabled = true
@@ -81,9 +81,9 @@ export class PatentComponent {
         this.nextStepDisabled = true
       } else if (this.step == 1 && !this.project.documents) {
         this.nextStepDisabled = true
-      } else if (this.step == 2 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+      } else if (this.step == 2 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
         this.nextStepDisabled = true
-      } else if (this.step == 2 && !this.project.progressReviewMeeting) {
+      } else if (this.step == 2 && !this.project.finalReviewMeeting) {
         this.nextStepDisabled = true
       } else if (this.step == 3 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
         this.nextStepDisabled = true
@@ -95,7 +95,7 @@ export class PatentComponent {
         this.nextStepDisabled = false
       }
     } else if (this.user.rol == "user") {
-      if (this.step == 2 && !this.project.progressReviewMeeting) {
+      if (this.step == 2 && !this.project.finalReviewMeeting) {
         this.step -= 1
       } else if (this.step == 3 && !this.project.finalReviewMeeting) {
         this.step -= 1
@@ -107,9 +107,9 @@ export class PatentComponent {
         this.nextStepDisabled = true
       } else if (this.step == 1 && !this.project.documents) {
         this.nextStepDisabled = true
-      } else if (this.step == 1 && !this.project.progressReviewMeeting) {
+      } else if (this.step == 1 && !this.project.finalReviewMeeting) {
         this.nextStepDisabled = true
-      } else if (this.step == 2 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+      } else if (this.step == 2 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
         this.nextStepDisabled = true
       } else if (this.step == 2 && !this.project.finalReviewMeeting) {
         this.nextStepDisabled = true

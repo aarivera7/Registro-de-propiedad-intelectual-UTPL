@@ -1,10 +1,13 @@
 <div *ngIf="projects && user">
-  <h2>Registro de propiedad intelectual</h2>
-  <h3>{{ title }}</h3>
-  <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
-    <a href="/info" style="text-decoration: underline;">AQUI</a>
-  </h6>
-  <button *ngIf="user.rol == 'user'" (click)="openModal = true">Crear registro PI</button>
+  <div class="top">
+    <h2>Registro de propiedad intelectual</h2>
+    <h3>{{ title }}</h3>
+    <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
+      <a href="/info" style="text-decoration: underline;">AQUI</a>
+    </h6>
+    <button *ngIf="user.rol == 'user'" (click)="openModal = true">Crear registro PI</button>
+  </div>
+
   <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formProject" (ngSubmit)="addProject()">
       <div class="superior">
@@ -40,9 +43,12 @@
     </form>
   </dialog>
 
-  <div *ngIf="'admin' == user.rol">
-    <input class="bus" (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
-    <button class="btnBuscar" (click)="filterResults(filter.value)">Buscar</button>
+  <div class="buscar" *ngIf="'admin' == user.rol">
+    <div class="wt">
+      <input class="bus" (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
+      <button class="btnBuscar" (click)="filterResults(filter.value)">Buscar</button>
+    </div>
+
     <select id="types-properties">
       <option selected disabled>Eliga una opción</option>
       <!-- option value="patent">Patente</option>
@@ -59,15 +65,23 @@
     <h3 class="desc">Descripción</h3>
     <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)">
       <img src="../../assets/images/prueba.png" alt="Foto Proyecto" *ngIf="'user' == user.rol">
-      <div>
-        <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No Aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
-        <p class="contenido">{{ project.getName }}</p>
+      <div class="stroke">
+        <div class="name">
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
+            <path [attr.stroke]="getStrokeColor(project.type)" stroke-width="5" stroke-linecap="round" d="M3 3V61"/>
+          </svg>
+        </div>
+        <div>
+          <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No Aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
+          <p class="contenido">{{ project.getName }}</p>
+        </div>
+
       </div>
       <div>
         <p class="titulo"><small>Detalles</small></p>
         <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div>{{ project.type }}</div>
+      <div>{{translateProjectType(project.type)}}</div>
       <div *ngIf="'admin' == user.rol" class="botones">
         <button [disabled]="project.publish" (click)="approveProject(project)" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
         <button [disabled]="project.publish" (click)="nonApproveProject(project)" class="btn"><img src="assets/icons/NoAprobar.svg"></button>

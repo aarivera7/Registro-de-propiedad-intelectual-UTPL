@@ -3,3 +3,30 @@ button:disabled, input:disabled {
     opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
     cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
+
+.eCont{
+  display: flex;
+  justify-content: space-between;
+}
+
+.rCont{
+  display: flex;
+  justify-content: space-between;
+}
+
+.sPat{
+  display: flex;
+  justify-content: space-between;
+}
+
+.truncar-texto {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.date{
+  display: flex;
+  flex-direction: column;
+}

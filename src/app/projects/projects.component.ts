@@ -31,6 +31,36 @@ export class ProjectsComponent {
 
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
+  translateProjectType(type: string): string {
+    switch(type) {
+      case 'patent':
+        return 'Patente';
+      case 'copyright-software':
+        return 'Derechos de Autor/Software';
+      case 'copyright-database':
+        return 'Derechos de Autor/Base de datos';
+      case 'industrial-secret':
+        return 'Secreto industrial';
+      default:
+        return type;
+    }
+  }
+
+  getStrokeColor(type: string): string {
+    switch (type) {
+      case 'patent':
+        return '#C761D8';
+      case 'copyright-software':
+        return '#FFAB00';
+      case 'copyright-database':
+        return '#FF00AB';
+      case 'industrial-secret':
+        return '#6486CB';
+      default:
+        return '#000000'
+    }
+  }
+
   filterResults(text: string | undefined) {
     if (!this.projects) return
     if (!text) {
@@ -95,6 +125,8 @@ export class ProjectsComponent {
     }).catch(err => console.log(err));
   }
 
+
+
   nonApproveProject(project: Project): void {
     this.projectService.nonApproveProject(project).then((data) => {
       console.log(data);
@@ -126,7 +158,7 @@ export class ProjectsComponent {
       case 'en proceso':
         return 'en-proceso';
       default:
-        return ''; // Puedes agregar un estilo predeterminado aquí si es necesario
+        return '';
     }
   }
 

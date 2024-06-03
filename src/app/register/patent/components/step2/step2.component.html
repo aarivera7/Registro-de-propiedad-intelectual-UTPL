@@ -14,12 +14,20 @@
     </div>
   </ng-container>
   <form [formGroup]="formObservations" *ngIf="user && user.rol == 'admin'">
-    <p>Descargar en PDF</p>
-    <p>Memoria descriptiva</p>
-    <a target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
-    <label for="observations"></label>
-    <input type="text" id="observations" formControlName="observations">
-    <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="approve()">Aprobar</button>
-    <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="updateObservations()" >Pedir correcciones</button>
+    <div class="texto1">
+      <p>Descargar en PDF</p>
+      <p>Memoria descriptiva</p>
+      <a target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
+      <label for="observations"></label>
+      <h4>Observaciones/Correcciones</h4>
+
+      <input type="text" id="observations" formControlName="observations">
+    </div>
+
+    <div class="contBoton1">
+      <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="approve()">Aprobar</button>
+      <button class="correo" [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="updateObservations()" >Pedir correcciones</button>
+    </div>
+
   </form>
 </div>

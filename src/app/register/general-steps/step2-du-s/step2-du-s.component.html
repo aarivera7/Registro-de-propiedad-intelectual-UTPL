@@ -1,19 +1,19 @@
-<ng-container *ngIf="user.rol == 'user' && project.progressReviewMeeting">
+<ng-container *ngIf="user.rol == 'user' && project.finalReviewMeeting">
     <div>
       <h1>Reunión de revisión de avances</h1>
-      <button [disabled]="project.progressReviewMeeting.assistance" (click)="confirmAssistance()">Confirmar asistencia</button>
+      <button [disabled]="project.finalReviewMeeting.assistance" (click)="confirmAssistance()">Confirmar asistencia</button>
     </div>
-  
+
     <div>
       <h2>Detalles de la reunión:</h2>
-      <p>Fecha: {{ project.progressReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
-      <p>Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
-      <p>Lugar: {{ project.progressReviewMeeting.place }}</p>
-      <p>Modalidad: {{ project.progressReviewMeeting.modality }}</p>
-      <p *ngIf="project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
+      <p>Fecha: {{ project.finalReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
+      <p>Hora: {{ project.finalReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.finalReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
+      <p>Lugar: {{ project.finalReviewMeeting.place }}</p>
+      <p>Modalidad: {{ project.finalReviewMeeting.modality }}</p>
+      <p *ngIf="project.finalReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
     </div>
   </ng-container>
-  
+
   <ng-container *ngIf="user.rol == 'admin'">
     <form [formGroup]="formReviewMeeting" (ngSubmit)="createMeeting()">
       <div>
@@ -27,7 +27,7 @@
         <div>
           <label for="timeStart">Inicio: </label>
           <input type="time" id="timeStart" formControlName="timeStart">
-          
+
           <label for="timeFinish">Fin: </label>
           <input type="time" id="timeFinish" [min]="" required formControlName="timeFinish">
         </div>
@@ -40,7 +40,7 @@
             <option value="Virtual">Virtual</option>
           </select>
         </div>
-        <p *ngIf="project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
+        <p *ngIf="project.finalReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
       </div>
     </form>
   </ng-container>

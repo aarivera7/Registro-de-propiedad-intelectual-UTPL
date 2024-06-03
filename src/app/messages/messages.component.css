@@ -17,18 +17,16 @@ h3{
   cursor: pointer;
   background: #172D5A;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 10px 10px;
+  padding: 0 5px;
   border: none;
   margin-left: 5%;
   height: 2.5rem;
   font-size: 12px;
-  margin-top: 5%;
-  width: 100%;
+  width: 40%;
 }
 
-button {
 
-}
+
 
 
 
@@ -46,8 +44,53 @@ a{
 
 .message{
   background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 90%;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.resp{
+  font-weight: 600;
+}
+
+.btnPdf{
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #DBE5F8;
+  border: 0.5px solid #172D5A;
+  cursor: pointer;
+}
+
+.btResp{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.send{
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  margin-right: 10px;
+}
+
+.inpResp{
+  width: 100%;
+  border-radius: 10px;
+  border: none;
   padding: 10px;
-  border-radius: 20px;
+  border-bottom: 1px solid #172D5A;
+}
+
+.btnPdf{
+  color: #ACA9A5;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.btnPdf svg{
+  margin-right: 5px;
 }
 
 .btnBuscar{
@@ -129,7 +172,7 @@ dialog{
 
 .title{
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .superior{
@@ -148,6 +191,7 @@ dialog{
 
 .cont{
   width: 100%;
+  margin-left: 7%;
 }
 
 .parte2{

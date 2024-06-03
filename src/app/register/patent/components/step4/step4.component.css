@@ -3,3 +3,127 @@ button:disabled, input:disabled {
     opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
     cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
   }
+
+
+.conf{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.whole{
+  padding: 15px;
+  border-radius: 20px;
+  background-color: white;
+  margin-top: 10px;
+}
+
+.imagen{
+  display: flex;
+}
+
+.imagen svg{
+  margin-right: 5px;
+}
+
+.cancelar {
+  border-radius: 10px;
+  color: #172D5A;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 30px;
+  border: none;
+  font-weight: 500;
+}
+
+
+
+.small{
+  display: flex;
+  flex-direction: column;
+}
+
+.small small{
+  color: #6486CB;
+}
+
+.small h2{
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.detalles{
+  display: flex;
+  justify-content: space-between;
+}
+
+.detalles1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.detalles1 select{
+  border-radius: 12px;
+  border-bottom: 1px solid #172D5A;
+  background: #FFF;
+  padding: 10px;
+}
+
+.svg{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgb(128, 128, 128);
+}
+
+.svg2{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgb(128, 128, 128);
+}
+
+.svg2 svg{
+  margin-right: 2px;
+}
+
+.detalles1 input{
+  border-radius: 12px;
+  border: 1px solid #172D5A;
+  background: #F6F9FF;
+  padding: 10px;
+}
+
+.detalles1 textarea{
+  border-radius: 12px;
+  border: 1px solid #172D5A;
+  background: #F6F9FF;
+  height: 50px;
+  padding: 10px;
+}
+
+.lugar{
+  display: flex;
+  flex-direction: column;
+}
+
+.date{
+  display: flex;
+  flex-direction: column;
+}
+
+.times{
+  display: flex;
+  flex-direction: column;
+}
+
+.modalidad{
+  display: flex;
+  flex-direction: column;
+}
+

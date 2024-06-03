@@ -3,3 +3,120 @@ button:disabled {
     opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
     cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
   }
+
+button {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  padding: 7px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 79px;
+  margin-top: 250px;
+}
+
+.contBoton1{
+  display: flex;
+  justify-content: center;
+}
+
+.contBoton1 button{
+  margin: 20px ;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.correo{
+  background-color: #6486CB;
+  border: none;
+}
+
+
+.slc{
+  border-radius: 5px;
+  border: 1px solid #172D5A;
+  background: #FFF;
+  padding: 12px 16px;
+}
+
+.titulos span{
+  font-weight: 500;
+  font-size: 16px;
+  color: #172D5A;
+}
+
+.titulos{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px;
+}
+
+form{
+  background: rgba(176, 183, 197, 0.1);
+  border-radius: 10px;
+}
+
+.documentos{
+  margin: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.contDoc{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+  border-radius: 10px;
+  background: white;
+  height: 66px;
+  padding: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.btns{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.descargar{
+  border-radius: 2px;
+  border: none;
+  margin-right: 20px;
+  padding: 0;
+  background-color: white;
+  cursor: pointer;
+}
+
+.descargar svg{
+  height: 100%;
+}
+
+.subir{
+  margin-right: 20px;
+  padding: 0;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.subir svg{
+  height: 100%;
+}
+
+.borrar{
+  border: none;
+  background-color: #F6A4B833;
+  border-radius: 5px;
+  width: 40px;
+  height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.truncar-texto {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}

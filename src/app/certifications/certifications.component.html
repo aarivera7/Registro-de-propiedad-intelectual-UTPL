@@ -1,18 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<div class="title">
+  <h2>Certificaciones</h2>
+  <div class="bs">
+    <input class="bus" *ngIf="user && user.rol === 'admin'" (change)="filterResults(filter1.value)" placeholder="Buscar por nombre de registro..." type="text" #filter1>
+    <button  *ngIf="user && user.rol === 'admin'" class="btnBuscar" type="button" (click)="filterResults(filter1.value)">Buscar</button>
+  </div>
 
-<h2>Certificaciones</h2>
+</div>
 
-<input *ngIf="user && user.rol === 'admin'" (change)="filterResults(filter1.value)" placeholder="Buscar por nombre de registro..." type="text" #filter1>
-<button *ngIf="user && user.rol === 'admin'" class="primary" type="button" (click)="filterResults(filter1.value)">Buscar</button>
 
-<div class="certification" *ngFor="let certification of filteredCertifications">
-    <div>
-        <h3>{{ certification.name }}</h3>
-      </div>
-      <div>
-        <p><b>Registro realizado por: </b>{{ certification.realizedBy }}</p>
-        <p><b>Fecha de registro: </b>{{ certification.getRegisterDate() | date:'longDate' }}</p>
-        <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
-        <a target="_blank" [download] [href]="certification.application.document"><button>Abrir</button></a>
+<div class="contenido">
+  <div class="certification" *ngFor="let certification of filteredCertifications">
+    <div class="name">
+      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
+        <path d="M3 3V61" stroke="#FFAB00" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <h4>{{ certification.name }}</h4>
+    </div>
+    <div class="datos">
+      <p><b>Registro realizado por: </b>{{ certification.realizedBy }}</p>
+      <p><b>Fecha de registro: </b>{{ certification.getRegisterDate() | date:'longDate' }}</p>
+      <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
+    </div>
+    <div class="abrir">
+      <a  target="_blank" [download] [href]="certification.application.document"><button class="btnAbrir">Abrir</button></a>
     </div>
 
   </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
