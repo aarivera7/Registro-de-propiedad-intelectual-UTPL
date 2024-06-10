@@ -51,7 +51,8 @@ button {
 .titulos{
   display: flex;
   justify-content: space-around;
-  padding: 30px;
+  padding: 40px;
+  margin-right: 170px;
 }
 
 form{
@@ -72,7 +73,7 @@ form{
 
 .contDoc{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-left: 20px;
   border-radius: 10px;
   background: white;
@@ -94,6 +95,7 @@ form{
   padding: 0;
   background-color: white;
   cursor: pointer;
+  box-shadow: none;
 }
 
 .descargar svg{
@@ -106,6 +108,9 @@ form{
   border: none;
   background-color: white;
   cursor: pointer;
+  width: 40px;
+  height: 35px;
+  box-shadow: none;
 }
 
 .subir svg{
@@ -121,7 +126,6 @@ form{
   text-align: center;
   cursor: pointer;
 }
-
 .truncar-texto {
   overflow: hidden;
   white-space: nowrap;
@@ -133,5 +137,11 @@ form{
 .divSlc{
   width: 200px;
 }
+
+.btns button{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 
 
