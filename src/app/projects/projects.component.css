@@ -62,6 +62,7 @@ button {
 .stroke{
   display: flex;
   align-items: center;
+  width: 150px;
 }
 
 .name{
@@ -104,8 +105,17 @@ button {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 200px;
+  width: 150px;
 }
+
+.contenido1{
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  width: 120px;
+}
+
+
 
 .botones{
   display: flex;
@@ -225,22 +235,27 @@ label{
   border: none;
 }
 
+.imgs{
+  width: 100px;
+}
+
 .aceptar:disabled, button:disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
-  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  opacity: 0.2; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
 
 .project{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 60vw;
     background-color: white;
     margin: 10px 0;
     height: 122px;
     border-radius: 20px;
     align-items: center;
+
 }
 
 .project img{

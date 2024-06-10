@@ -13,19 +13,23 @@
         <span *ngIf="user.rol == 'admin'">Observación</span>
     </div>
 
-    <ng-container *ngIf="project.documents">
+    <ng-container *ngIf="project.documents" >
         <div *ngFor=" let type of typeDocuments let i = index" class="documentos">
             <span>{{ i+1 }}</span>
             <div class="contDoc">
                 <span class="truncar-texto">{{ nameDocuments[i] }}</span>
 
-                <ng-container *ngIf="project.documents[type] else default">
 
+                <ng-container *ngIf="project.documents[type] else default">
+                  <div class="divSlc">
                     <select class="slc" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Aceptado">Aceptado</option>
-                        <option value="Incompleto">Incompleto</option>
+                      <option value="Pendiente">Pendiente</option>
+                      <option value="Aceptado">Aceptado</option>
+                      <option value="Incompleto">Incompleto</option>
                     </select>
+                  </div>
+
+
                     <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
                     <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>

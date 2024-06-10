@@ -246,6 +246,7 @@ svg#clouds {
 .imgA{
   height: 400px;
   border-bottom: 0;
+  opacity: 20%;
 }
 
 .overlay {
@@ -255,6 +256,7 @@ svg#clouds {
   width: 3%;
   height: 41%;
   background-color: #172D5A;
+  display: none;
 }
 
 .overlay-admin {

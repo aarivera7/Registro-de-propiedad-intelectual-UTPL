@@ -4,20 +4,75 @@ button:disabled, input:disabled {
     cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
-.eCont{
+span{
+  font-weight: 400;
+  font-size: 16px;
+}
+
+small{
+  font-size: 12px;
+}
+
+
+
+
+.archive{
   display: flex;
+  flex-direction: column;
+
+}
+
+
+
+.a{
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+
+.a svg{
+  margin-right: 5px;
+}
+
+.a1 svg{
+  margin-right: 5px;
+}
+
+.a2 svg{
+  margin-right: 5px;
+}
+
+.a3 svg{
+  margin-right: 5px;
+}
+
+
+.Cont{
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.container1{
+  width: 1000px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
-.rCont{
-  display: flex;
-  justify-content: space-between;
+.contenido1{
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  width: 380px;
 }
 
-.sPat{
-  display: flex;
-  justify-content: space-between;
-}
+
 
 .truncar-texto {
   overflow: hidden;
@@ -29,4 +84,47 @@ button:disabled, input:disabled {
 .date{
   display: flex;
   flex-direction: column;
+}
+
+.btns{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.a1{
+  display: flex;
+  align-items: center;
+  width: 400px;
+}
+
+.a2{
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+
+.a3{
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+
+.up{
+  width: 45px;
+  background-color: #D3ECBA;
+  border-width: 0.5px;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 34px;
+}
+
+.btAp {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border: none;
 }
