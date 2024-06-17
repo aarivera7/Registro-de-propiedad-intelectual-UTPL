@@ -95,8 +95,16 @@ button {
 }
 
 .titulo{
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+form input{
+  padding: 15px;
+}
+
+.inferior textarea{
+  padding: 15px;
 }
 
 .contenido{
@@ -112,7 +120,7 @@ button {
   font-weight: 400;
   font-size: 14px;
   overflow: hidden;
-  width: 120px;
+  width: 220px;
 }
 
 
@@ -236,7 +244,9 @@ label{
 }
 
 .imgs{
-  width: 100px;
+  width: 120px;
+  overflow: hidden;
+  margin-left: 30px;
 }
 
 .aceptar:disabled, button:disabled {
@@ -248,14 +258,15 @@ label{
 
 .project{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 60vw;
     background-color: white;
     margin: 10px 0;
     height: 122px;
     border-radius: 20px;
     align-items: center;
-
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .project img{

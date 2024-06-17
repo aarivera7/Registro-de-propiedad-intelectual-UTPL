@@ -65,10 +65,10 @@
     <h3 class="desc">Descripción</h3>
     <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)" >
       <div class="imgs" *ngIf="'user' == user.rol">
-        <img *ngIf="project.type === 'patent'" src="../../assets/images/prueba.png" alt="Patente" >
-        <img *ngIf="project.type === 'copyright-software'" src="../../assets/images/cs.jpeg" >
-        <img *ngIf="project.type === 'copyright-database'" src="../../assets/images/cd.webp"  >
-        <img *ngIf="project.type === 'industrial-secret'" src="../../assets/images/is.jpg"  >
+        <img *ngIf="project.type === 'patent'" src="../../assets/icons/patente.svg" alt="Patente" >
+        <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
+        <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/baseDatos.svg"  >
+        <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/sIndustrial.svg"  >
       </div>
 
       <div class="stroke">
@@ -84,10 +84,14 @@
 
       </div>
       <div class="fecha">
-        <p class="titulo"><small>Detalles</small></p>
+        <p class="titulo">Fecha de creación</p>
         <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div class="contenido1">{{translateProjectType(project.type)}}</div>
+      <div class="fecha">
+        <p class="titulo">Tipo de propiedad intelectual</p>
+        <div class="contenido1">{{translateProjectType(project.type)}}</div>
+      </div>
+
       <div *ngIf="'admin' == user.rol" class="botones">
         <button [disabled]="project.publish" (click)="approveProject(project)" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
         <button [disabled]="project.publish" (click)="nonApproveProject(project)" class="btn"><img src="assets/icons/NoAprobar.svg"></button>

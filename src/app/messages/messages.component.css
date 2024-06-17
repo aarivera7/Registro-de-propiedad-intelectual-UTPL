@@ -177,7 +177,8 @@ dialog{
 
 .superior{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-right: 70px;
 }
 
 
@@ -231,9 +232,14 @@ dialog{
   color: #A5A5A5;
 }
 
+#evidence{
+  display: none;
+}
+
 label{
   font-weight: 400;
   font-size: 16px;
+  cursor: pointer;
 }
 
 #subject{

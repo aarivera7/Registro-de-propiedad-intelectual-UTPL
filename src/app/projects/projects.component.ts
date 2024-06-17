@@ -49,13 +49,13 @@ export class ProjectsComponent {
   getStrokeColor(type: string): string {
     switch (type) {
       case 'patent':
-        return '#C761D8';
+        return '#64B07D';
       case 'copyright-software':
-        return '#FFAB00';
+        return '#CED053';
       case 'copyright-database':
-        return '#FF00AB';
+        return '#D05353';
       case 'industrial-secret':
-        return '#6486CB';
+        return '#6475B0';
       default:
         return '#000000'
     }
