@@ -1,26 +1,33 @@
-<label for="descriptiveMemory">Memoria descriptiva</label>
-<ng-container *ngIf="user && user.rol == 'user'">
-  <input [disabled]="project.approveStep2" type="file" accept=".pdf" id="descriptiveMemory" #upload>
-  <!--[value]="project.documents['descriptiveMemories'].documents[0]"-->
-  <a target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
-  <div class="texto">
-    <p>Cargar en PDF</p>
-    <p>Memoria descriptiva</p>
-    <b>Observaciones</b>
-    <p *ngIf="project.documents && project.documents['descriptiveMemories']">{{ project.documents['descriptiveMemories'].observation }}</p>
-  </div>
+<div class="parent-container">
+  <label for="descriptiveMemory">Memoria descriptiva</label>
+  <ng-container *ngIf="user && user.rol == 'user'">
+    <input  [disabled]="project.approveStep2" type="file" accept=".pdf" id="descriptiveMemory" #upload>
+    <a  target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
+    <div class="texto">
+      <p>Cargar en PDF</p>
+      <p>Memoria descriptiva</p>
+      <b>Observaciones</b>
+      <p *ngIf="project.documents && project.documents['descriptiveMemories']">{{ project.documents['descriptiveMemories'].observation }}</p>
+    </div>
+    <div class="contBoton">
+      <button [disabled]="project.approveStep2" (click)="uploadPDF(upload)">Guardar y enviar</button>
+    </div>
+  </ng-container>
+  <form [formGroup]="formObservations" *ngIf="user && user.rol == 'admin'">
+    <div class="texto1">
+      <p>Descargar en PDF</p>
+      <p>Memoria descriptiva</p>
+      <a target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
+      <label for="observations"></label>
+      <h4>Observaciones/Correcciones</h4>
 
-  <div class="contBoton">
-    <button [disabled]="project.approveStep2" (click)="uploadPDF(upload)">Guardar y enviar</button>
-  </div>
-</ng-container>
-<form [formGroup]="formObservations" *ngIf="user && user.rol == 'admin'">
-  <p>Descargar en PDF</p>
-  <p>Memoria descriptiva</p>
-  <a target="_blank" [href]="url" *ngIf="url">Archivo Subido</a>
-  <label for="observations"></label>
-  <input type="text" id="observations" formControlName="observations">
-  <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="approve()">Aprobar</button>
-  <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="updateObservations()" >Pedir correcciones</button>
-</form>
+      <input type="text" id="observations" formControlName="observations">
+    </div>
 
+    <div class="contBoton1">
+      <button [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="approve()">Aprobar</button>
+      <button class="correo" [disabled]="project.documents && project.documents.descriptiveMemories.status == 'Aceptado'" (click)="updateObservations()" >Pedir correcciones</button>
+    </div>
+
+  </form>
+</div>

@@ -30,7 +30,22 @@ button{
 
 .info{
   text-align: center;
+  padding: 15px;
 }
+
+.s{
+  display: flex;
+  align-items: center;
+}
+
+.s button{
+  margin: 15px;
+}
+
+body{
+  width: 120%;
+}
+
 
 h4{
   font-weight: 400;

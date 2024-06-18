@@ -15,7 +15,7 @@ button {
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border: none;
 }
@@ -25,29 +25,55 @@ button {
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 15px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+  padding: 10px;
   border: none;
+  width: 100px;
+}
+
+#types-properties{
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid #172D5A;
 }
 
 .p1 input{
   border-radius: 10px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border: none;
 
+}
+
+.buscar input{
+  border-radius: 10px 0  0 10px;
 }
 
 .bus{
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   width: 370px;
+  padding: 10px;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.10);
 }
+
+.stroke{
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+
+.name{
+  margin-right: 10px;
+}
+
 
 .list{
   border-bottom-color: #172D5A;
   border-radius: 10px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border-top: none;
   border-left: none;
@@ -65,11 +91,20 @@ button {
 .buscar{
   display: flex;
   justify-content: space-between;
+
 }
 
 .titulo{
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+form input{
+  padding: 15px;
+}
+
+.inferior textarea{
+  padding: 15px;
 }
 
 .contenido{
@@ -78,8 +113,17 @@ button {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 200px;
+  width: 150px;
 }
+
+.contenido1{
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  width: 220px;
+}
+
+
 
 .botones{
   display: flex;
@@ -103,6 +147,8 @@ dialog{
   display: flex;
   justify-content: space-evenly;
 }
+
+
 
 .parte1{
   display: flex;
@@ -173,12 +219,17 @@ label{
   align-items: center;
 }
 
+.top{
+  position: relative;
+}
+
+
 .cancelar {
   border-radius: 10px;
   color: #172D5A;
   cursor: pointer;
   background: white;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 10px 30px;
   border: none;
 }
@@ -187,27 +238,35 @@ label{
   color: white;
   cursor: pointer;
   background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 10px 30px;
   border: none;
 }
 
+.imgs{
+  width: 120px;
+  overflow: hidden;
+  margin-left: 30px;
+}
+
 .aceptar:disabled, button:disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
-  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  opacity: 0.2; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
 
 .project{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 60vw;
     background-color: white;
     margin: 10px 0;
     height: 122px;
     border-radius: 20px;
     align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .project img{
@@ -228,6 +287,7 @@ label{
 .registerpi {
     margin-left: 29em;
 }
+
 
 .btn{
   padding: 0;

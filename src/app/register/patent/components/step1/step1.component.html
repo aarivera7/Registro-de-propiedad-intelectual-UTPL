@@ -23,9 +23,9 @@
     <button [disabled]="project.approveStep1" (click)="updateProject()" *ngIf="user.rol == 'user'">Guardar y enviar</button>
   </div>
 
-  <div *ngIf="user.rol == 'admin'">
+  <div class="contBoton1" *ngIf="user.rol == 'admin'">
     <button [disabled]="project.approveStep1" (click)="approve()">Aprobar</button>
-    <button (click)="sendEmail()">Enviar Correo</button>
+    <button class="correo" (click)="sendEmail()">Enviar Correo</button>
   </div>
 </form>
 

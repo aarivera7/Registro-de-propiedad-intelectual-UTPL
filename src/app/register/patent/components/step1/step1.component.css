@@ -5,7 +5,7 @@ form {
 }
 
 div {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 label {
@@ -58,4 +58,20 @@ button {
 .contBoton{
   display: flex;
   justify-content: center;
+}
+
+.contBoton1{
+  display: flex;
+  justify-content: center;
+}
+
+.contBoton1 button{
+  margin: 20px ;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.correo{
+  background-color: #6486CB;
+  border: none;
 }

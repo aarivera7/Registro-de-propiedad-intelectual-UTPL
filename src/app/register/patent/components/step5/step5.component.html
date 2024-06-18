@@ -1,27 +1,35 @@
 <form [formGroup]="formStatus"  *ngIf="!typeDocument && project.documents">
-    <button [disabled]="project.approveStep5" (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
-    <button [disabled]="!isApprovable() || project.approveStep5" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
 
-    <div>
+  <div class="contBoton1">
+    <button class="correo" [disabled]="project.approveStep5" (click)="changeStatus()" *ngIf="user.rol == 'admin'">Guardar cambios</button>
+    <button  [disabled]="!isApprovable() || project.approveStep5" (click)="approve()" *ngIf="user.rol == 'admin'">Aprobar</button>
+  </div>
+
+
+    <div class="titulos">
         <span> Documento </span>
         <span> Estado </span>
         <span> Fecha </span>
         <span *ngIf="user.rol == 'admin'">Observación</span>
     </div>
-    
-    <ng-container *ngIf="project.documents"> 
-        <div *ngFor=" let type of typeDocuments let i = index">
+
+    <ng-container *ngIf="project.documents" >
+        <div *ngFor=" let type of typeDocuments let i = index" class="documentos">
             <span>{{ i+1 }}</span>
-            <div>
-                <span>{{ nameDocuments[i] }}</span>
+            <div class="contDoc">
+                <span class="truncar-texto">{{ nameDocuments[i] }}</span>
+
 
                 <ng-container *ngIf="project.documents[type] else default">
-
-                    <select *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Aceptado">Aceptado</option>
-                        <option value="Incompleto">Incompleto</option>
+                  <div class="divSlc">
+                    <select class="slc" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
+                      <option value="Pendiente">Pendiente</option>
+                      <option value="Aceptado">Aceptado</option>
+                      <option value="Incompleto">Incompleto</option>
                     </select>
+                  </div>
+
+
                     <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
                     <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
@@ -31,20 +39,21 @@
                         <input type="text" formControlName="{{type}}Observation">
                     </div>
 
-                    <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
+                    <div class="bts" *ngIf="user.rol == 'user' && type != 'sourceCode'">
                         <button (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
                         <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
                         <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
                     </div>
                 </ng-container>
-                
+
                 <ng-template #default>
-                    
-                    <select *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
+
+                    <select class="slc" *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
                         <option selected value="Pendiente">Pendiente</option>
                         <option disabled value="Aceptado" >Aceptado</option>
                         <option disabled value="Incompleto" >Incompleto</option>
                     </select>
+
                     <span *ngIf="user.rol == 'user'"> Pendiente </span>
 
                     <span> Sin Fecha </span>
@@ -53,15 +62,30 @@
                         <input type="text" formControlName="{{type}}Observation">
                     </div>
 
-                    <div *ngIf="user.rol == 'user' && type != 'sourceCode'">
-                        <button [disabled]="true" (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
-                        <button (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
-                        <button [disabled]="true" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
+                    <div class="btns" *ngIf="user.rol == 'user' && type != 'sourceCode'">
+                      <button title="Descargar archivo" [disabled]="true" (click)="redirectUpdateDocuments(type, 'download')" class="descargar"> <svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
+                        <rect x="0.621338" y="0.25" width="39.4438" height="33.5" rx="1.75" fill="#DBE5F8" stroke="#172D5A" stroke-width="0.5"/>
+                        <path d="M18.7532 9H20.9822C21.3528 9 21.6509 9.31348 21.6509 9.70312V14.625H24.0944C24.5904 14.625 24.8384 15.2549 24.4873 15.624L20.2494 20.083C20.0404 20.3027 19.6977 20.3027 19.4888 20.083L15.2453 15.624C14.8942 15.2549 15.1422 14.625 15.6381 14.625H18.0845V9.70312C18.0845 9.31348 18.3826 9 18.7532 9ZM27.0005 20.0156V23.2969C27.0005 23.6865 26.7024 24 26.3318 24H13.4036C13.033 24 12.7349 23.6865 12.7349 23.2969V20.0156C12.7349 19.626 13.033 19.3125 13.4036 19.3125H17.491L18.8563 20.748C19.4163 21.3369 20.3191 21.3369 20.8791 20.748L22.2444 19.3125H26.3318C26.7024 19.3125 27.0005 19.626 27.0005 20.0156ZM23.5455 22.5938C23.5455 22.2715 23.2948 22.0078 22.9883 22.0078C22.6818 22.0078 22.431 22.2715 22.431 22.5938C22.431 22.916 22.6818 23.1797 22.9883 23.1797C23.2948 23.1797 23.5455 22.916 23.5455 22.5938ZM25.3287 22.5938C25.3287 22.2715 25.078 22.0078 24.7715 22.0078C24.465 22.0078 24.2142 22.2715 24.2142 22.5938C24.2142 22.916 24.465 23.1797 24.7715 23.1797C25.078 23.1797 25.3287 22.916 25.3287 22.5938Z" fill="#ACA9A5"/>
+                      </svg></button>
+                      <button title="Subir archivo" (click)="redirectUpdateDocuments(type, 'upload')" class="subir"><svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
+                        <rect x="0.531738" width="40.4193" height="34" rx="2" fill="#D9D9D9"/>
+                        <path d="M21.427 24.9333L18.9008 24.9333C18.4809 24.9333 18.143 24.6017 18.143 24.1895L18.143 18.9833L15.3736 18.9833C14.8115 18.9833 14.5305 18.317 14.9284 17.9265L19.7313 13.2099C19.9682 12.9775 20.3566 12.9775 20.5934 13.2099L25.4027 17.9265C25.8005 18.317 25.5195 18.9833 24.9574 18.9833L22.1849 18.9833L22.1849 24.1895C22.1849 24.6017 21.847 24.9333 21.427 24.9333ZM12.0801 13.2812L12.0801 9.81037C12.0801 9.39821 12.418 9.06662 12.8379 9.06662L27.4899 9.06662C27.9099 9.06662 28.2478 9.39821 28.2478 9.81037L28.2478 13.2812C28.2478 13.6934 27.9099 14.025 27.4899 14.025L22.8575 14.025L21.3102 12.5065C20.6755 11.8836 19.6524 11.8836 19.0177 12.5065L17.4704 14.025L12.8379 14.025C12.418 14.025 12.0801 13.6934 12.0801 13.2812ZM15.9957 10.5541C15.9957 10.895 16.2799 11.1739 16.6273 11.1739C16.9746 11.1739 17.2588 10.895 17.2588 10.5541C17.2588 10.2132 16.9746 9.93433 16.6273 9.93433C16.2799 9.93433 15.9957 10.2132 15.9957 10.5541ZM13.9747 10.5541C13.9747 10.895 14.2589 11.1739 14.6063 11.1739C14.9536 11.1739 15.2378 10.895 15.2378 10.5541C15.2378 10.2132 14.9536 9.93433 14.6063 9.93433C14.2589 9.93433 13.9747 10.2132 13.9747 10.5541Z" fill="#ACA9A5"/>
+                      </svg></button>
+                      <button title="Borrar archivo" [disabled]="true" (click)="redirectUpdateDocuments(type, 'delete')" class="borrar"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <g clip-path="url(#clip0_1090_3215)">
+                          <path d="M15.3792 11.2V18.9778H9.29251V11.2H15.3792ZM14.2379 6.53333H10.4338L9.67293 7.3111H7.01001V8.86666H17.6617V7.3111H14.9988L14.2379 6.53333ZM16.9009 9.64444H7.77084V18.9778C7.77084 19.8333 8.45559 20.5333 9.29251 20.5333H15.3792C16.2161 20.5333 16.9009 19.8333 16.9009 18.9778V9.64444Z" fill="#ACA9A5"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1090_3215">
+                            <rect width="26.6292" height="28" fill="white" transform="translate(0.796631)"/>
+                          </clipPath>
+                        </defs>
+                      </svg></button>
                     </div>
                 </ng-template>
             </div>
         </div>
-    </ng-container>   
+    </ng-container>
 </form>
 
 <app-multiple-file-load *ngIf="typeDocument && operation" [project]="project" [title]="getTitle(typeDocument)" [description]="" [type]="'.pdf'" [typeDocument]="typeDocument" [numStep]="5" [operation]="operation" [rol]="user.rol"></app-multiple-file-load>

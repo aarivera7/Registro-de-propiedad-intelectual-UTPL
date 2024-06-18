@@ -43,8 +43,8 @@ import {InfoComponent} from "./info/info";
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
-  {path:'', component:LoginComponent, ...canActivate(() => redirectLoggedInTo(['/projects']))},
-  {path:'login', component: LoginComponent, ...canActivate(() => redirectLoggedInTo(['/projects']))},
+  {path:'', component:LoginComponent, ...canActivate(() => redirectLoggedInTo(['/info']))},
+  {path:'login', component: LoginComponent, ...canActivate(() => redirectLoggedInTo(['/info']))},
   {path:'info', component:InfoComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path:'projects', component:ProjectsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
   {path:'certifications', component:CertificationsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},

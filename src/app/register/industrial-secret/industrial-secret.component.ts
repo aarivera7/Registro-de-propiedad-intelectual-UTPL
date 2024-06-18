@@ -31,7 +31,7 @@ export class IndustrialSecretComponent {
     "Ficha Técnica",
     "Memorias descriptivas",
   ]
-  
+
   typeDocuments: string[] = [
     "idDocuments",
     "teacherStudentCertificate",
@@ -68,7 +68,7 @@ export class IndustrialSecretComponent {
 
       this.controlStep()
     })
-    
+
     this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
 
@@ -89,23 +89,23 @@ export class IndustrialSecretComponent {
     if (this.user.rol == "admin") {
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true
-      } else if (this.step == 1 && !this.project.progressReviewMeeting) {
+      } else if (this.step == 1 && !this.project.finalReviewMeeting) {
         this.nextStepDisabled = true
-      } else if (this.step == 1 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+      } else if (this.step == 1 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
         this.nextStepDisabled = true
       } else {
         this.nextStepDisabled = false
       }
     } else if (this.user.rol == "user") {
-      if (this.step == 1 &&  !this.project.progressReviewMeeting) {
+      if (this.step == 1 &&  !this.project.finalReviewMeeting) {
         this.step -= 1
       }
-      
+
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true
-      } if (this.step == 0 && !this.project.progressReviewMeeting) {
+      } if (this.step == 0 && !this.project.finalReviewMeeting) {
         this.nextStepDisabled = true
-      } else if (this.step == 1 && this.project.progressReviewMeeting && !this.project.progressReviewMeeting.assistance) {
+      } else if (this.step == 1 && this.project.finalReviewMeeting && !this.project.finalReviewMeeting.assistance) {
         this.nextStepDisabled = true
       } else {
         this.nextStepDisabled = false

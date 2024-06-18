@@ -8,17 +8,51 @@
   display: flex;
   justify-content: space-evenly;
   padding: 40px;
+  margin-right: 150px;
 }
 
 form{
-  background: rgba(176, 183, 197, 0.1);
+  background: #eff3f9;
   border-radius: 10px;
+}
+
+.b{
+  width: 100px;
+}
+
+.obs input{
+  width: 190px;
 }
 
 .documentos{
   margin: 10px;
   display: flex;
   align-items: center;
+  padding-bottom: 10px;
+}
+
+.divSlc{
+  width: 130px;
+}
+
+button{
+  z-index: 10000;
+}
+
+.btnPdf{
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #DBE5F8;
+  border: 0.5px solid #172D5A;
+  cursor: pointer;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #ACA9A5;
+  text-align: center;
+}
+
+.btnPdf svg{
+  margin-right: 1px;
 }
 
 .contDoc{
@@ -45,10 +79,45 @@ form{
   padding: 0;
   background-color: white;
   cursor: pointer;
+  box-shadow: none;
 }
 
 .descargar svg{
   height: 100%;
+}
+
+.contBoton1{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contBoton1 button{
+  margin: 20px ;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#state{
+  border-radius: 5px;
+  border: 1px solid  #172D5A;
+  background: #FFF;
+  padding: 12px 16px ;
+}
+
+button {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  padding: 7px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 79px;
+  margin-top: 250px;
+}
+
+.correo{
+  background-color: #6486CB;
+  border: none;
 }
 
 .subir{
@@ -57,6 +126,9 @@ form{
   border: none;
   background-color: white;
   cursor: pointer;
+  width: 40px;
+  height: 35px;
+  box-shadow: none;
 }
 
 .subir svg{
@@ -77,7 +149,7 @@ form{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 250px;
+  width: 200px;
 }
 
 button:disabled, input:disabled {
@@ -85,3 +157,17 @@ button:disabled, input:disabled {
   opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
+
+
+
+.obs{
+  width: 190px;
+}
+
+
+.btns button{
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+

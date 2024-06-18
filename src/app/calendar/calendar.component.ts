@@ -36,13 +36,13 @@ export class CalendarComponent {
 
     this.projectService.getProjects(uid).subscribe(projects => {
       this.calendarOptions.events = projects
-      .filter(project => project.progressReviewMeeting && project.progressReviewMeeting.assistance)
+      .filter(project => project.finalReviewMeeting && project.finalReviewMeeting.assistance)
       .map(project => {
         project = Object.assign(new Project("", "", "", "", "", ""), project)
         return {
           title: project.getName,
-          start: project.progressReviewMeeting.timeStart.toDate(),
-          end: project.progressReviewMeeting.timeFinish.toDate(),
+          start: project.finalReviewMeeting.timeStart.toDate(),
+          end: project.finalReviewMeeting.timeFinish.toDate(),
           display: 'block',
         }
       });

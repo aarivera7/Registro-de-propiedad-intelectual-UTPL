@@ -4,10 +4,24 @@ h2{
   color: #172D5A;
 }
 
+body{
+  width: 115%;
+}
+
+.s{
+  display: flex;
+  align-items: center;
+}
+
+.s button{
+  margin: 15px;
+}
+
 .moveStep{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
 }
 
 h3{
@@ -30,6 +44,7 @@ button{
 
 .info{
   text-align: center;
+  padding: 15px;
 }
 
 h4{

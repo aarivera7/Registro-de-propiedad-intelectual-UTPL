@@ -31,7 +31,7 @@ export class LoginComponent {
       this.loginService.login(this.formLogin.value)
       .then(res => {
         this.isPasswordHidden = true;
-        this.router.navigate(['/projects'])
+        this.router.navigate(['/info'])
       })
       .catch(err => console.log(err))
     }
@@ -51,7 +51,7 @@ export class LoginComponent {
   loginAuthMicrosoft(email: string){
     this.loginService.loginWithMicrosoft(email)
     .then(res => {
-      this.router.navigate(['/projects'])
+      this.router.navigate(['/info'])
     })
     .catch(err => console.log(err));
   }
@@ -59,7 +59,7 @@ export class LoginComponent {
   loginAuthGoogle(email: string){
     this.loginService.loginWithGoogle(email)
     .then(res => {
-      this.router.navigate(['/projects'])
+      this.router.navigate(['/info'])
     })
     .catch(err => {
         console.log(err)
