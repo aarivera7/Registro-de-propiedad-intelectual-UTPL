@@ -40,13 +40,16 @@ export class Step4Component {
       )
     )
 
-    this.project.finalReviewMeeting.timeFinish = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]), parseInt(this.formFinalMeeting.get('timeFinish')?.value.split(':')[0]), parseInt(this.formFinalMeeting.get('timeFinish')?.value.split(':')[1]))
+    this.project.finalReviewMeeting.timeFinish = Timestamp.fromDate(
+      new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]), parseInt(this.formFinalMeeting.get('timeFinish')?.value.split(':')[0]), parseInt(this.formFinalMeeting.get('timeFinish')?.value.split(':')[1]))
+    );
 
     this.project.finalReviewMeeting.assistance = false
     this.project.finalReviewMeeting.place = this.formFinalMeeting.get('place')?.value
     this.project.finalReviewMeeting.modality = this.formFinalMeeting.get('modality')?.value
     this.project.numStep = 4
-    this.projectService.updateProject(this.project).catch(err => console.log(err))
+    // this.projectService.updateProject(this.project).catch(err => console.log(err))
+    this.projectService.addReviewMeeting(this.project, this.project.finalReviewMeeting, "final-review").catch(err => console.log(err))
   }
 
   ngOnChanges(): void {

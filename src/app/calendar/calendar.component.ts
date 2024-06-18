@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { ProjectsService } from '../services/projects.service';
 import { LoginService } from '../services/login.service';
 import { Project } from '../models/project';
+import esLocate from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-calendar',
@@ -16,6 +17,7 @@ export class CalendarComponent {
     initialView: 'timeGridWeek',
     plugins: [dayGridPlugin, timeGridPlugin],
     events: [],
+    locales: [esLocate],
     locale: 'es',
     height: 'auto',
     headerToolbar: {

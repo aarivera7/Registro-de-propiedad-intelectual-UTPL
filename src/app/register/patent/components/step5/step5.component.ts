@@ -41,7 +41,7 @@ export class Step5Component {
     "descriptiveMemories",
   ]
 
-  constructor(private router: Router, private projectsService: ProjectsService) { }
+  constructor(private router: Router, private projectService: ProjectsService) { }
 
   isApprovable(): boolean{
     return this.typeDocuments.filter(typeDocument => 
@@ -55,7 +55,7 @@ export class Step5Component {
         this.project.documents[typeDocument].observation = this.formStatus.get(`${typeDocument}Observation`)?.value
       }
     });
-    this.projectsService.updateProject(this.project);
+    this.projectService.updateProject(this.project);
   }
 
   redirectUpdateDocuments(typeDocument: string, operation: string){
@@ -66,11 +66,15 @@ export class Step5Component {
     return this.nameDocuments[this.typeDocuments.indexOf(typeDocument)]
   }
 
-  approve(): void {
+  async approve(): Promise<void> {
   if(this.isApprovable()){
       this.project.approveStep5 = true
       this.project.numStep = 6
-      this.projectsService.updateProject(this.project);
+      await this.projectService.updateProject(this.project);
+
+      this.projectService.sendEmail(this.project, "approved-step5")
+      .then(a => console.log(a))
+      .catch(err => console.log(err))
     }
   }
 

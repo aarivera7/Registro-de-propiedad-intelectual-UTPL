@@ -53,10 +53,14 @@ export class Step2Component {
     this.projectService.updateProject(this.project)
   }
 
-  approve(): void {
+  async approve(): Promise<void> {
     this.project.documents['descriptiveMemories'].status = "Aceptado"
     this.project.documents['descriptiveMemories'].observation = this.formObservations.get('observations')?.value
-    this.projectService.updateProject(this.project)
+    await this.projectService.updateProject(this.project)
+
+    this.projectService.sendEmail(this.project, "approved-step2")
+    .then(a => console.log(a))
+    .catch(err => console.log(err))
   }
 
   updateObservations(): void {

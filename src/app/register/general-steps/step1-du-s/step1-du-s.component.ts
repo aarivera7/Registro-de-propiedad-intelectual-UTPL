@@ -59,11 +59,13 @@ export class Step1DuSComponent {
     return this.nameDocuments[this.typeDocuments.indexOf(typeDocument)]
   }
 
-  approve(): void {
+  async approve(): Promise<void> {
     if(this.isApprovable()){
       this.project.approveStep1 = true
       this.project.numStep = 2
-      this.projectsService.updateProject(this.project);
+      await this.projectsService.updateProject(this.project);
+
+      this.projectsService.sendEmail(this.project, "approved-step1")
     }
   }
 
@@ -72,11 +74,6 @@ export class Step1DuSComponent {
     
     this.typeDocuments.forEach(typeDocument => {
       if (this.project.documents){
-        if (!this.project.documents['sourceCode'] && this.project.type != "industrial-secret"){
-          this.project.documents['sourceCode'] = {}
-          this.project.documents['sourceCode'].status = "Pendiente"
-          this.project.documents['sourceCode'].observation = ""
-        }
         if (this.project.documents[typeDocument]){
           this.formStatus.addControl(typeDocument, new FormControl(this.project.documents[typeDocument].status))
           this.formStatus.addControl(`${typeDocument}Observation`, new FormControl(this.project.documents[typeDocument].observation))

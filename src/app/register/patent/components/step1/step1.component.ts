@@ -31,14 +31,18 @@ export class Step1Component {
     }).catch(err => console.log(err))
   }
 
-  approve(): void {
+  async approve(): Promise<void> {
     this.project.approveStep1 = true
     this.project.numStep = 2
-    this.projectService.updateProject(this.project)
+    await this.projectService.updateProject(this.project)
+
+    this.projectService.sendEmail(this.project, "approved-step1")
+    .then(a => console.log(a))
+    .catch(err => console.log(err))
   }
 
   sendEmail(): void {
-    this.projectService.sendEmail(this.project)
+    this.projectService.sendEmail(this.project, "sendEmail-step1")
     .then(a => console.log(a))
     .catch(err => console.log(err))
   }
