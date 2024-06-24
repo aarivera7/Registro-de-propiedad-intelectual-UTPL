@@ -22,7 +22,7 @@ export class Step3Component {
   constructor(private projectService: ProjectsService) {}
 
   confirmAssistance(): void {
-    this.project.finalReviewMeeting.assistance = true
+    this.project.progressReviewMeeting.assistance = true
     this.projectService.updateProject(this.project).then(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
     }).catch(err => console.log(err))
@@ -31,32 +31,40 @@ export class Step3Component {
   createMeeting(): void {
     let date = this.formReviewMeeting.get('date')?.value.split('-')
 
-    if (!this.project.finalReviewMeeting)
-      this.project.finalReviewMeeting = {}
+    if (!this.project.progressReviewMeeting)
+      this.project.progressReviewMeeting = {}
 
-    this.project.finalReviewMeeting.timeStart = Timestamp.fromDate(
+    this.project.progressReviewMeeting.timeStart = Timestamp.fromDate(
       new Date(
         parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]),
         parseInt(this.formReviewMeeting.get('timeStart')?.value.split(':')[0]), parseInt(this.formReviewMeeting.get('timeStart')?.value.split(':')[1])
       )
     )
 
-    this.project.finalReviewMeeting.timeFinish = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]), parseInt(this.formReviewMeeting.get('timeFinish')?.value.split(':')[0]), parseInt(this.formReviewMeeting.get('timeFinish')?.value.split(':')[1]))
+    this.project.progressReviewMeeting.timeFinish = Timestamp.fromDate( 
+      new Date(
+        parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]), 
+        parseInt(this.formReviewMeeting.get('timeFinish')?.value.split(':')[0]), 
+        parseInt(this.formReviewMeeting.get('timeFinish')?.value.split(':')[1])
+      )
+    );
 
-    this.project.finalReviewMeeting.assistance = false
-    this.project.finalReviewMeeting.place = this.formReviewMeeting.get('place')?.value
-    this.project.finalReviewMeeting.modality = this.formReviewMeeting.get('modality')?.value
+    this.project.progressReviewMeeting.assistance = false
+    this.project.progressReviewMeeting.place = this.formReviewMeeting.get('place')?.value
+    this.project.progressReviewMeeting.modality = this.formReviewMeeting.get('modality')?.value
     this.project.numStep = 3
-    this.projectService.updateProject(this.project).catch(err => console.log(err))
+    // this.projectService.updateProject(this.project).catch(err => console.log(err))
+
+    this.projectService.addReviewMeeting(this.project, this.project.progressReviewMeeting, "progress-review").catch(err => console.log(err))
   }
 
   ngOnChanges(): void {
     let dStart: Date
     let dFinish: Date
 
-    if (this.project.finalReviewMeeting) {
-      dStart = this.project.finalReviewMeeting.timeStart.toDate();
-      dFinish = this.project.finalReviewMeeting.timeFinish.toDate();
+    if (this.project.progressReviewMeeting) {
+      dStart = this.project.progressReviewMeeting.timeStart.toDate();
+      dFinish = this.project.progressReviewMeeting.timeFinish.toDate();
     } else {
       dStart = new Date()
       dFinish = new Date()
@@ -69,11 +77,11 @@ export class Step3Component {
           [Validators.required, Validators.nullValidator]),
       timeFinish: new FormControl(dFinish.getHours().toString().padStart(2, '0') + ":" + dFinish.getMinutes().toString().padStart(2, '0'),
           [Validators.required, Validators.nullValidator]),
-      place: new FormControl(this.project.finalReviewMeeting?.place),
-      modality: new FormControl(this.project.finalReviewMeeting?.modality, [Validators.required, Validators.nullValidator]),
+      place: new FormControl(this.project.progressReviewMeeting?.place),
+      modality: new FormControl(this.project.progressReviewMeeting?.modality, [Validators.required, Validators.nullValidator]),
     })
 
-    if (this.project.finalReviewMeeting && this.project.finalReviewMeeting.assistance) {
+    if (this.project.progressReviewMeeting && this.project.progressReviewMeeting.assistance) {
       this.formReviewMeeting.disable()
     }
   }

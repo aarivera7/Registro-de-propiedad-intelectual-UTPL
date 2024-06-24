@@ -53,6 +53,10 @@ export class Step3DuSComponent {
         this.project.contract.document = url
         this.project.contract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
+
+        this.projectService.sendEmail(this.project, "contract")
+        .then(a => console.log(a))
+        .catch(err => console.log(err))
       }).catch();
     });
 

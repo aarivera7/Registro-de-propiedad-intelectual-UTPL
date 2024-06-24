@@ -50,11 +50,15 @@ export class Step6Component {
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract.pdf`);
     
     uploadBytesResumable(pdfRef, file).then(task => {
-      getDownloadURL(task.ref).then(url => {  
+      getDownloadURL(task.ref).then(async url => {  
         this.project.contract.document = url
         this.project.numStep = 6
         this.project.contract.date = Timestamp.now()
-        this.projectService.updateProject(this.project)
+        await this.projectService.updateProject(this.project)
+
+        this.projectService.sendEmail(this.project, "contract")
+        .then(a => console.log(a))
+        .catch(err => console.log(err))
       }).catch();
     });
 

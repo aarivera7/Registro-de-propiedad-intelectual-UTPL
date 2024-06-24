@@ -96,6 +96,7 @@ export class ProjectsComponent {
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
       cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}$")]),
+      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
     })
 
     this.openModal = null
@@ -114,6 +115,7 @@ export class ProjectsComponent {
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
       cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
+      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
     })
 
     this.openModal = true
@@ -130,7 +132,7 @@ export class ProjectsComponent {
   nonApproveProject(project: Project): void {
     this.projectService.nonApproveProject(project).then((data) => {
       console.log(data);
-    }).catch(err => console.log(err));
+    });
   }
 
   deleteProject(project: Project): void {
@@ -186,6 +188,7 @@ export class ProjectsComponent {
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
       cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
+      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
     })
   }
 }

@@ -65,7 +65,17 @@ export class ProjectsService {
     return httpsCallable(this.functions, 'publishProject')({id: project.getId})
   }
 
-  sendEmail(project: Project) : Promise<unknown>{
-    return httpsCallable(this.functions, 'sendEmail')({id: project.getId})
+  sendEmail(project: Project, type: string) : Promise<unknown>{
+    return httpsCallable(this.functions, 'sendEmail')({id: project.getId, typeEmail: type})
+  }
+
+  addReviewMeeting(project: Project, meeting: any, type: string) : Promise<unknown>{
+    console.log(project.getId)
+    console.log(meeting)
+    return httpsCallable(this.functions, 'addReviewMeeting')({id: project.getId, type: type, ...meeting})
+  }
+
+  requestsForAdvice() : Promise<unknown>{
+    return httpsCallable(this.functions, 'requestsForAdvice')()
   }
 }

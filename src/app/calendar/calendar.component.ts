@@ -5,11 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { ProjectsService } from '../services/projects.service';
 import { LoginService } from '../services/login.service';
 import { Project } from '../models/project';
-import esLocate from '@fullcalendar/core/locales/es'
-
-
-
-
+import esLocate from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-calendar',
