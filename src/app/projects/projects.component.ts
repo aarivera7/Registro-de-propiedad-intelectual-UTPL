@@ -85,7 +85,7 @@ export class ProjectsComponent {
     this.formProject.setControl('numStep', new FormControl(1));
 
     await this.projectService.addProject(this.formProject.value)
-
+    alert("Proyecto creado con éxito");
     this.formProject = new FormGroup({
       name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       uid: new FormControl(this.loginService.uid),
