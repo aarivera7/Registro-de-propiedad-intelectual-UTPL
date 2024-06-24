@@ -5,7 +5,7 @@
     <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
       <a href="/info" style="text-decoration: underline;">AQUI</a>
     </h6>
-    <button *ngIf="user.rol == 'user'" (click)="openModal = true">Crear registro PI</button>
+    <button *ngIf="user.rol == 'user'" (click)="openModalAddProject()">Crear registro PI</button>
   </div>
 
   <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
@@ -37,7 +37,7 @@
       </div>
 
       <div class="botones">
-        <input class="cancelar" type="reset" value="Cancelar" (click)="openModal = null">
+        <input class="cancelar" type="button" value="Cancelar" (click)="resetForm()">
         <input class="aceptar" type="submit" value="Aceptar" [disabled]="formProject.invalid">
       </div>
     </form>
@@ -63,15 +63,51 @@
 
   <div *ngIf="!openModal">
     <h3 class="desc">Descripción</h3>
-    <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)" >
-      <div class="imgs" *ngIf="'user' == user.rol">
+    <div class="project" *ngFor="let project of filteredProjects">
+      <dialog class="registerpi" *ngIf="'admin' == user.rol && openModalApprove && project == projectApprove" [attr.open]="openModalApprove" >
+        <form>
+          <div class="superior">
+            <div class="parte1">
+              <label for="name">Nombre de la invensión “preliminar”</label>
+              <input class="disabled" type="text" name="name" [value]="projectApprove.getName" disabled>
+              <label for="nameAuthor">Autor solicitante</label>
+              <input class="disabled" type="text" [value]="projectApprove.nameAuthor" disabled>
+              <label for="date">Fecha solicitud</label>
+              <input class="disabled" type="text" id="date" [value]="projectApprove.getCreateDate" disabled >
+            </div>
+            <div class="parte2">
+              <label for="cellphone">Número de celular o ext</label>
+              <input class="disabled" type="tel" id="cellphone" disabled name="cellphone" [value]="projectApprove.cellphone">
+              <label for="type">Tipo de registro</label>
+              <select class="disabled" id="type" name="type" required [value]="projectApprove.type" disabled>
+                <option value="patent">Patente o modelo de utilidad</option>
+                <option value="copyright-software">Derechos de Autor / Software</option>
+                <option value="copyright-database">Derechos de Autor / Base de datos</option>
+                <option value="industrial-secret">Secreto industrial</option>
+              </select>
+            </div>
+          </div>
+          <div class="inferior">
+            <label for="description">Descripción breve de la invensión</label>
+            <textarea class="disabled" id="description" name="description" disabled [value]="projectApprove.description"></textarea>
+          </div>
+    
+          <div class="botones">
+            <input class="cancelar" type="button" value="Cancelar" (click)="openModalApprove = null">
+            <input *ngIf="action == 'Aprobar'" class="aceptar" type="submit" value="Aprobar" (click)="approveProject(projectApprove!)">
+            <input *ngIf="action == 'No aprobar'"  class="aceptar" type="submit" value="No Aprobar" (click)="nonApproveProject(projectApprove!)">
+          </div>
+        </form>
+      </dialog>
+    
+      <div class="imgs" *ngIf="'user' == user.rol" (click)="redirect(project)">
         <img *ngIf="project.type === 'patent'" src="../../assets/icons/patente.svg" alt="Patente" >
         <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
         <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/baseDatos.svg"  >
         <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/sIndustrial.svg"  >
       </div>
 
-      <div class="stroke">
+      <div class="stroke" (click)="redirect(project)">
         <div class="name">
           <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
             <path [attr.stroke]="getStrokeColor(project.type)" stroke-width="5" stroke-linecap="round" d="M3 3V61"/>
@@ -83,18 +119,18 @@
         </div>
 
       </div>
-      <div class="fecha">
+      <div class="fecha" (click)="redirect(project)">
         <p class="titulo">Fecha de creación</p>
         <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div class="fecha">
+      <div class="fecha" (click)="redirect(project)">
         <p class="titulo">Tipo de propiedad intelectual</p>
         <div class="contenido1">{{translateProjectType(project.type)}}</div>
       </div>
 
       <div *ngIf="'admin' == user.rol" class="botones">
-        <button [disabled]="project.publish" (click)="approveProject(project)" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
-        <button [disabled]="project.publish" (click)="nonApproveProject(project)" class="btn"><img src="assets/icons/NoAprobar.svg"></button>
+        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'Aprobar')" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
+        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'No aprobar')" class="btn"><img src="assets/icons/NoAprobar.svg"></button>
         <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn"><img src="assets/icons/eliminar.svg"></button>
       </div>
     </div>

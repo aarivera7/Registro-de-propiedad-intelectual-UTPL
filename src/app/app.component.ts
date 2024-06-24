@@ -33,4 +33,12 @@ export class AppComponent {
       this.user = await this.loginService.getDataUser(aUser.uid)
     })
   }
+
+  ngOnChanges(): void {
+    if (this.router.url == '/info' && this.user && this.user.rol == 'admin') {
+      console.log('Redirecting to projects');
+      
+      this.router.navigate(['/projects'])
+    }
+  }
 }

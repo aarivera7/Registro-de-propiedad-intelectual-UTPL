@@ -18,7 +18,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
+import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo, customClaims } from '@angular/fire/auth-guard'
 
 // Date import
 import localePy from '@angular/common/locales/es-EC'

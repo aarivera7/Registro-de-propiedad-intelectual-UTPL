@@ -185,7 +185,7 @@ dialog{
   border: 1px solid #172D5A;
 }
 
-#date,#nameAuthor{
+#date,#nameAuthor,.parte1 .disabled, .parte2 .disabled{
   border: none;
   background: transparent;
 }

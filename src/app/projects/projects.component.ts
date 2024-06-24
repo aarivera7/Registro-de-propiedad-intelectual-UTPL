@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ProjectsService } from '../services/projects.service';
 import { LoginService } from '../services/login.service';
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ProjectsComponent {
   title = "Tus registros"
   openModal: boolean | null = null
+  openModalApprove: boolean | null = null
   user?: User
   projects?: Project[]
   filteredProjects?: Project[]
@@ -28,7 +29,10 @@ export class ProjectsComponent {
   };
 
   formProject: FormGroup = new FormGroup({})
-
+  
+  projectApprove?: Project
+  action: string = ""
+  
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
   translateProjectType(type: string): string {
@@ -86,47 +90,44 @@ export class ProjectsComponent {
 
     await this.projectService.addProject(this.formProject.value)
 
+    this.resetForm()
+  }
+
+  resetForm(openModal: boolean | null = null): void {
     this.formProject = new FormGroup({
       name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       uid: new FormControl(this.loginService.uid),
-      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
+      nameAuthor: new FormControl({value: this.user?.name + " " + this.user?.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user?.name + " " + this.user?.lastName)]),
       description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       createDate: new FormControl(Timestamp.now()),
       type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
       numStep: new FormControl(0),
       status: new FormControl('En Proceso'),
       cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{10}$")]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      email: new FormControl(this.user?.email, [Validators.required, Validators.email]),
     })
 
-    this.openModal = null
+    this.openModal = openModal
   }
 
   openModalAddProject(): void {
     if (!this.user) return
 
-    this.formProject = new FormGroup({
-      name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-      uid: new FormControl(this.loginService.uid),
-      nameAuthor: new FormControl({value: this.user.name + " " + this.user.lastName, disabled: true}, [Validators.required, Validators.nullValidator, Validators.pattern(this.user.name + " " + this.user.lastName)]),
-      description: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
-      createDate: new FormControl(Timestamp.now()),
-      type: new FormControl<string>('patent', [Validators.required, Validators.nullValidator]),
-      numStep: new FormControl(0),
-      status: new FormControl('En Proceso'),
-      cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-    })
-
-    this.openModal = true
+    this.resetForm(true)
   }
+
+  openModalApproveProject(project: Project, action: string): void {
+    this.projectApprove = project
+    this.action = action
+    this.openModalApprove = true
+  }
+
 
   approveProject(project: Project): void {
     this.projectService.approveProject(project).then((data) => {
       console.log(data);
     }).catch(err => console.log(err));
   }
-
 
 
   nonApproveProject(project: Project): void {
@@ -136,6 +137,9 @@ export class ProjectsComponent {
   }
 
   deleteProject(project: Project): void {
+  if (!confirm("¿Estás seguro de que deseas eliminar este proyecto?"))
+    return;
+
     this.projectService.deleteProject(project).then((data) => {
       console.log(data);
     }).catch(err => console.log(err));

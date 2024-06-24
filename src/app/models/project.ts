@@ -6,6 +6,7 @@ export class Project{
     uid: String
     nameAuthor: String
     private createDate: Timestamp
+    cellphone!: string
     description: String
     type: string
     keywords!: string;
