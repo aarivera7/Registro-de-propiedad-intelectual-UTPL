@@ -10,9 +10,10 @@ import { Auth, user } from '@angular/fire/auth';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+
   user?: User;
   user$;
+  title: string = "";
 
   constructor(protected loginService: LoginService, private router: Router, private auth: Auth){
     this.user$ = user(this.auth);
@@ -37,7 +38,7 @@ export class AppComponent {
   ngOnChanges(): void {
     if (this.router.url == '/info' && this.user && this.user.rol == 'admin') {
       console.log('Redirecting to projects');
-      
+
       this.router.navigate(['/projects'])
     }
   }
