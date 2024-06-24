@@ -11,31 +11,31 @@
 <aside class="sidebar active" id="sidebar" *ngIf="user != null">
   <div class="top">
     <a href="" class="sidebar__a--button"></a>
-    <a href="./info" *ngIf="user.rol == 'user'">
+    <a routerLink="./info" *ngIf="user.rol == 'user'" routerLinkActive="active">
       <div class="asideA">
         <img src="assets/icons/informacion.svg">
         <span>Información</span>
       </div>
     </a>
-    <a href="./projects">
+    <a routerLink="./projects" routerLinkActive="active">
       <div class="asideA">
         <img src="assets/icons/regP.svg">
         <span>Registro de Propiedad</span>
       </div>
     </a>
-    <a href="./certifications" >
+    <a routerLink="./certifications" routerLinkActive="active" >
       <div class="asideA">
         <img src="assets/icons/certificaciones.svg">
         <span>Certificaciones</span>
       </div>
     </a>
-    <a href="./messages">
+    <a routerLink="./messages" routerLinkActive="active">
       <div class="asideA">
         <img src="assets/icons/mensaje.svg">
         <span>Mensajes</span>
       </div>
     </a>
-    <a href="./calendar">
+    <a routerLink="./calendar" routerLinkActive="active">
       <div class="asideA">
         <img src="assets/icons/calendario.svg">
         <span>Mi Calendario</span>

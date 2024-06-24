@@ -40,6 +40,11 @@
   cursor: pointer;
 }
 
+a.active {
+  background-color: #B0BFDD2E;
+  border-radius: 10px;
+}
+
 .btn-off{
   cursor: pointer;
 }

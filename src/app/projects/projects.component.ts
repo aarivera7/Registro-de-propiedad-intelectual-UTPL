@@ -91,6 +91,7 @@ export class ProjectsComponent {
     await this.projectService.addProject(this.formProject.value)
 
     this.resetForm()
+    alert("Proyecto creado con éxito");
   }
 
   resetForm(openModal: boolean | null = null): void {
