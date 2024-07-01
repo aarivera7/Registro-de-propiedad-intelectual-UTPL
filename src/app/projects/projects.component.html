@@ -2,7 +2,7 @@
   <div class="top">
     <h2>Registro de propiedad intelectual</h2>
     <h3>{{ title }}</h3>
-    <h6>Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
+    <h6 *ngIf="user.rol == 'user'">Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
       <a href="/info" style="text-decoration: underline;">AQUI</a>
     </h6>
     <button *ngIf="user.rol == 'user'" (click)="openModalAddProject()">Crear registro PI</button>
