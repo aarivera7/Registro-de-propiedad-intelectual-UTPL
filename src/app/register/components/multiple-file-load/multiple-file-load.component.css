@@ -1,0 +1,30 @@
+.whole{
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.whole h2, h3{
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.whole p{
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #172d5a;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+input[type="file"] {
+  display: none;
+}

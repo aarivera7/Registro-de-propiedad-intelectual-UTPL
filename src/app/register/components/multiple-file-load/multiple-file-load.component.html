@@ -1,32 +1,37 @@
-<h2>{{ title }}</h2>
-<p><b>Subir archivos</b></p>
-<div *ngIf="operation == 'upload'">
+<div class="whole">
+  <h2>{{ title }}</h2>
+  <h3>Subir archivos</h3>
+  <div *ngIf="operation == 'upload'">
     <input type="file" id="file" (change)="uploadPDF($event)" [accept]="type" #upload>
+    <label for="file" class="custom-file-upload">
+      Navegar
+    </label>
     <!-- button [disabled]="upload.value == ''">Agregar más</button -->
-</div>
+  </div>
 
-<h3>Archivos Subidos</h3>
-<div *ngIf="operation == 'upload'">
+  <h3>Archivos Subidos</h3>
+  <div *ngIf="operation == 'upload'">
     <p *ngFor="let url of documents">
-        <a target="_blank" [href]="url">{{ getFileName(url) }}</a>
+      <a target="_blank" [href]="url">{{ getFileName(url) }}</a>
     </p>
-</div>
+  </div>
 
-<div *ngIf="operation == 'download'">
+  <div *ngIf="operation == 'download'">
     <p *ngFor="let url of documents">
-        {{ getFileName(url) }} <a target="_blank" [href]="url" download >Descargar</a>
+      {{ getFileName(url) }} <a target="_blank" [href]="url" download >Descargar</a>
     </p>
-</div>
+  </div>
 
-<div *ngIf="operation == 'delete'">
+  <div *ngIf="operation == 'delete'">
     <div *ngFor="let url of documents">
-        {{ getFileName(url) }} 
-        <button (click)="deletePDF(url)">Borrar</button>
+      {{ getFileName(url) }}
+      <button (click)="deletePDF(url)">Borrar</button>
     </div>
-</div>
-<h3>Observación</h3>
-<p *ngIf="rol == 'user'">{{ observation == '' ? 'No hay observaciones' : observation }}</p>
-<form *ngIf="rol == 'admin'" [formGroup]="formObservations">
+  </div>
+  <h3>Observación</h3>
+  <p *ngIf="rol == 'user'">{{ observation == '' ? 'No hay observaciones' : observation }}</p>
+  <form *ngIf="rol == 'admin'" [formGroup]="formObservations">
     <input type="text" formControlName="observations">
     <button [disabled]="formObservations.invalid" (click)="updateObservation()">Guardar</button>
-</form>
+  </form>
+</div>

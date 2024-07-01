@@ -110,6 +110,10 @@ small{
   width: 200px;
 }
 
+#up{
+  display: none;
+}
+
 .a1{
   display: flex;
   align-items: center;

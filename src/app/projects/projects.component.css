@@ -267,6 +267,7 @@ label{
     align-items: center;
     padding-left: 40px;
     padding-right: 40px;
+    cursor: pointer;
 }
 
 .project img{

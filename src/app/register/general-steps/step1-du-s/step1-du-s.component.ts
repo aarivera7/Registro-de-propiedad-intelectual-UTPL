@@ -12,7 +12,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./step1-du-s.component.css']
 })
 export class Step1DuSComponent {
-  @Input() 
+  @Input()
   project!: Project
   @Input()
   typeDocument?: string
@@ -27,14 +27,14 @@ export class Step1DuSComponent {
 
   @Input()
   nameDocuments!: string[]
-  
+
   @Input()
   typeDocuments!: string[]
 
   constructor(private router: Router, private projectsService: ProjectsService) { }
 
   isApprovable(): boolean{
-    return this.typeDocuments.filter(typeDocument => 
+    return this.typeDocuments.filter(typeDocument =>
       this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
   }
 
@@ -71,7 +71,7 @@ export class Step1DuSComponent {
 
   ngOnChanges(): void {
     this.formStatus = new FormGroup({})
-    
+
     this.typeDocuments.forEach(typeDocument => {
       if (this.project.documents){
         if (this.project.documents[typeDocument]){
@@ -81,7 +81,7 @@ export class Step1DuSComponent {
           this.formStatus.addControl(typeDocument, new FormControl("Pendiente"))
           this.formStatus.addControl(`${typeDocument}Observation`, new FormControl({value: "", disabled: true}))
         }
-      } 
+      }
     })
 
     if (this.project.approveStep1) {
