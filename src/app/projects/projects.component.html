@@ -59,9 +59,10 @@
     </select>
   </div>
 
+  <div class="overlay" *ngIf="openModalApprove || openModal"></div>
 
 
-  <div *ngIf="!openModal">
+  <div *ngIf="!openModal" >
     <h3 class="desc">Descripción</h3>
     <div class="project" *ngFor="let project of filteredProjects">
       <dialog class="registerpi" *ngIf="'admin' == user.rol && openModalApprove && project == projectApprove" [attr.open]="openModalApprove" >
@@ -91,7 +92,7 @@
             <label for="description">Descripción breve de la invensión</label>
             <textarea class="disabled" id="description" name="description" disabled [value]="projectApprove.description"></textarea>
           </div>
-    
+
           <div class="botones">
             <input class="cancelar" type="button" value="Cancelar" (click)="openModalApprove = null">
             <input *ngIf="action == 'Aprobar'" class="aceptar" type="submit" value="Aprobar" (click)="approveProject(projectApprove!)">
@@ -99,7 +100,7 @@
           </div>
         </form>
       </dialog>
-    
+
       <div class="imgs" *ngIf="'user' == user.rol" (click)="redirect(project)">
         <img *ngIf="project.type === 'patent'" src="../../assets/icons/patente.svg" alt="Patente" >
         <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
@@ -114,7 +115,7 @@
           </svg>
         </div>
         <div>
-          <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No Aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
+          <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
           <p class="contenido">{{ project.getName }}</p>
         </div>
 

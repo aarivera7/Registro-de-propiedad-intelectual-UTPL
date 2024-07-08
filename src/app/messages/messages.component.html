@@ -5,6 +5,8 @@
     <button *ngIf="user.rol == 'user'" (click)="openModal = true">Nuevo mensaje</button>
   </div>
 
+  <div class="overlay" *ngIf="openModal"></div>
+
   <dialog class="registerpi" *ngIf="'user' == user.rol" [attr.open]="openModal" >
     <form [formGroup]="formNewMessage" (ngSubmit)="newMessage(upload)" >
       <div class="superior">
