@@ -5,9 +5,17 @@
   <title>Document</title>
 </head>
 <body>
+<app-alert *ngIf="alertMessage" [message]="alertMessage" (close)="alertMessage = undefined"></app-alert>
+
   <h2>Información sobre propiedad intelectual</h2>
   <div class="sup">
-    <input class="cancelar" type="submit" value="Solicitar asesoría" (click)="requestForAdvice()">
+    <div class="bot">
+      <input class="cancelar" type="submit" value="Solicitar asesoría" (click)="requestForAdvice()">
+      <div *ngIf="loading" class="loading-overlay">
+        <div class="loading-icon"></div>
+      </div>
+    </div>
+
     <div class="infoDer">
       <div class="contDocs">
         <h4>Procuraduría</h4>

@@ -21,6 +21,7 @@ export class ProjectsComponent {
   projects?: Project[]
   filteredProjects?: Project[]
   filterText?: string
+  alertMessage?: string
   types: any = {
     'patent': "Patente",
     'industrial-secret': "Secreto Industrial",
@@ -29,10 +30,10 @@ export class ProjectsComponent {
   };
 
   formProject: FormGroup = new FormGroup({})
-  
+
   projectApprove?: Project
   action: string = ""
-  
+
   constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
 
   translateProjectType(type: string): string {
@@ -49,6 +50,8 @@ export class ProjectsComponent {
         return type;
     }
   }
+
+
 
   getStrokeColor(type: string): string {
     switch (type) {
@@ -91,7 +94,7 @@ export class ProjectsComponent {
     await this.projectService.addProject(this.formProject.value)
 
     this.resetForm()
-    alert("Proyecto creado con éxito");
+    this.alertMessage = "Proyecto creado con éxito";
   }
 
   resetForm(openModal: boolean | null = null): void {

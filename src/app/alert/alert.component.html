@@ -1,0 +1,8 @@
+<div class="overlay" *ngIf="message"></div>
+<div class="alert" *ngIf="message">
+  <div class="alert-content">
+    <span>{{ message }}</span>
+    <button (click)="closeAlert()">X</button>
+  </div>
+</div>
+

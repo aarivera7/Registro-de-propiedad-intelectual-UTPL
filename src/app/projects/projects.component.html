@@ -60,9 +60,10 @@
   </div>
 
   <div class="overlay" *ngIf="openModalApprove || openModal"></div>
+  <app-alert *ngIf="alertMessage" [message]="alertMessage" (close)="alertMessage = undefined"></app-alert>
 
 
-  <div *ngIf="!openModal" >
+  <div  >
     <h3 class="desc">Descripción</h3>
     <div class="project" *ngFor="let project of filteredProjects">
       <dialog class="registerpi" *ngIf="'admin' == user.rol && openModalApprove && project == projectApprove" [attr.open]="openModalApprove" >

@@ -28,3 +28,7 @@
 input[type="file"] {
   display: none;
 }
+
+h4 {
+  font-weight: 400;
+}

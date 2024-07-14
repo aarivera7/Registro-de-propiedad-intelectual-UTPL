@@ -1,10 +1,10 @@
 <div class="whole">
   <h2>{{ title }}</h2>
-  <h3>Subir archivos</h3>
+  <h4>Debe subir en este apartado el documento correspondiente ({{title}}).</h4>
   <div *ngIf="operation == 'upload'">
     <input type="file" id="file" (change)="uploadPDF($event)" [accept]="type" #upload>
     <label for="file" class="custom-file-upload">
-      Navegar
+      Subir Archivo de Ordenador
     </label>
     <!-- button [disabled]="upload.value == ''">Agregar más</button -->
   </div>

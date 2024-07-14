@@ -40,6 +40,7 @@ import { Step3DuSComponent } from './register/general-steps/step3-du-s/step3-du-
 import { CopyrightDatabaseComponent } from './register/copyright-database/copyright-database.component';
 import { IndustrialSecretComponent } from './register/industrial-secret/industrial-secret.component';
 import {InfoComponent} from "./info/info";
+import { AlertComponent } from './alert/alert.component';
 registerLocaleData(localePy, 'es')
 
 const appRoutes:Routes=[
@@ -85,6 +86,7 @@ const appRoutes:Routes=[
     CopyrightDatabaseComponent,
     IndustrialSecretComponent,
     InfoComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

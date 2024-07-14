@@ -221,6 +221,7 @@ dialog{
   border-radius: 6px;
   height: 48px;
   border: 1px solid #172D5A;
+  background-color: white;
 }
 
 #date,#nameAuthor, #sender{
