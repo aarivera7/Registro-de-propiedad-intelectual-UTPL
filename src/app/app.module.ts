@@ -1,28 +1,27 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router'
 import { FullCalendarModule } from '@fullcalendar/angular';
+import localePy from '@angular/common/locales/es-EC'
+import { registerLocaleData } from '@angular/common';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+registerLocaleData(localePy, 'es')
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-import { LoginService } from './services/login.service';
-import { ProjectsComponent } from './projects/projects.component';
-import { RequerimentsComponent } from './requeriments/requeriments.component';
-import { CertificationsComponent } from './certifications/certifications.component';
-import { MessagesComponent } from './messages/messages.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo, customClaims } from '@angular/fire/auth-guard'
 
 // Date import
-import localePy from '@angular/common/locales/es-EC'
-import { registerLocaleData } from '@angular/common';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { RequerimentsComponent } from './requeriments/requeriments.component';
+import { CertificationsComponent } from './certifications/certifications.component';
+import { MessagesComponent } from './messages/messages.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PatentComponent } from './register/patent/patent.component';
 import { ProgressBarComponent } from './register/components/progress-bar/progress-bar.component';
@@ -41,25 +40,10 @@ import { CopyrightDatabaseComponent } from './register/copyright-database/copyri
 import { IndustrialSecretComponent } from './register/industrial-secret/industrial-secret.component';
 import {InfoComponent} from "./info/info";
 import { AlertComponent } from './alert/alert.component';
-registerLocaleData(localePy, 'es')
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const appRoutes:Routes=[
-  {path:'', component:LoginComponent, ...canActivate(() => redirectLoggedInTo(['/info']))},
-  {path:'login', component: LoginComponent, ...canActivate(() => redirectLoggedInTo(['/info']))},
-  {path:'info', component:InfoComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path:'projects', component:ProjectsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path:'certifications', component:CertificationsComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'messages', component: MessagesComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'calendar', component: CalendarComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'patent_form/:id/:step', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'patent_form/:id/:step/:typeDocument/:operation', component: PatentComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-software_form/:id/:step', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-software_form/:id/:step/:typeDocument/:operation', component: CopyrightSoftwareComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-database_form/:id/:step', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'copyright-database_form/:id/:step/:typeDocument/:operation', component: CopyrightDatabaseComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'industrial-secret_form/:id/:step', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-  {path: 'industrial-secret_form/:id/:step/:typeDocument/:operation', component: IndustrialSecretComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))},
-]
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -87,11 +71,11 @@ const appRoutes:Routes=[
     IndustrialSecretComponent,
     InfoComponent,
     AlertComponent,
+    NopagefoundComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
@@ -100,6 +84,7 @@ const appRoutes:Routes=[
     provideStorage(() => getStorage()),
     FullCalendarModule,
     ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [LoginService, {provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
