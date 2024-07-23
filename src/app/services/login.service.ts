@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Auth, signInWithEmailAndPassword, signOut, user, signInWithRedirect, OAuthProvider, linkWithPopup, UserCredential, GoogleAuthProvider } from "@angular/fire/auth";
+import { Auth, signInWithEmailAndPassword, signOut, user, signInWithRedirect, signInWithPopup, OAuthProvider, linkWithPopup, UserCredential, GoogleAuthProvider } from "@angular/fire/auth";
 import { Firestore, getDoc, doc } from '@angular/fire/firestore';
 
 import { User } from "../models/user";
@@ -28,7 +28,7 @@ export class LoginService {
         return signInWithEmailAndPassword(this.auth, email, password)
     }
 
-    async loginWithMicrosoft(email: string): Promise<void>{
+    async loginWithMicrosoft(email: string): Promise<UserCredential>{
         const provider = new OAuthProvider('microsoft.com');
         provider.setCustomParameters({
             // Force re-consent.
@@ -38,7 +38,7 @@ export class LoginService {
             tenant: environment.tenant
         });
 
-        return signInWithRedirect(this.auth, provider)
+        return signInWithPopup(this.auth, provider)
     }
 
     async linkWithMicrosoft(): Promise<void>{
@@ -61,13 +61,13 @@ export class LoginService {
         });
     }
 
-    loginWithGoogle(email: string): Promise<void>{
+    loginWithGoogle(email: string): Promise<UserCredential>{
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({
             'login_hint': email
         });
 
-        return signInWithRedirect(this.auth, provider)
+        return signInWithPopup(this.auth, provider)
     }
 
     logout(): Promise<void>{
