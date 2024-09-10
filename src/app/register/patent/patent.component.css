@@ -1,6 +1,6 @@
 .moveStep{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -18,6 +18,7 @@ h3{
 
 .s button{
   margin: 15px;
+  cursor: pointer;
 }
 
 .contenedor{
@@ -29,6 +30,29 @@ h3{
 h2{
   font-weight: 500;
   color: #172D5A;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation h3 {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.navigation button {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+
+.opaco {
+  opacity: 0.5;
+  pointer-events: none; /* Esto hace que el botón no sea clickeable */
 }
 
 .info{

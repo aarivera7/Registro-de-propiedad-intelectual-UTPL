@@ -6,12 +6,12 @@
   </div>
 
 
-    <div class="titulos">
-        <span> Documento </span>
-        <span> Estado </span>
-        <span> Fecha </span>
-        <span *ngIf="user.rol == 'admin'">Observación</span>
-    </div>
+  <div [ngClass]="{ 'ad': user.rol == 'admin' }" class="titulos">
+    <span class="tit"> Documento </span>
+    <span class="est"> Estado </span>
+    <span class="fec"> Fecha </span>
+    <span *ngIf="user.rol == 'admin'"> Observación </span>
+  </div>
 
     <ng-container *ngIf="project.documents" >
         <div *ngFor=" let type of typeDocuments let i = index" class="documentos">
@@ -21,7 +21,10 @@
 
 
                 <ng-container *ngIf="project.documents[type] else default">
-                  <div class="divSlc">
+                  <button class="btnPdf" *ngIf=" type != 'sourceCode'" (click)="redirectUpdateDocuments(type, 'download')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="19" viewBox="0 0 14 19" fill="none">
+                    <path d="M5.39905 7.60721L5.39899 7.60743C5.29937 7.99768 5.29959 8.44823 5.35654 8.94158C5.41084 9.41195 5.51909 9.9395 5.65673 10.5171C5.27074 11.4927 4.72896 12.7444 4.33226 13.5039C3.85865 13.7701 3.23221 14.1819 2.78661 14.6475C2.55341 14.8911 2.34856 15.1711 2.25612 15.4726C2.15866 15.7905 2.18946 16.1276 2.42017 16.4315C2.55677 16.6116 2.7427 16.7318 2.91254 16.8064C3.08053 16.8802 3.25956 16.9213 3.40469 16.9213C3.83506 16.9213 4.21862 16.6863 4.5868 16.2877C4.93945 15.906 5.31112 15.339 5.73168 14.5723C5.8723 14.5223 6.01346 14.4711 6.15465 14.42C6.85995 14.1645 7.56609 13.9087 8.20944 13.7821C8.96689 14.2045 9.85071 14.4906 10.4815 14.4906C10.7966 14.4906 11.0605 14.3968 11.2626 14.2297C11.462 14.0649 11.582 13.8449 11.642 13.6219C11.7567 13.1954 11.6691 12.678 11.3829 12.3743L11.3816 12.3729C11.2079 12.191 10.9706 12.0857 10.734 12.0225C10.4942 11.9585 10.2281 11.9306 9.96812 11.9226C9.50331 11.9082 9.02439 11.9564 8.68588 12.0004C8.12573 11.6086 7.73441 11.08 7.44415 10.2971C7.51865 9.96971 7.61073 9.56031 7.66561 9.1527C7.72348 8.72287 7.7462 8.25564 7.64075 7.87028C7.58834 7.54542 7.44783 7.28758 7.24499 7.10726C7.0401 6.92513 6.78825 6.83691 6.54209 6.82489C6.06756 6.80173 5.53675 7.06956 5.39905 7.60721ZM7.13298 12.6189C6.7944 12.7256 6.47478 12.8561 6.17926 12.9839C6.33183 12.6432 6.47327 12.2929 6.60253 11.9528C6.76787 12.1995 6.94634 12.4221 7.13298 12.6189ZM8.89003 6.2375H13.3056V18.1094C13.3056 18.4568 13.0501 18.7 12.7734 18.7H1.12318C0.846567 18.7 0.591016 18.4568 0.591016 18.1094V0.890625C0.591016 0.543245 0.846567 0.3 1.12318 0.3H7.75786V5.04688C7.75786 5.68289 8.24779 6.2375 8.89003 6.2375ZM9.7457 0.464581L13.1437 4.1013C13.2299 4.19361 13.2861 4.31679 13.3014 4.45H9.46741V0.308668C9.57064 0.328323 9.66774 0.381151 9.7457 0.464581Z" stroke="#514E49" stroke-width="0.6"/>
+                  </svg>PDF </button>
+                  <div class="divSlc" *ngIf="user.rol == 'admin'">
                     <select class="slc" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
                       <option value="Pendiente">Pendiente</option>
                       <option value="Aceptado">Aceptado</option>
@@ -30,20 +33,36 @@
                   </div>
 
 
-                    <span *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
+                  <span class="b" *ngIf="user.rol == 'user'"> {{ project.documents[type].status }} </span>
 
-                    <span> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
-                    <button *ngIf="user.rol == 'admin'" (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
+                  <span class="b" *ngIf="project.documents[type].date"> {{ project.documents[type].date.toDate() | date:"longDate" }} </span>
 
-                    <div *ngIf="user.rol == 'admin'">
-                        <input type="text" formControlName="{{type}}Observation">
-                    </div>
+                  <div class="obs" *ngIf="user.rol == 'admin'">
+                    <input type="text" formControlName="{{type}}Observation">
+                  </div>
 
-                    <div class="bts" *ngIf="user.rol == 'user' && type != 'sourceCode'">
-                        <button (click)="redirectUpdateDocuments(type, 'download')">Descargar</button>
-                        <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'upload')">Subir</button>
-                        <button [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'delete')">Eliminar</button>
-                    </div>
+
+
+                  <div title="Descargar archivo" *ngIf="user.rol == 'user' && type != 'sourceCode'" class="btns">
+                    <button (click)="redirectUpdateDocuments(type, 'download')" class="descargar"><svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
+                      <rect x="0.621338" y="0.25" width="39.4438" height="33.5" rx="1.75" fill="#DBE5F8" stroke="#172D5A" stroke-width="0.5"/>
+                      <path d="M18.7532 9H20.9822C21.3528 9 21.6509 9.31348 21.6509 9.70312V14.625H24.0944C24.5904 14.625 24.8384 15.2549 24.4873 15.624L20.2494 20.083C20.0404 20.3027 19.6977 20.3027 19.4888 20.083L15.2453 15.624C14.8942 15.2549 15.1422 14.625 15.6381 14.625H18.0845V9.70312C18.0845 9.31348 18.3826 9 18.7532 9ZM27.0005 20.0156V23.2969C27.0005 23.6865 26.7024 24 26.3318 24H13.4036C13.033 24 12.7349 23.6865 12.7349 23.2969V20.0156C12.7349 19.626 13.033 19.3125 13.4036 19.3125H17.491L18.8563 20.748C19.4163 21.3369 20.3191 21.3369 20.8791 20.748L22.2444 19.3125H26.3318C26.7024 19.3125 27.0005 19.626 27.0005 20.0156ZM23.5455 22.5938C23.5455 22.2715 23.2948 22.0078 22.9883 22.0078C22.6818 22.0078 22.431 22.2715 22.431 22.5938C22.431 22.916 22.6818 23.1797 22.9883 23.1797C23.2948 23.1797 23.5455 22.916 23.5455 22.5938ZM25.3287 22.5938C25.3287 22.2715 25.078 22.0078 24.7715 22.0078C24.465 22.0078 24.2142 22.2715 24.2142 22.5938C24.2142 22.916 24.465 23.1797 24.7715 23.1797C25.078 23.1797 25.3287 22.916 25.3287 22.5938Z" fill="#ACA9A5"/>
+                    </svg></button>
+                    <button title="Subir archivo" [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'upload')" class="subir"><svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
+                      <rect x="0.531738" width="40.4193" height="34" rx="2" fill="#D9D9D9"/>
+                      <path d="M21.427 24.9333L18.9008 24.9333C18.4809 24.9333 18.143 24.6017 18.143 24.1895L18.143 18.9833L15.3736 18.9833C14.8115 18.9833 14.5305 18.317 14.9284 17.9265L19.7313 13.2099C19.9682 12.9775 20.3566 12.9775 20.5934 13.2099L25.4027 17.9265C25.8005 18.317 25.5195 18.9833 24.9574 18.9833L22.1849 18.9833L22.1849 24.1895C22.1849 24.6017 21.847 24.9333 21.427 24.9333ZM12.0801 13.2812L12.0801 9.81037C12.0801 9.39821 12.418 9.06662 12.8379 9.06662L27.4899 9.06662C27.9099 9.06662 28.2478 9.39821 28.2478 9.81037L28.2478 13.2812C28.2478 13.6934 27.9099 14.025 27.4899 14.025L22.8575 14.025L21.3102 12.5065C20.6755 11.8836 19.6524 11.8836 19.0177 12.5065L17.4704 14.025L12.8379 14.025C12.418 14.025 12.0801 13.6934 12.0801 13.2812ZM15.9957 10.5541C15.9957 10.895 16.2799 11.1739 16.6273 11.1739C16.9746 11.1739 17.2588 10.895 17.2588 10.5541C17.2588 10.2132 16.9746 9.93433 16.6273 9.93433C16.2799 9.93433 15.9957 10.2132 15.9957 10.5541ZM13.9747 10.5541C13.9747 10.895 14.2589 11.1739 14.6063 11.1739C14.9536 11.1739 15.2378 10.895 15.2378 10.5541C15.2378 10.2132 14.9536 9.93433 14.6063 9.93433C14.2589 9.93433 13.9747 10.2132 13.9747 10.5541Z" fill="#ACA9A5"/>
+                    </svg></button>
+                    <button title="Eliminar archivo" [disabled]="project.documents[type].status == 'Aceptado'" (click)="redirectUpdateDocuments(type, 'delete')" class="borrar"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <g clip-path="url(#clip0_1090_3215)">
+                        <path d="M15.3792 11.2V18.9778H9.29251V11.2H15.3792ZM14.2379 6.53333H10.4338L9.67293 7.3111H7.01001V8.86666H17.6617V7.3111H14.9988L14.2379 6.53333ZM16.9009 9.64444H7.77084V18.9778C7.77084 19.8333 8.45559 20.5333 9.29251 20.5333H15.3792C16.2161 20.5333 16.9009 19.8333 16.9009 18.9778V9.64444Z" fill="#ACA9A5"/>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1090_3215">
+                          <rect width="26.6292" height="28" fill="white" transform="translate(0.796631)"/>
+                        </clipPath>
+                      </defs>
+                    </svg></button>
+                  </div>
                 </ng-container>
 
                 <ng-template #default>

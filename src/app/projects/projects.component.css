@@ -36,6 +36,11 @@ button {
   border: none;
   padding: 10px;
   border-bottom: 1px solid #172D5A;
+
+}
+
+.asu{
+  visibility: hidden;
 }
 
 .p1 input{
@@ -296,6 +301,7 @@ label{
 .registerpi {
     margin-left: 29em;
   z-index: 1;
+  border-radius: 10px;
 }
 
 

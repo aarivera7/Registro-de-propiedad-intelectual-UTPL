@@ -20,7 +20,7 @@
           <input type="text" id="date" disabled value="{{ getDate() | date:'longDate' }}">
         </div>
         <div class="parte2">
-          <label for="cellphone">Número de celular o ext</label>
+          <label for="cellphone">Número de celular o extensión UTPL</label>
           <input type="tel" id="cellphone" formControlName="cellphone" name="cellphone" required >
           <label for="type">Tipo de registro</label>
           <select id="type" name="type" required formControlName="type">
@@ -49,7 +49,7 @@
       <button class="btnBuscar" (click)="filterResults(filter.value)">Buscar</button>
     </div>
 
-    <select id="types-properties">
+    <select id="types-properties" class="asu">
       <option selected disabled>Eliga una opción</option>
       <!-- option value="patent">Patente</option>
       <option value="copyright-software">Derechos de Autor / Software</option>
