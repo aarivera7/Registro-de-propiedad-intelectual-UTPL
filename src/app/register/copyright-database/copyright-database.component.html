@@ -13,7 +13,8 @@
 <div *ngIf="project && user">
     <div *ngIf="!typeDocument" class="moveStep">
       <div class="s">
-        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
+
+        <button [ngClass]="{ 'opaco': step <= 0 }" (click)="redirect(project, step-1)"><svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
           <g filter="url(#filter0_i_224_2687)">
             <mask id="path-1-inside-1_224_2687" fill="white">
               <path d="M1.0265 5.5L5.87857 0.700161C6.04366 0.536877 6.03995 0.27572 5.87029 0.116853C5.70063 -0.0420202 5.42931 -0.0384398 5.26429 0.124839L0.121415 5.21235C-0.0404716 5.37246 -0.0404716 5.62755 0.121415 5.78765L5.26429 10.8752C5.42931 11.0384 5.70063 11.042 5.87029 10.8831C6.03995 10.7243 6.04366 10.4631 5.87857 10.2999L1.0265 5.5Z"/>
@@ -38,14 +39,11 @@
               <feBlend mode="normal" in2="shape" result="effect1_innerShadow_224_2687"/>
             </filter>
           </defs>
-        </svg>
-        <button *ngIf="step > 0" (click)="redirect(project, step-1)">Volver</button>
-      </div>
+        </svg>  Volver</button>
 
         <h3> {{ longTitleSteps[step] }} </h3>
-      <div class="s">
-        <button [disabled]="nextStepDisabled" *ngIf="step  < steps.length - 1" (click)="redirect(project, step+1)">Avanzar</button>
-        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
+
+        <button [disabled]="nextStepDisabled" [ngClass]="{ 'opaco': step>= steps.length-1 }" (click)="redirect(project, step+1)">Avanzar  <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
           <g filter="url(#filter0_i_224_1581)">
             <mask id="path-1-inside-1_224_1581" fill="white">
               <path d="M5.9735 5.5L1.12143 0.700161C0.95634 0.536877 0.960055 0.27572 1.12971 0.116853C1.29937 -0.0420202 1.57069 -0.0384398 1.73571 0.124839L6.87859 5.21235C7.04047 5.37246 7.04047 5.62755 6.87859 5.78765L1.73571 10.8752C1.57069 11.0384 1.29937 11.042 1.12971 10.8831C0.960055 10.7243 0.95634 10.4631 1.12143 10.2999L5.9735 5.5Z"/>
@@ -70,8 +68,11 @@
               <feBlend mode="normal" in2="shape" result="effect1_innerShadow_224_1581"/>
             </filter>
           </defs>
-        </svg>
+        </svg></button>
       </div>
+
+
+
     </div>
 
   <div *ngIf="typeDocument" class="moveStep">

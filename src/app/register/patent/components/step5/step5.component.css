@@ -130,8 +130,7 @@ form{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 220px;
-  margin-left: 10px;
+  width: 200px;
 }
 
 .divSlc{
@@ -143,5 +142,100 @@ form{
   margin-bottom: 0;
 }
 
+.btns{
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.descargar{
+  border-radius: 2px;
+  border: none;
+  margin-right: 20px;
+  padding: 0;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.descargar svg{
+  height: 100%;
+}
+
+.subir{
+  margin-right: 20px;
+  padding: 0;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  width: 40px;
+  height: 35px;
+  box-shadow: none;
+}
+
+.subir svg{
+  height: 100%;
+}
+
+.borrar{
+  border: none;
+  background-color: #F6A4B833;
+  border-radius: 5px;
+  width: 40px;
+  height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.obs{
+  width: 190px;
+}
+
+.b{
+  width: 100px;
+}
+
+.obs input{
+  width: 190px;
+}
+
+.ad .est{
+  margin-left: 70px;
+}
+
+.fec{
+  margin-right: 25px;
+}
+
+.tit{
+  margin-right: 30px;
+}
+
+.est{
+  margin-right: 35px;
+  margin-left: 180px;
+}
+
+.ad{
+  margin-right: 15px;
+  justify-content: space-between;
+  margin-left: 80px;
+}
+
+.btnPdf{
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #DBE5F8;
+  border: 0.5px solid #172D5A;
+  cursor: pointer;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #ACA9A5;
+  text-align: center;
+  margin-right: 25px;
+  margin-left: 10px;
+}
+
+.btnPdf svg{
+  margin-right: 1px;
+}
 

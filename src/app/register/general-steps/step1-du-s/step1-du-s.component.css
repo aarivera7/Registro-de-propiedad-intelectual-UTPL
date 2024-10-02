@@ -11,6 +11,28 @@
   margin-right: 150px;
 }
 
+.ad .est{
+  margin-left: 70px;
+}
+
+.fec{
+  margin-right: 25px;
+}
+
+.tit{
+  margin-right: 30px;
+}
+
+.est{
+  margin-right: 35px;
+}
+
+.ad{
+  margin-right: 15px;
+  justify-content: space-between;
+  margin-left: 80px;
+}
+
 form{
   background: #eff3f9;
   border-radius: 10px;
@@ -23,6 +45,7 @@ form{
 .obs input{
   width: 190px;
 }
+
 
 .documentos{
   margin: 10px;

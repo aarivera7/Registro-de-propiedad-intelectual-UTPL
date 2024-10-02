@@ -216,6 +216,10 @@ dialog{
   border: 1px solid #172D5A;
 }
 
+.registerpi{
+  border-radius: 10px;
+}
+
 .parte2 select{
   margin: 5px;
   border-radius: 6px;
