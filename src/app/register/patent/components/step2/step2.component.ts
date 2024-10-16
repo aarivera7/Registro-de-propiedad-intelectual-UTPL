@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Storage, ref, uploadBytesResumable, getDownloadURL, updateMetadata } from '@angular/fire/storage';
+import { Storage, ref, uploadBytesResumable, getDownloadURL} from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { Subscription } from 'rxjs';
@@ -41,10 +41,8 @@ export class Step2Component {
     
     const file: File = input.files[0];
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/descriptiveMemories/descriptiveMemories_${this.project.getId}.pdf`);
-
-    await updateMetadata(pdfRef, {customMetadata: {isReplaced: 'true'}});
-    
-    const task = await uploadBytesResumable(pdfRef, file)
+      
+    const task = await uploadBytesResumable(pdfRef, file, {customMetadata: {isReplaced: 'true'}})
 
     this.url = await getDownloadURL(task.ref)
 
