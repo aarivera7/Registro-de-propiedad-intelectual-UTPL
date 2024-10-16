@@ -1,0 +1,6 @@
+<div *ngIf="showAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span *ngIf="!isInnerHtml">{{ alertMessage }}</span>
+    <span *ngIf="isInnerHtml" [innerHTML]="alertMessage"></span>
+
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert()"></button>
+</div>

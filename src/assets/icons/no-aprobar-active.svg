@@ -1,0 +1,13 @@
+<svg width="42" height="34" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="No aprobar">
+        <rect id="Rectangle 6" x="0.25" y="0.25" width="41.5" height="33.5" rx="1.75" fill="#E86E8B" stroke="black" stroke-width="0.5"/>
+        <g id="emojione-monotone:cross-mark" clip-path="url(#clip0_244_10788)">
+            <path id="Vector" d="M22.706 17.5707L28.3273 23.1921L26.1921 25.3273L20.5707 19.706L20.5 19.6353L20.4293 19.706L14.8079 25.3273L12.6727 23.1921L18.294 17.5707L18.3647 17.5L18.294 17.4293L12.6727 11.8079L14.8079 9.67267L20.4293 15.294L20.5 15.3647L20.5707 15.294L26.1921 9.67267L28.3273 11.8079L22.706 17.4293L22.6353 17.5L22.706 17.5707Z" fill="#FFFFFF" stroke="white" stroke-width="0.2"/>
+        </g>
+    </g>
+    <defs>
+        <clipPath id="clip0_244_10788">
+            <rect width="17" height="17" fill="white" transform="translate(12 9)"/>
+        </clipPath>
+    </defs>
+</svg>

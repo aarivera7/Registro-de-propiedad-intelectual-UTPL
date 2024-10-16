@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
 <div class="title">
   <h2>Certificaciones</h2>
   <div class="bs">
@@ -16,6 +9,10 @@
 
 
 <div class="contenido">
+  <div *ngIf="certifications?.length == 0">
+    <p>No hay certificaciones registradas</p>
+  </div>
+
   <div class="certification" *ngFor="let certification of filteredCertifications">
     <div class="name">
       <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
@@ -34,11 +31,3 @@
 
   </div>
 </div>
-
-</body>
-</html>
-
-
-
-
-

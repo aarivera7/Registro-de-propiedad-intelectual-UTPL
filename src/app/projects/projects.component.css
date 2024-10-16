@@ -119,6 +119,7 @@ form input{
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 150px;
+  margin-bottom: 7px;
 }
 
 .contenido1{
@@ -193,8 +194,20 @@ dialog{
   cursor: pointer;
 }
 
+.loading-icon {
+  border: 11px solid lightgray;
+  border-top: 11px solid #172D5A;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin-top: 8px;
+}
 
-
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 #date,#nameAuthor,.parte1 .disabled, .parte2 .disabled{
   border: none;
@@ -266,22 +279,18 @@ label{
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
-
 .project{
-    display: flex;
-    justify-content: space-between;
-    width: 60vw;
-    background-color: white;
-    margin: 10px 0;
-    height: 122px;
-    border-radius: 20px;
-    align-items: center;
-    padding-left: 40px;
-    padding-right: 40px;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 68vw;
+  height: 130px;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 20px;
+  margin: 20px 0;
+  padding: 0 40px;
 }
-
-
 
 .project img{
   height: 100px;

@@ -1,36 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
 <form [formGroup]="step1Form">
   <div>
-    <label for="keywords">1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro</label>
-    <input type="text" id="keywords" name="keywords" required formControlName="keywords">
+    <label for="keywords">
+      1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro
+    </label>
+    <input *ngIf="user.rol == 'user' else textKeywords" type="text" id="keywords" name="keywords" required formControlName="keywords">
+    <ng-template #textKeywords>
+      <p>{{ project.keywords }}</p>
+    </ng-template>
   </div>
   <div>
     <label for="title">2. Un título Tentativo</label>
-    <input type="text" id="title" name="title" required formControlName="tentativeTitle">
+    <input *ngIf="user.rol == 'user' else textTitle" type="text" id="title" name="title" required formControlName="tentativeTitle">
+    <ng-template #textTitle>
+      <p>{{ project.tentativeTitle }}</p>
+    </ng-template>
   </div>
   <div>
     <label for="summary">3. Un breve resumen</label>
-    <input type="text" id="summary" name="summary" required formControlName="summary">
+    <input  *ngIf="user.rol == 'user' else textSummary" type="text" id="summary" name="summary" required formControlName="summary">
+    <ng-template #textSummary>
+      <p>{{ project.summary }}</p>
+    </ng-template>
   </div>
-  <div class="contBoton">
+  <div *ngIf="!loading" class="contBoton">
     <button [disabled]="project.approveStep1" (click)="updateProject()" *ngIf="user.rol == 'user'">Guardar y enviar</button>
   </div>
 
-  <div class="contBoton1" *ngIf="user.rol == 'admin'">
-    <button [disabled]="project.approveStep1" (click)="approve()">Aprobar</button>
-    <button class="correo" (click)="sendEmail()">Enviar Correo</button>
+  <div class="contBoton1" *ngIf="user.rol == 'admin' && !loading">
+    <button [disabled]="project.approveStep1 || !project.keywords" (click)="approve()">Aprobar</button>
+    <button [disabled]="!project.keywords" class="correo" (click)="sendEmail()">Enviar Correo</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-icon"></div>
   </div>
 </form>
-
-
-</body>
-</html>
-
-

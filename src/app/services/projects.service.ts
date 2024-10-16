@@ -8,44 +8,36 @@ import { Project } from 'src/app/models/project';
   providedIn: 'root'
 })
 export class ProjectsService {
-  projectCache: any = null
 
   constructor(private firestore: Firestore, private functions: Functions) { }
 
   addProject(project: any) {
-    const projectRef = collection(this.firestore, 'patents')
+    const projectRef = collection(this.firestore, 'projects')
     return addDoc(projectRef, project)
   }
 
   getProject(id: string): Observable<Project>{
-    const projectRef = doc(this.firestore, `patents/${id}`)
+    const projectRef = doc(this.firestore, `projects/${id}`)
     const project = docData(projectRef, {idField: 'id'})
     return project as Observable<Project>
   }
 
   getProjects(uid: string | undefined): Observable<Project[]>{
-    if(this.projectCache){
-      return this.projectCache as Observable<Project[]>
-    }
-    
     if (uid) {
-      const projectRef = collection(this.firestore, 'patents')
+      const projectRef = collection(this.firestore, 'projects')
       const q = query(projectRef, where('uid', '==', uid))
       const projects = collectionData(q, {idField: 'id'})
-      this.projectCache = projects
       return projects as Observable<Project[]>
     }
-    const projectRef = collection(this.firestore, 'patents')
+    const projectRef = collection(this.firestore, 'projects')
     const projects = collectionData(projectRef, {idField: 'id'})
-    this.projectCache = projects
     return projects as Observable<Project[]>
   }
 
   updateProject(project: Project) : Promise<void>{
-    const projectRef = doc(this.firestore, `patents/${project.getId}`)
+    const projectRef = doc(this.firestore, `projects/${project.getId}`)
     const p = {...project}
     delete p.id 
-    console.log(p)
     return updateDoc(projectRef, p)
   }
 
@@ -70,9 +62,14 @@ export class ProjectsService {
   }
 
   addReviewMeeting(project: Project, meeting: any, type: string) : Promise<unknown>{
-    console.log(project.getId)
+    // Se elimina esta referencia que se encuentra almacenada en la base de datos, porque al momento de actualizar el documento, se genera un error de que el objeto enviado es muy grande
+    delete meeting.meetingRef
     console.log(meeting)
     return httpsCallable(this.functions, 'addReviewMeeting')({id: project.getId, type: type, ...meeting})
+  }
+
+  confirmAssistance(meetingId: string) : Promise<unknown>{
+    return httpsCallable(this.functions, 'confirmAssistance')({id: meetingId})
   }
 
   requestsForAdvice() : Promise<unknown>{

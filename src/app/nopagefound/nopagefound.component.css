@@ -1,0 +1,33 @@
+.btn{
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    background: #172D5A;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+    padding: 10px;
+    border: none;
+    width: 150px;
+    text-decoration: none;
+    margin: 10px;
+    text-align: center;
+}
+
+.txt {
+    font-size: 20px;
+    color: #172D5A;
+    margin: 10px;
+}
+
+.err {
+    color: red;
+    font-size: 24px;
+    margin: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

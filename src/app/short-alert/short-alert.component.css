@@ -1,0 +1,15 @@
+.alert {
+    position: fixed;
+    font-size: 14px;
+    top: 50px;
+    right: 0px;
+    width: 343px;
+    height: 90px;
+    border: 1px solid black;
+    padding: 9px 3px 9px 3px;
+    border-width: 1px 0px 1px 1px;
+    border-radius: 10px 0px 0px 10px;
+    background-color: #ECF5E3;
+    z-index: 1000;
+    text-align: center;
+}

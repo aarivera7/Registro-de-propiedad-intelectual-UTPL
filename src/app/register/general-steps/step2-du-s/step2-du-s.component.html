@@ -1,3 +1,10 @@
+<!-- Alert div -->
+<div *ngIf="showAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+  Acción completada con éxito.
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert()"></button>
+</div>
+<app-short-alert></app-short-alert>
+
 <div class="whole">
   <ng-container *ngIf="user.rol == 'user' && project.finalReviewMeeting">
 
@@ -64,7 +71,9 @@
             <h2>Reunión de revisión de avances</h2>
           </div>
         </div>
-        <button class="cancelar">Guardar y Enviar</button>
+        <button [disabled]="this.project.finalReviewMeeting && this.project.finalReviewMeeting.assistance" type="submit" class="cancelar">
+          Guardar y Enviar
+        </button>
       </div>
       <div>
         <small>Detalles</small>
@@ -82,7 +91,7 @@
           </div>
           <div class="lugar">
             <label for="place">Lugar: </label>
-            <textarea id="place" cols="30" rows="10" formControlName="place"></textarea>
+            <textarea class="place" id="place" cols="30" rows="30" formControlName="place"></textarea>
           </div>
           <div class="modalidad">
             <label for="modality">Modalidad: </label>

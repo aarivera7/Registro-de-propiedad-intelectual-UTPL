@@ -3,7 +3,7 @@
     <h2>Registro de propiedad intelectual</h2>
     <h3>{{ title }}</h3>
     <h6 *ngIf="user.rol == 'user'">Recuerda que antes de crear un proyecto, primero debes solicitar la asesoría
-      <a href="/info" style="text-decoration: underline;">AQUI</a>
+      <a routerLink="/info" style="text-decoration: underline;">AQUI</a>
     </h6>
     <button *ngIf="user.rol == 'user'" (click)="openModalAddProject()">Crear registro PI</button>
   </div>
@@ -36,14 +36,18 @@
         <textarea id="description" name="description" required formControlName="description"></textarea>
       </div>
 
-      <div class="botones">
+      <div *ngIf="!loading" class="botones">
         <input class="cancelar" type="button" value="Cancelar" (click)="resetForm()">
         <input class="aceptar" type="submit" value="Aceptar" [disabled]="formProject.invalid">
+      </div>
+
+      <div *ngIf="loading" class="loading-overlay botones">
+        <div class="loading-icon"></div>
       </div>
     </form>
   </dialog>
 
-  <div class="buscar" *ngIf="'admin' == user.rol">
+  <div class="buscar" *ngIf="'admin' == user.rol && projects">
     <div class="wt">
       <input class="bus" (change)="filterResults(filter.value)" placeholder="Buscar por nombre de registro..." type="search" #filter>
       <button class="btnBuscar" (click)="filterResults(filter.value)">Buscar</button>
@@ -65,8 +69,12 @@
 
   <div  >
     <h3 class="desc">Descripción</h3>
-    <div class="project" *ngFor="let project of filteredProjects">
-      <dialog class="registerpi" *ngIf="'admin' == user.rol && openModalApprove && project == projectApprove" [attr.open]="openModalApprove" >
+    <div *ngIf="filteredProjects?.length == 0">
+      <p>No hay registros de propiedad intelectual</p>
+    </div>
+
+    <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)">
+      <dialog (click)="stopPropagation($event)" class="registerpi" *ngIf="'admin' == user.rol && openModalApprove && project == projectApprove" [attr.open]="openModalApprove" >
         <form>
           <div class="superior">
             <div class="parte1">
@@ -94,47 +102,72 @@
             <textarea class="disabled" id="description" name="description" disabled [value]="projectApprove.description"></textarea>
           </div>
 
-          <div class="botones">
-            <input class="cancelar" type="button" value="Cancelar" (click)="openModalApprove = null">
+          <div *ngIf="!loadingApprove" class="botones" >
+            <input class="cancelar" type="button" value="Cancelar" (click)="openModalApprove = null; stopPropagation($event)">
             <input *ngIf="action == 'Aprobar'" class="aceptar" type="submit" value="Aprobar" (click)="approveProject(projectApprove!)">
             <input *ngIf="action == 'No aprobar'"  class="aceptar" type="submit" value="No Aprobar" (click)="nonApproveProject(projectApprove!)">
+          </div>
+
+          <div *ngIf="loadingApprove" class="loading-overlay botones">
+            <div class="loading-icon"></div>
           </div>
         </form>
       </dialog>
 
-      <div class="imgs" *ngIf="'user' == user.rol" (click)="redirect(project)">
+      <div class="imgs" *ngIf="'user' == user.rol">
         <img *ngIf="project.type === 'patent'" src="../../assets/icons/patente.svg" alt="Patente" >
         <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
         <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/baseDatos.svg"  >
         <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/sIndustrial.svg"  >
       </div>
 
-      <div class="stroke" (click)="redirect(project)">
+      <div class="stroke">
         <div class="name">
-          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
-            <path [attr.stroke]="getStrokeColor(project.type)" stroke-width="5" stroke-linecap="round" d="M3 3V61"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="100" viewBox="0 0 6 64" fill="none">
+            <path [attr.stroke]="getStrokeColor(project.type)" stroke-width="5" stroke-height="80" stroke-linecap="round" d="M3 3V61"/>
           </svg>
         </div>
         <div>
-          <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No aprobado', 'en-proceso': project.status === 'En Proceso'}"><small>{{ project.status }}</small></p>
-          <p class="contenido">{{ project.getName }}</p>
+          <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No aprobado', 'en-proceso': project.status === 'En Proceso'}">
+            <small>{{ project.status }}</small>
+          </p>
+          <p class="contenido">
+            {{ project.getName }}
+          </p>
+          <p><b>Autor: </b> {{ project.nameAuthor }}</p>
         </div>
 
       </div>
-      <div class="fecha" (click)="redirect(project)">
+      <div class="fecha">
         <p class="titulo">Fecha de creación</p>
         <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div class="fecha" (click)="redirect(project)">
+      <div class="fecha">
         <p class="titulo">Tipo de propiedad intelectual</p>
         <div class="contenido1">{{translateProjectType(project.type)}}</div>
       </div>
 
-      <div *ngIf="'admin' == user.rol" class="botones">
-        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'Aprobar')" class="btn"> <img src="assets/icons/Aprobar.svg"> </button>
-        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'No aprobar')" class="btn"><img src="assets/icons/NoAprobar.svg"></button>
-        <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn"><img src="assets/icons/eliminar.svg"></button>
+      <div *ngIf="'admin' == user.rol" class="botones" (click)="stopPropagation($event)">
+        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'Aprobar')" class="btn">
+          <img *ngIf="project.status == 'Aprobado' else aprobado" src="assets/icons/aprobar-active.svg">
+          <ng-template #aprobado>
+            <img src="assets/icons/Aprobar.svg">
+          </ng-template>
+        </button>
+        <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'No aprobar')" class="btn">
+          <img *ngIf="project.status == 'No aprobado' else noAprobado" src="assets/icons/no-aprobar-active.svg">
+          <ng-template #noAprobado>
+            <img src="assets/icons/NoAprobar.svg">
+          </ng-template>
+        </button>
+        <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn">
+          <img src="assets/icons/eliminar.svg">
+        </button>
       </div>
     </div>
+
+    <!--span>
+      <b>Autor: </b> {{ project.nameAuthor }}
+    </span-->
   </div>
 </div>

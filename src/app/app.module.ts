@@ -44,6 +44,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from './services/login.service';
+import { ShortAlertComponent } from './short-alert/short-alert.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { LoginService } from './services/login.service';
     InfoComponent,
     AlertComponent,
     NopagefoundComponent,
+    ShortAlertComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ProjectsService } from '../services/projects.service';
 import { LoginService } from '../services/login.service';
@@ -6,6 +6,8 @@ import { User } from '../models/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ShowAlertService } from '../services/show-alert/show-alert.service';
 
 @Component({
   selector: 'app-projects',
@@ -13,12 +15,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./projects.component.css']
 })
 
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit, OnDestroy {
   title = "Tus registros"
   openModal: boolean | null = null
   openModalApprove: boolean | null = null
+  loadingApprove: boolean = false
+  loading: boolean = false
   user?: User
   projects?: Project[]
+  subscriptionsProjects?: Subscription
   filteredProjects?: Project[]
   filterText?: string
   alertMessage?: string
@@ -34,7 +39,11 @@ export class ProjectsComponent {
   projectApprove?: Project
   action: string = ""
 
-  constructor(private projectService: ProjectsService, private loginService: LoginService, protected router: Router){ }
+  constructor(
+    private projectService: ProjectsService, 
+    private loginService: LoginService, 
+    protected router: Router,
+    private alertService: ShowAlertService){ }
 
   translateProjectType(type: string): string {
     switch(type) {
@@ -50,8 +59,6 @@ export class ProjectsComponent {
         return type;
     }
   }
-
-
 
   getStrokeColor(type: string): string {
     switch (type) {
@@ -83,6 +90,8 @@ export class ProjectsComponent {
   }
 
   async addProject(): Promise<void> {
+    this.loading = true
+
     if (!this.user) return
 
     this.formProject.setControl('nameAuthor', new FormControl(this.user.name + " " + this.user.lastName, [
@@ -91,7 +100,8 @@ export class ProjectsComponent {
     this.formProject.setControl('createDate', new FormControl(Timestamp.now()));
     this.formProject.setControl('numStep', new FormControl(1));
 
-    await this.projectService.addProject(this.formProject.value)
+    this.projectService.addProject(this.formProject.value)
+        .finally(() => this.loading = false)
 
     this.resetForm()
     this.alertMessage = "Proyecto creado con éxito";
@@ -128,31 +138,64 @@ export class ProjectsComponent {
 
 
   approveProject(project: Project): void {
-    this.projectService.approveProject(project).then((data) => {
-      console.log(data);
-    }).catch(err => console.log(err));
+    this.loadingApprove = true
+    this.projectService.approveProject(project)
+        .then((data) => {
+          this.openModalApprove = null
+          this.alertService.showAlert("Proyecto fue 'Aprobado' con éxito")
+          // alert("Proyecto aprobado con éxito")
+          // console.log(data);
+        }).catch(err => {
+          this.openModalApprove = null
+          alert("Error al aprobar el proyecto")
+          console.log(err)
+        }).finally(() => {
+          this.loadingApprove = false
+        });
   }
 
 
   nonApproveProject(project: Project): void {
-    this.projectService.nonApproveProject(project).then((data) => {
-      console.log(data);
-    });
+    this.loadingApprove = true
+
+    this.projectService.nonApproveProject(project)
+        .then((data) => {
+          this.openModalApprove = null
+          this.alertService.showAlert("Proyecto fue 'No Aprobado' con éxito")
+          // alert("Proyecto no aprobado con éxito")
+          // console.log(data);
+        }).catch(err => {
+          this.openModalApprove = null
+          alert("Error al no aprobar el proyecto")
+          console.log(err)
+        }).finally(() => {
+          this.loadingApprove = false
+        });
   }
 
   deleteProject(project: Project): void {
   if (!confirm("¿Estás seguro de que deseas eliminar este proyecto?"))
     return;
 
-    this.projectService.deleteProject(project).then((data) => {
-      console.log(data);
-    }).catch(err => console.log(err));
+    this.projectService.deleteProject(project)
+        .then((data) => {
+          // console.log(data);
+          this.alertService.showAlert("Proyecto eliminado con éxito")
+          // alert("Proyecto eliminado con éxito")
+        }).catch(err => {
+          console.log(err)
+          alert("Error al eliminar el proyecto")
+          });
   }
 
   redirect(project: Project): void {
     if (project.status == "Aprobado") {
       this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
     }
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
   getDate(): Date {
@@ -176,16 +219,17 @@ export class ProjectsComponent {
     this.user = await this.loginService.getDataUser(this.loginService.uid)
 
     if (this.user.rol == "admin") {
-      this.projectService.getProjects(undefined).subscribe(projects => {
+      this.subscriptionsProjects = this.projectService.getProjects(undefined).subscribe(projects => {
         this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
         this.filterResults(this.filterText)
       })
     } else if (this.user.rol == "user") {
-      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+      this.subscriptionsProjects = this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
         this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
         this.filterResults(this.filterText)
       })
     }
+
     this.formProject = new FormGroup({
       name: new FormControl<string>('', [Validators.required, Validators.nullValidator]),
       uid: new FormControl(this.loginService.uid),
@@ -198,5 +242,11 @@ export class ProjectsComponent {
       cellphone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]{4,10}")]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptionsProjects) {
+      this.subscriptionsProjects.unsubscribe()
+    }
   }
 }

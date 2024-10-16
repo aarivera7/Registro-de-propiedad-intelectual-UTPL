@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message } from 'src/app/models/message';
 import { MessagesService } from '../services/messages.service';
 import { User } from '../models/user';
@@ -9,15 +9,18 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ProjectsService } from '../services/projects.service';
 import { Project } from '../models/project';
 import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent {
+export class MessagesComponent implements OnInit, OnDestroy {
   projects: Project[]
   messages: Message[]
+  subscriptionProjects!: Subscription
+  subscriptionMessages!: Subscription
   inputMessages: boolean[]
   openModal: boolean | null = null
   user: User = new User("", "",  "",   )
@@ -81,15 +84,15 @@ export class MessagesComponent {
     this.user = Object.assign(new User("", "",  "",   ), await this.loginService.getDataUser(this.loginService.uid))
 
     if (this.user.rol == "admin") { 
-      this.messagesService.getMessages(undefined).subscribe(messages => {
+      this.subscriptionMessages = this.messagesService.getMessages(undefined).subscribe(messages => {
         console.log(messages);
         this.messages = messages.map(x => Object.assign(new Message("", "", "", "", ""), x))
       })
     } else {
-      this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
+      this.subscriptionProjects = this.projectService.getProjects(this.loginService.uid).subscribe(projects => {
         this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
       })
-      this.messagesService.getMessages(this.loginService.uid).subscribe(messages => {
+      this.subscriptionMessages = this.messagesService.getMessages(this.loginService.uid).subscribe(messages => {
         console.log(messages);
         this.messages = messages.map(x => Object.assign(new Message("", "", "", "", ""), x))
       })
@@ -106,5 +109,14 @@ export class MessagesComponent {
       date: new FormControl(Timestamp.now()),
       subject: new FormControl<string>('', [Validators.required, Validators.nullValidator, Validators.minLength(1)]),
     })	
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptionMessages) {
+      this.subscriptionMessages.unsubscribe();
+    }
+    if (this.subscriptionProjects) {
+      this.subscriptionProjects.unsubscribe();
+    }
   }
 }

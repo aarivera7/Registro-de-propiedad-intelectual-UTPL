@@ -4,6 +4,7 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fir
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { ShowAlertService } from 'src/app/services/show-alert/show-alert.service';
 
 @Component({
   selector: 'app-step3-du-s',
@@ -17,9 +18,20 @@ export class Step3DuSComponent {
   @Input()
   user: User = new User("", "",  "",   )
 
-  constructor(private storage: Storage, private projectService: ProjectsService) { }
+  loading: boolean = false
+  loadingLegalizedContract: boolean = false
+  loadingContract: boolean = false
+  loadingApplication: boolean = false
 
-  uploadLegalizedContract (input: HTMLInputElement){
+  constructor(private storage: Storage, 
+      private projectService: ProjectsService,
+      private alertService: ShowAlertService) { }
+
+  uploadLegalizedContract (event: Event){
+    this.loadingLegalizedContract = true
+
+    const input: HTMLInputElement = event.target as HTMLInputElement
+
     if (!input.files) return
 
     if(!this.project.legalizedContract)
@@ -33,13 +45,21 @@ export class Step3DuSComponent {
         this.project.legalizedContract.document = url
         this.project.legalizedContract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
+            .then(() => {
+              this.alertService.showAlert("Contrato legalizado subido correctamente")
+            });
       }).catch();
-    });
+    })
+      .finally(() => this.loadingLegalizedContract = false);
 
     input.value = ''
   }
 
-  uploadContract (input: HTMLInputElement){
+  uploadContract (event: Event){
+    this.loadingContract = true
+
+    const input: HTMLInputElement = event.target as HTMLInputElement
+
     if (!input.files) return
 
     if(!this.project.contract)
@@ -49,21 +69,32 @@ export class Step3DuSComponent {
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/contract.pdf`);
     
     uploadBytesResumable(pdfRef, file).then(task => {
-      getDownloadURL(task.ref).then(url => {  
+
+      getDownloadURL(task.ref).then(async url => {  
         this.project.contract.document = url
+        this.project.numStep = 3
         this.project.contract.date = Timestamp.now()
         this.projectService.updateProject(this.project)
+            .then(() => {
+              this.alertService.showAlert("Contrato subido correctamente")
+            })
+            .catch(err => console.log(err))
 
         this.projectService.sendEmail(this.project, "contract")
-        .then(a => console.log(a))
-        .catch(err => console.log(err))
+            .then(a => console.log(a))
+            .catch(err => console.log(err))
       }).catch();
-    });
+    })
+      .finally(() => this.loadingContract = false);
 
     input.value = ''
   }
 
-  uploadApplication (input: HTMLInputElement){
+  uploadApplication (event: Event){
+    this.loadingApplication = true
+
+    const input: HTMLInputElement = event.target as HTMLInputElement
+
     if (!input.files) return
 
     if(!this.project.application)
@@ -77,17 +108,25 @@ export class Step3DuSComponent {
         this.project.application.document = url
         this.project.application.date = Timestamp.now()
         this.projectService.updateProject(this.project)
+            .then(() => {
+              this.alertService.showAlert("Solicitud subida correctamente")
+            });
       }).catch();
-    });
+    })
+      .finally(() => this.loadingApplication = false);
 
     input.value = ''
   }
 
   publishProject(): void {
-  this.projectService.publishProject(this.project).then((data) => {
-      console.log(data);
-    }).catch(err => console.log(err)
-    );
+  this.loading = true
+  this.projectService.publishProject(this.project)
+      .then((data) => {
+        console.log(data);
+        this.alertService.showAlert("Certificado emitido correctamente")
+      })
+      .catch(err => console.log(err))
+      .finally(() => this.loading = false);
   }
 
   ngOnChanges(): void {

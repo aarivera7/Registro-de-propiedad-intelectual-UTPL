@@ -1,11 +1,15 @@
-<div class="whole">
+<div *ngIf="projectDocument" class="whole">
   <h2>{{ title }}</h2>
   <h4>Debe subir en este apartado el documento correspondiente ({{title}}).</h4>
   <div *ngIf="operation == 'upload'">
-    <input type="file" id="file" (change)="uploadPDF($event)" [accept]="type" #upload>
+    <input type="file" id="file" (change)="uploadPDF($event)" [accept]="typeFile" #upload>
     <label for="file" class="custom-file-upload">
       Subir Archivo de Ordenador
     </label>
+
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-icon"></div>
+    </div>
     <!-- button [disabled]="upload.value == ''">Agregar más</button -->
   </div>
 
@@ -18,20 +22,32 @@
 
   <div *ngIf="operation == 'download'">
     <p *ngFor="let url of documents">
-      {{ getFileName(url) }} <a target="_blank" [href]="url" download >Descargar</a>
+      {{ getFileName(url) }} <a target="_blank" class="button button__delete" [href]="url" download >Descargar</a>
     </p>
   </div>
 
   <div *ngIf="operation == 'delete'">
     <div *ngFor="let url of documents">
       {{ getFileName(url) }}
-      <button (click)="deletePDF(url)">Borrar</button>
+      <button *ngIf="!loading" class="button button__delete" (click)="deletePDF(url)">Borrar</button>
+
+      <div *ngIf="loading" class="loading-overlay">
+        <div class="loading-icon"></div>
+      </div>
     </div>
   </div>
+
   <h3>Observación</h3>
-  <p *ngIf="rol == 'user'">{{ observation == '' ? 'No hay observaciones' : observation }}</p>
+  <p *ngIf="rol == 'user'">
+    {{ observation == '' ? 'No hay observaciones' : observation }}
+  </p>
   <form *ngIf="rol == 'admin'" [formGroup]="formObservations">
     <input type="text" formControlName="observations">
-    <button [disabled]="formObservations.invalid" (click)="updateObservation()">Guardar</button>
+    <button *ngIf="!loading" [disabled]="formObservations.invalid || projectDocument!.status == 'Aceptado'" (click)="updateObservation()" class="button button__save disabled">
+      Guardar
+    </button>
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-icon"></div>
+    </div>
   </form>
 </div>

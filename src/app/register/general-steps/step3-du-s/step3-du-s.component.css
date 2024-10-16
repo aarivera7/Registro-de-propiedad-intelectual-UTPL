@@ -11,13 +11,7 @@
   width: 70%;
 }
 
-button:disabled, input:disabled {
-  /* Agrega aquí los estilos que desees para el botón desactivado */
-  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
-  cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
-}
-
-button:disabled, input:disabled {
+button:disabled, input:disabled, text {
   /* Agrega aquí los estilos que desees para el botón desactivado */
   opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
@@ -32,7 +26,9 @@ small{
   font-size: 12px;
 }
 
-
+.custom-file-upload {
+  display: none;
+}
 
 
 .archive{
@@ -41,7 +37,11 @@ small{
 
 }
 
-
+.disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .a{
   display: flex;
@@ -157,3 +157,17 @@ small{
   border: none;
 }
 
+.loading-icon {
+  border: 11px solid lightgray;
+  border-top: 11px solid #172D5A;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin-top: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,8 +1,8 @@
 <svg width="43" height="34" viewBox="0 0 43 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Aprobar">
-<rect id="Rectangle 5" x="0.25" y="0.25" width="42" height="33.5" rx="1.75" fill="#D3ECBA" stroke="black" stroke-width="0.5"/>
-<g id="material-symbols:check">
-<path id="Vector" d="M18.6208 20.2207L27.7251 11.1164L29.0087 12.4L18.5501 22.8586L12.9915 17.3L14.2751 16.0164L18.4794 20.2207L18.5501 20.2914L18.6208 20.2207Z" fill="#AEB5C2" stroke="black" stroke-width="0.2"/>
-</g>
-</g>
+    <g id="Aprobar">
+        <rect id="Rectangle 5" x="0.25" y="0.25" width="42" height="33.5" rx="1.75" fill="#D3ECBA" stroke="black" stroke-width="0.5"/>
+        <g id="material-symbols:check">
+        <path id="Vector" d="M18.6208 20.2207L27.7251 11.1164L29.0087 12.4L18.5501 22.8586L12.9915 17.3L14.2751 16.0164L18.4794 20.2207L18.5501 20.2914L18.6208 20.2207Z" fill="#AEB5C2" stroke="black" stroke-width="0.2"/>
+        </g>
+    </g>
 </svg>

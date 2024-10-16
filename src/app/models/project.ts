@@ -3,7 +3,7 @@ import { Timestamp } from "firebase/firestore"
 export class Project{
     id?: string
     private name: string = ""
-    uid: String
+    uid: string
     nameAuthor: String
     private createDate: Timestamp
     cellphone!: string
@@ -25,7 +25,7 @@ export class Project{
     publish!: boolean
     progressReviewMeeting: any;
 
-    constructor(name: string, uid:String, nameAuthor:String, description: String, create_date: string, type: string){
+    constructor(name: string, uid:string, nameAuthor:String, description: String, create_date: string, type: string){
         this.name = name
         this.uid = uid
         this.nameAuthor = nameAuthor
@@ -35,7 +35,7 @@ export class Project{
     }
 
     public get getId() : string {
-        return this.id == undefined ? "" : this.id
+        return this.id!
     }
 
     public get getCreateDate() : Date {

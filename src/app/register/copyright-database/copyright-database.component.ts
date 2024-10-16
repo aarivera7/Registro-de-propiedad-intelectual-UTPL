@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
@@ -10,7 +11,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
   templateUrl: './copyright-database.component.html',
   styleUrls: ['./copyright-database.component.css']
 })
-export class CopyrightDatabaseComponent {
+export class CopyrightDatabaseComponent implements OnInit, OnDestroy {
   steps: string[] = [
     "Requisitos de estado",
     "Reunión 2 Revisión",
@@ -50,6 +51,8 @@ export class CopyrightDatabaseComponent {
   step: number = -1
   id!: string
   project?: Project
+  subscriptionProject!: Subscription
+  subscriptionRoute!: Subscription
   user?: User
   typeDocument?: string
   nextStepDisabled: boolean = false
@@ -66,7 +69,7 @@ export class CopyrightDatabaseComponent {
   async ngOnInit(): Promise<void> {
     this.user = await this.loginService.getDataUser(this.loginService.uid)
 
-    this.route.params.subscribe(params => {
+    this.subscriptionRoute = this.route.params.subscribe(params => {
       this.step = parseInt(params['step'])-1
       this.id = params['id']
       this.typeDocument = params['typeDocument']
@@ -75,7 +78,7 @@ export class CopyrightDatabaseComponent {
       this.controlStep()
     })
 
-    this.projectService.getProject(this.id).subscribe(project => {
+    this.subscriptionProject = this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
 
       if (this.project.status != "Aprobado"){
@@ -84,14 +87,20 @@ export class CopyrightDatabaseComponent {
 
       this.controlStep()
 
-      if (!this.project.documents){
+      /*if (!this.project.documents){
         this.project.documents = {}
-      }
+      }*/
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionProject.unsubscribe()
+    this.subscriptionRoute.unsubscribe()
   }
 
   controlStep()  {
     if (this.project && this.user)
+
     if (this.user.rol == "admin") {
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true

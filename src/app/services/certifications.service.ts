@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, query, where, updateDoc } from '@angular/fire/firestore';
 import { Certification } from '../models/certification';
 import { Observable } from 'rxjs';
+import { doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,11 @@ export class CertificationsService {
   addCertification(certification: Certification){
       const certificationRef = collection(this.firestore, 'certifications')
       return addDoc(certificationRef, certification)
+  }
+
+  updateCertification(certification: any, id: string){
+    const certificationRef = doc(this.firestore, '/certifications/'+id )
+    return updateDoc(certificationRef, certification)
   }
 
   getCertifications(uid: undefined|string): Observable<Certification[]>{

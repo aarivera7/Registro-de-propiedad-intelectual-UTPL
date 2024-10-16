@@ -1,8 +1,8 @@
 .progressbar-content {
     overflow: auto;
     width: 100%;
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 .progressbar {
     display: flex;

@@ -29,11 +29,11 @@ export class LoginComponent {
       }
 
       this.loginService.login(this.formLogin.value)
-      .then(res => {
-        this.isPasswordHidden = true;
-        this.router.navigate(['/info'])
-      })
-      .catch(err => console.log(err))
+          .then(res => {
+            this.isPasswordHidden = true;
+            this.router.navigate(['/info'])
+          })
+          .catch(err => console.log(err))
     }
     else if(this.formLogin.get('email')?.value.match("^[a-z0-9._%+-]+@utpl.edu.ec$")){
       this.loginAuthMicrosoft(this.formLogin.get('email')?.value);
@@ -50,21 +50,21 @@ export class LoginComponent {
 
   loginAuthMicrosoft(email: string){
     this.loginService.loginWithMicrosoft(email)
-    .then(res => {
-      this.router.navigate(['/info'])
-    })
-    .catch(err => console.log(err));
+        .then(res => {
+          this.router.navigate(['/info'])
+        })
+        .catch(err => console.log(err));
   }
 
   loginAuthGoogle(email: string){
     this.loginService.loginWithGoogle(email)
-    .then(res => {
-      this.router.navigate(['/info'])
-    })
-    .catch(err => {
-        console.log(err)
-        alert("Error al iniciar sesión con Google: La cuenta no existe o no es válida.")
-      }
-    );
+        .then(res => {
+          this.router.navigate(['/info'])
+        })
+        .catch(err => {
+            console.log(err)
+            alert("Error al iniciar sesión con Google: La cuenta no existe o no es válida.")
+          }
+        );
   }
 }

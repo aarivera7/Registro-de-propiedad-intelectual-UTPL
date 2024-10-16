@@ -1,4 +1,4 @@
-button:disabled, input:disabled {
+button:disabled, input:disabled, textarea:disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
   opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
@@ -98,11 +98,11 @@ button:disabled, input:disabled {
   padding: 10px;
 }
 
-.detalles1 textarea{
+.detalles1 .place{
   border-radius: 12px;
   border: 1px solid #172D5A;
   background: #F6F9FF;
-  height: 50px;
+  height: 90px;
   padding: 10px;
 }
 
@@ -126,3 +126,18 @@ button:disabled, input:disabled {
   flex-direction: column;
 }
 
+.alert {
+  position: fixed;
+  font-size: 16px;
+  top: 50px;
+  right: 0px;
+  width: 343px;
+  height: 90px;
+  border: 1px solid black;
+  padding: 9px 3px 9px 3px;
+  border-width: 1px 0px 1px 1px;
+  border-radius: 10px 0px 0px 10px;
+  background-color: #ECF5E3;
+  z-index: 1000;
+  text-align: center;
+}

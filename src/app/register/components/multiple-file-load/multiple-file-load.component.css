@@ -29,6 +29,56 @@ input[type="file"] {
   display: none;
 }
 
+button:disabled, input:disabled {
+  /* Agrega aquí los estilos que desees para el botón desactivado */
+  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
+}
+
 h4 {
   font-weight: 400;
+}
+
+input {
+  width: 50%;
+  height: 38px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #172D5A;
+  background: #FFF;
+  margin-right: 6px;
+}
+
+.button {
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background: #172D5A;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button__save {
+  padding: 10px 30px;
+}
+
+.button__delete {
+  padding: 9px 18px;
+}
+
+.loading-icon {
+  border: 11px solid lightgray;
+  border-top: 11px solid #172D5A;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin-top: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

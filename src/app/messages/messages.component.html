@@ -41,6 +41,12 @@
 
     </form>
   </dialog>
+
+  <div *ngIf="messages.length == 0">
+    <p>No hay mensajes</p>
+  </div>
+
+
   <div class="message" *ngFor="let message of messages; let i = index">
     <p><b>Proyecto: </b> {{ message.project }} </p>
     <p><b> {{ message.sender }} </b> <small> {{ message.dateMessage | date:'short' }} </small></p>

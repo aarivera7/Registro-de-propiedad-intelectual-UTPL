@@ -13,19 +13,20 @@ small{
   font-size: 12px;
 }
 
-#up{
+.custom-file-upload {
   display: none;
 }
-
-
 
 .archive{
   display: flex;
   flex-direction: column;
-
 }
 
-
+.disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .a{
   display: flex;
@@ -55,7 +56,7 @@ small{
   justify-content: space-between;
   background-color: white;
   border-radius: 20px;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
   align-items: center;
 }
@@ -130,4 +131,19 @@ small{
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   padding: 15px;
   border: none;
+}
+
+.loading-icon {
+  border: 11px solid lightgray;
+  border-top: 11px solid #172D5A;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin-top: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
