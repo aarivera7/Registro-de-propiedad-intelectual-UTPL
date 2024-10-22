@@ -1,8 +1,8 @@
 export class User {
     uid!: string
-    name: string
-    lastName: string
-    rol: string
+    name!: string
+    lastName!: string
+    rol!: string
     email!: string
     photoURL!: string
 

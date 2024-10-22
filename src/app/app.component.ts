@@ -11,7 +11,7 @@ import { Auth, user } from '@angular/fire/auth';
 })
 export class AppComponent {
 
-  user?: User;
+  user: User = new User('', '', '');
   user$;
   title: string = "";
 
@@ -19,11 +19,17 @@ export class AppComponent {
     this.user$ = user(this.auth);
   }
 
+  isLoginPage(): boolean {
+    console.log(this.router.url);
+    
+    return this.router.url === '/login' || this.router.url === '/';
+  }
+
   logout(): void{
     this.loginService.logout()
     .then(() => {
       this.router.navigate(['/login'])
-      this.user = undefined
+      this.user = new User('', '', '')
     })
     .catch(err => console.log(err));
   }

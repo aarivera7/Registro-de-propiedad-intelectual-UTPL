@@ -26,8 +26,11 @@
       <p><b>Fecha de finalización: </b>{{ certification.getFinishDate() | date:'longDate' }}</p>
     </div>
     <div class="abrir">
-      <a  target="_blank" [download] [href]="certification.application.document"><button class="btnAbrir">Abrir</button></a>
+      <a  target="_blank" [download] [href]="certification.application.document">
+        <button class="btnAbrir">
+          Abrir
+        </button>
+      </a>
     </div>
-
   </div>
 </div>

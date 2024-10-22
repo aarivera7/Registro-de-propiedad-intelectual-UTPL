@@ -282,8 +282,8 @@ label{
 .project{
   display: flex;
   justify-content: space-between;
-  width: 68vw;
-  height: 130px;
+  width: 72vw;
+  height: 140px;
   align-items: center;
   cursor: pointer;
   background-color: white;

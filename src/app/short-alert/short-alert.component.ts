@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class ShortAlertComponent implements OnInit {
   showAlert = false;
   alertMessage = '';
-  isInnerHtml = true;
+  isInnerHtml = false;
   subscriptionAlert!: Subscription
 
   constructor(private alertService: ShowAlertService) {}
