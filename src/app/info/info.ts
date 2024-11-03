@@ -19,9 +19,8 @@ export class InfoComponent {
     this.projectService.requestsForAdvice().then((data) => {
       console.log(data);
       this.alertMessage = "Solicitud enviada";
+    }).catch(() => {}).finally(() => {
       this.loading = false; // Ocultar el ícono de carga
-    }).catch(() => {
-      this.loading = false; // Ocultar el ícono de carga en caso de error
     });
   }
 

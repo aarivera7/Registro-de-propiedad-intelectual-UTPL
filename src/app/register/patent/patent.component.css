@@ -1,3 +1,10 @@
+.step-patent-container {
+  padding: 0 1rem;
+  border-radius: 10px;
+  background: rgba(176, 183, 197, 0.1);
+  overflow: hidden;
+}
+
 .moveStep{
   display: flex;
   justify-content: space-between;
@@ -19,12 +26,6 @@ h3{
 .s button{
   margin: 15px;
   cursor: pointer;
-}
-
-.contenedor{
-  border-radius: 10px;
-  background: rgba(176, 183, 197, 0.1);
-  overflow: hidden;
 }
 
 h2{

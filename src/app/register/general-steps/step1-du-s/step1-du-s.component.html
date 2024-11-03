@@ -23,7 +23,7 @@
   </div>
 
   <ng-container *ngIf="documents.length > 0">
-      <div *ngFor=" let type of typeDocuments let i = index" class="documentos">
+      <div *ngFor=" let type of typeDocuments let i = index" class="document">
           <span>{{ i+1 }}</span>
 
           <div class="contDoc">
@@ -38,8 +38,8 @@
                   </svg>
                   PDF 
                 </button>
-                <div class="divSlc" *ngIf="user.rol == 'admin'">
-                  <select class="slc" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
+                <div class="div-select" *ngIf="user.rol == 'admin'">
+                  <select class="div-select__select" *ngIf="user.rol == 'admin'" id="state" required formControlName="{{type}}">
                     <option value="Pendiente">Pendiente</option>
                     <option value="Aceptado">Aceptado</option>
                     <option value="Incompleto">Incompleto</option>

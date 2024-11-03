@@ -47,11 +47,12 @@ form{
 }
 
 
-.documentos{
-  margin: 10px;
+.document{
+  margin: .7rem;
   display: flex;
   align-items: center;
-  padding-bottom: 10px;
+  padding: .2rem 0;
+  font-size: .9em;
 }
 
 .divSlc{
@@ -111,11 +112,12 @@ form{
   margin: 15px;
 }
 
-#state{
+.div-select__select {
   border-radius: 5px;
   border: 1px solid  #172D5A;
   background: #FFF;
-  padding: 12px 16px ;
+  padding: .5rem .75rem ;
+  font-size: .9em;
 }
 
 .button {

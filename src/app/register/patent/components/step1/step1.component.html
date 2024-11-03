@@ -3,25 +3,49 @@
     <label for="keywords">
       1. Un breve criterio de búsqueda (palabras claves) respecto de la invención sujeta al registro
     </label>
-    <input *ngIf="user.rol == 'user' else textKeywords" type="text" id="keywords" name="keywords" required formControlName="keywords">
+    <textarea 
+      *ngIf="user.rol == 'user' else textKeywords"
+      type="text"
+      id="keywords"
+      name="keywords"
+      required
+      formControlName="keywords"
+    ></textarea>
     <ng-template #textKeywords>
       <p>{{ project.keywords }}</p>
     </ng-template>
   </div>
+
   <div>
     <label for="title">2. Un título Tentativo</label>
-    <input *ngIf="user.rol == 'user' else textTitle" type="text" id="title" name="title" required formControlName="tentativeTitle">
+    <textarea
+      *ngIf="user.rol == 'user' else textTitle"
+      type="text"
+      id="title"
+      name="title"
+      required
+      formControlName="tentativeTitle"
+    ></textarea>
     <ng-template #textTitle>
       <p>{{ project.tentativeTitle }}</p>
     </ng-template>
   </div>
+
   <div>
     <label for="summary">3. Un breve resumen</label>
-    <input  *ngIf="user.rol == 'user' else textSummary" type="text" id="summary" name="summary" required formControlName="summary">
+    <textarea
+      *ngIf="user.rol == 'user' else textSummary"
+      type="text"
+      id="summary"
+      name="summary"
+      required
+      formControlName="summary"
+    ></textarea>
     <ng-template #textSummary>
       <p>{{ project.summary }}</p>
     </ng-template>
   </div>
+
   <div *ngIf="!loading" class="contBoton">
     <button [disabled]="project.approveStep1" (click)="updateProject()" *ngIf="user.rol == 'user'">Guardar y enviar</button>
   </div>

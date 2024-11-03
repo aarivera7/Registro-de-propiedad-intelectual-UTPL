@@ -1,18 +1,39 @@
 <div class="parent-container">
   <label for="descriptiveMemory">Memoria descriptiva</label>
   <ng-container *ngIf="user && user.rol == 'user'">
-    <input  [disabled]="project.approveStep2" type="file" accept=".pdf" id="descriptiveMemory" #upload>
-    <a  target="_blank" [href]="url" *ngIf="url">Ver Archivo</a>
+    <label [ngClass]="{'disabled': project.approveStep2, 'not-disabled': !project.approveStep2}"
+      for="descriptiveMemory"
+      class="custom-file-upload-wrapper"
+    >
+      <input 
+        [disabled]="project.approveStep2"
+        class="custom-file-upload"
+        type="file"
+        accept=".pdf"
+        id="descriptiveMemory"
+        #upload
+      />
+      <img src="assets/icons/update.svg" alt="Subir PDF">
+      <span *ngIf="upload.files![0]"> {{ upload.files![0].name }} </span>
+      <span *ngIf="!upload.files![0]">Adjunta tu Memoria aquí</span>
+    </label>
     <div class="texto">
       <p>Cargar en PDF</p>
       <p>Memoria descriptiva</p>
+      <p>
+        <a  target="_blank" [href]="url" *ngIf="url">Ver Archivo</a>
+      </p>
       <b>Observaciones</b>
       <p *ngIf="projectDocument">
         {{ projectDocument.observation }}
       </p>
     </div>
     <div *ngIf="!loading" class="contBoton">
-      <button [disabled]="project.approveStep2" (click)="uploadPDF(upload)">Guardar y enviar</button>
+      <button class="button" 
+      [disabled]="project.approveStep2"
+      (click)="uploadPDF(upload)">
+        Guardar y enviar
+      </button>
     </div>
   </ng-container>
 
@@ -22,17 +43,21 @@
       <p>Descargar en PDF</p>
       <p>Memoria descriptiva</p>
       <a target="_blank" [href]="url" *ngIf="url">Ver Archivo</a>
-      <label for="observations"></label>
-      <h4>Observaciones/Correcciones</h4>
+      <label for="observations">
+        <h4>Observaciones/Correcciones</h4>
+      </label>
 
       <input type="text" id="observations" formControlName="observations">
     </div>
 
     <div *ngIf="!loading" class="contBoton1">
-      <button [disabled]="projectDocument && projectDocument.status == 'Aceptado'" (click)="approve()">
+      <button class="button" 
+        [disabled]="projectDocument && projectDocument.status == 'Aceptado'" 
+        (click)="approve()"
+      >
         Aprobar
       </button>
-      <button class="correo" [disabled]="projectDocument && projectDocument.status == 'Aceptado'" (click)="updateObservations()" >
+      <button class="correo button" [disabled]="projectDocument && projectDocument.status == 'Aceptado'" (click)="updateObservations()" >
         Pedir correcciones
       </button>
     </div>

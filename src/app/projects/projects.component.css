@@ -142,13 +142,6 @@ form input{
   font-weight: 400;
 }
 
-dialog{
-  background-color: #F6F9FF;
-  border: none;
-  border-top: 3px solid #172D5A;
-  margin: 20px;
-}
-
 .superior{
   display: flex;
   justify-content: space-evenly;
@@ -247,7 +240,6 @@ label{
   position: relative;
 }
 
-
 .cancelar {
   border-radius: 10px;
   color: #172D5A;
@@ -257,6 +249,7 @@ label{
   padding: 10px 30px;
   border: none;
 }
+
 .aceptar {
   border-radius: 10px;
   color: white;
@@ -301,18 +294,23 @@ label{
 }
 
 .project--details{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    padding: 0 30px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0 30px;
 }
 
 .registerpi {
-    margin-left: 29em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   z-index: 1;
   border-radius: 10px;
+  background-color: #F6F9FF;
+  border: none;
+  border-top: 3px solid #172D5A;
+  transform: translate( -50%, -50%);
 }
-
 
 .overlay {
   position: fixed;

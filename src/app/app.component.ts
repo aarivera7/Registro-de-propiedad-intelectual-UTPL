@@ -3,6 +3,7 @@ import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
 import { User } from './models/user';
 import { Auth, user } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,13 @@ export class AppComponent {
   user: User = new User('', '', '');
   user$;
   title: string = "";
+  subscriptionUser?: Subscription;
 
   constructor(protected loginService: LoginService, private router: Router, private auth: Auth){
     this.user$ = user(this.auth);
   }
 
   isLoginPage(): boolean {
-    console.log(this.router.url);
-    
     return this.router.url === '/login' || this.router.url === '/';
   }
 
@@ -35,7 +35,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.user$.subscribe(async aUser => {
+    this.subscriptionUser = this.user$.subscribe(async aUser => {
       if (!aUser) return
       this.user = await this.loginService.getDataUser(aUser.uid)
       this.ngOnChanges()
@@ -43,10 +43,14 @@ export class AppComponent {
   }
 
   ngOnChanges(): void {
-    if (['', '/info'].includes(this.router.url) && this.user && this.user.rol == 'admin') {
-      console.log('Redirecting to projects');
-
+    if (['', '/info'].includes(this.router.url) && this.user.rol == 'admin') {
       this.router.navigate(['/projects'])
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptionUser) {
+      this.subscriptionUser.unsubscribe()
     }
   }
 }

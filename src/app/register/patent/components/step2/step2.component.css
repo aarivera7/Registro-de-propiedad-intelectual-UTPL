@@ -15,34 +15,51 @@ label{
 
 p{
   font-weight: 400;
-  font-size: 10px;
+  font-size: .9em;
 }
 
 .texto{
   margin: 20px;
 }
 
-button {
+.button {
   border-radius: 10px;
   color: white;
   cursor: pointer;
   background: #172D5A;
   padding: 7px;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 79px;
-  margin-top: 250px;
+  margin: 1rem;
 }
 
-button:disabled, input:disabled {
+button:disabled, input:disabled, .disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
   opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
+.not-disabled{
+  cursor: pointer;
+}
+
+.custom-file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid #172D5A;
+  padding: 0.3rem .5rem 0.25rem .2rem;
+  margin: 0.3rem;
+  background-color: #D3ECBA;
+  font-size: .9em;
+}
+
+.custom-file-upload {
+  display: none;
+}
+
 .contBoton{
   display: flex;
   justify-content: center;
-  margin-top: 1px;
 }
 
 .parent-container {

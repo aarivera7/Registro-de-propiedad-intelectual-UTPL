@@ -115,10 +115,10 @@
       </dialog>
 
       <div class="imgs" *ngIf="'user' == user.rol">
-        <img *ngIf="project.type === 'patent'" src="../../assets/icons/patente.svg" alt="Patente" >
+        <img *ngIf="project.type === 'patent'" src="../../assets/icons/patent.svg" alt="Patente" >
         <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
-        <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/baseDatos.svg"  >
-        <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/sIndustrial.svg"  >
+        <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/database.svg"  >
+        <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/industrial.svg"  >
       </div>
 
       <div class="stroke">
@@ -149,19 +149,19 @@
 
       <div *ngIf="'admin' == user.rol" class="botones" (click)="stopPropagation($event)">
         <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'Aprobar')" class="btn">
-          <img *ngIf="project.status == 'Aprobado' else aprobado" src="assets/icons/aprobar-active.svg">
+          <img *ngIf="project.status == 'Aprobado' else aprobado" src="assets/icons/approve-active.svg">
           <ng-template #aprobado>
-            <img src="assets/icons/Aprobar.svg">
+            <img src="assets/icons/approve.svg">
           </ng-template>
         </button>
         <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'No aprobar')" class="btn">
-          <img *ngIf="project.status == 'No aprobado' else noAprobado" src="assets/icons/no-aprobar-active.svg">
+          <img *ngIf="project.status == 'No aprobado' else noAprobado" src="assets/icons/no-approve-active.svg">
           <ng-template #noAprobado>
-            <img src="assets/icons/NoAprobar.svg">
+            <img src="assets/icons/no-approve.svg">
           </ng-template>
         </button>
         <button [disabled]="project.publish" (click)="deleteProject(project)" class="btn">
-          <img src="assets/icons/eliminar.svg">
+          <img src="assets/icons/delete.svg">
         </button>
       </div>
     </div>

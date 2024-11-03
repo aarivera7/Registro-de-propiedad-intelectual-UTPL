@@ -17,7 +17,7 @@ p {
   margin: 10px
 }
 
-input {
+input, textarea {
   width: 100%;
   box-sizing: border-box;
   border-radius: 6px;
@@ -31,7 +31,7 @@ button {
   text-align: center;
 }
 
-button:disabled, input:disabled {
+button:disabled, input:disabled, textarea:disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
   opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
   cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
@@ -57,7 +57,6 @@ button {
   cursor: pointer;
   background: #172D5A;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 24px;
 }
 
 .contBoton{
@@ -68,12 +67,6 @@ button {
 .contBoton1{
   display: flex;
   justify-content: center;
-}
-
-.contBoton1 button{
-  margin: 20px ;
-  padding-left: 30px;
-  padding-right: 30px;
 }
 
 .correo{
