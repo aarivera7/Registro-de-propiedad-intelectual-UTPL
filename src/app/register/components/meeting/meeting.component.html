@@ -1,0 +1,142 @@
+<div class="whole">
+    <ng-container  *ngIf="user.rol == 'user' && project.progressReviewMeeting">
+      <div class="meeting-header">
+        <div class="meeting-header__div">
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
+            <path d="M2.7085 3V61" stroke="#6188D8" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <div class="meeting-header__div--title">
+            <small>Asignación</small>
+            <h2>Reunión de revisión de avances</h2>
+          </div>
+        </div>
+  
+        <button
+          *ngIf="!loading"
+          class="button"
+          [disabled]="project.progressReviewMeeting.assistance"
+          (click)="confirmAssistance()"
+        >
+          Confirmar asistencia
+        </button>
+  
+        <div *ngIf="loading" class="loading-overlay">
+          <div class="loading-icon"></div>
+        </div>
+      </div>
+  
+      <div class="details">
+        <small>Detalles</small>
+        <div class="details-user">
+          <p class="details-user__column">
+            <img src="/assets/icons/mini-calendar.svg" alt="Fecha"> 
+            {{ project.progressReviewMeeting.timeStart.toDate() | date:'fullDate'}}
+          </p>
+          <p class="details-user__column">
+            <img src="/assets/icons/clock.svg" alt="Hora">
+            Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}
+          </p>
+          <p class="details-user__column">
+            <img src="/assets/icons/build.svg" alt="Lugar">
+            <span *ngIf="project.progressReviewMeeting.modality == 'Presencial'">
+              Lugar: {{ project.progressReviewMeeting.place }}
+            </span> 
+            <span *ngIf="project.progressReviewMeeting.modality == 'Virtual'">
+              Enlace de la Reunión: {{ project.progressReviewMeeting.place }}
+            </span>
+          </p>
+          <p class="details-user__column modality">
+            {{ project.progressReviewMeeting.modality }}
+          </p>
+        </div>
+  
+        <p *ngIf="project.progressReviewMeeting.assistance">
+          <b>Asistencia Confirmada!</b>
+        </p>
+      </div>
+    </ng-container>
+  
+    <ng-container *ngIf="user.rol == 'admin'">
+      <form [formGroup]="formReviewMeeting" (ngSubmit)="createMeeting()">
+        <div class="meeting-header">
+          <div class="meeting-header__div">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
+              <path d="M2.7085 3V61" stroke="#6188D8" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <div class="meeting-header__div--title">
+              <small>Asignación</small>
+              <h2>Reunión de revisión de avances</h2>
+            </div>
+          </div>
+          
+          <button *ngIf="!loading" class="button">Guardar y Enviar</button>
+          <div *ngIf="loading" class="loading-overlay">
+            <div class="loading-icon"></div>
+          </div>
+        </div>
+  
+        <div class="details">
+          <small>Detalles</small>
+          <div class="details-admin">
+            <div class="date details-admin__column">
+              <label for="date">Fecha: </label>
+              <input
+                type="date"
+                id="date"
+                required
+                formControlName="date"
+                class="details-admin__column--input"
+              >
+            </div>
+            <div class="times details-admin__column">
+              <label for="timeStart">Inicio: </label>
+              <input
+                type="time"
+                id="timeStart"
+                required
+                formControlName="timeStart"
+                class="details-admin__column--input"
+              >
+  
+              <label for="timeFinish">Fin: </label>
+              <input
+                type="time"
+                id="timeFinish"
+                required
+                formControlName="timeFinish"
+                class="details-admin__column--input"
+              >
+            </div>
+            <div class="lugar details-admin__column">
+              <label for="place">Lugar o Enlace de Reunión: </label>
+              <textarea
+                id="place"
+                cols="30"
+                rows="10"
+                required
+                class="details-admin__column--textarea"
+                formControlName="place"
+              ></textarea>
+            </div>
+            <div class="modalidad details-admin__column">
+              <label for="modality">Modalidad: </label>
+              <select
+                id="modality"
+                class="details-admin__column--modality"
+                required
+                formControlName="modality"
+              >
+                <option selected disabled>Modalidad</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+              </select>
+            </div>
+          </div>
+          
+          <p *ngIf="project.progressReviewMeeting && project.progressReviewMeeting.assistance">
+            <b>Asistencia Confirmada!</b>
+          </p>
+        </div>
+      </form>
+    </ng-container>
+  </div>  
