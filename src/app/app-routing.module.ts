@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { CertificationsComponent } from './certifications/certifications.component';
-import { MessagesComponent } from './messages/messages.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { ProjectsComponent } from './main-interface/projects/projects.component';
+import { CertificationsComponent } from './main-interface/certifications/certifications.component';
+import { MessagesComponent } from './main-interface/messages/messages.component';
+import { CalendarComponent } from './main-interface/calendar/calendar.component';
 import { PatentComponent } from './register/patent/patent.component';
 import { CopyrightSoftwareComponent } from './register/copyright-software/copyright-software.component';
 import { CopyrightDatabaseComponent } from './register/copyright-database/copyright-database.component';
 import { IndustrialSecretComponent } from './register/industrial-secret/industrial-secret.component';
-import {InfoComponent} from "./info/info";
+import {InfoComponent} from "./main-interface/info/info";
 
 import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';

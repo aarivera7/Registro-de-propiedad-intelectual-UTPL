@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { ProjectsService } from '../services/projects.service';
-import { LoginService } from '../services/login.service';
-import { Project } from '../models/project';
+import { ProjectsService } from '../../services/projects.service';
+import { LoginService } from '../../services/login.service';
+import { Project } from '../../models/project';
 import esLocate from '@fullcalendar/core/locales/es';
-import { Meeting } from '../models/meeting';
-import { MeetingsService } from '../services/meetings/meetings.service';
+import { Meeting } from '../../models/meeting';
+import { MeetingsService } from '../../services/meetings/meetings.service';
 
 @Component({
   selector: 'app-calendar',

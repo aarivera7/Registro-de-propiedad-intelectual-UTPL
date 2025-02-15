@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Certification } from 'src/app/models/certification';
-import { LoginService } from '../services/login.service';
-import { CertificationsService } from '../services/certifications.service';
-import { User } from '../models/user';
+import { LoginService } from '../../services/login.service';
+import { CertificationsService } from '../../services/certifications.service';
+import { User } from '../../models/user';
 import { Subscription } from 'rxjs';
 
 @Component({

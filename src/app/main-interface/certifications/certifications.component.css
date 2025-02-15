@@ -80,7 +80,7 @@ h4{
   padding: 10px;
   display: flex;
   flex-direction: column;
-  background: url('../../assets/images/card.png'), white 0px 0px / 256.667% 100% no-repeat;
+  background: url('/assets/images/card.png'), white 0px 0px / 256.667% 100% no-repeat;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
@@ -103,7 +103,7 @@ body{
 
 .certification{
   border-radius: 20px;
-  background: url('../../assets/images/card.png'), white 0px 0px / 256.667% 100% no-repeat;
+  background: url('/assets/images/card.png'), white 0px 0px / 256.667% 100% no-repeat;
   margin: 20px;
   width: 310px;
   height: 345px;

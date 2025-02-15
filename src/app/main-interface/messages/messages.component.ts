@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message } from 'src/app/models/message';
-import { MessagesService } from '../services/messages.service';
-import { User } from '../models/user';
-import { LoginService } from '../services/login.service';
+import { MessagesService } from '../../services/messages.service';
+import { User } from '../../models/user';
+import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from '@angular/fire/firestore';
-import { ProjectsService } from '../services/projects.service';
-import { Project } from '../models/project';
+import { ProjectsService } from '../../services/projects.service';
+import { Project } from '../../models/project';
 import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
 import { Subscription } from 'rxjs';
 
