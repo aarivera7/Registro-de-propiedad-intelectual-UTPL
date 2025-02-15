@@ -7,7 +7,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { InfoComponent } from './info/info';
-import { AlertComponent } from './alert/alert.component';
+import { MainInterfaceRoutingModule } from './main-interface-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,12 +19,13 @@ import { AlertComponent } from './alert/alert.component';
     MessagesComponent,
     ProjectsComponent,
     InfoComponent,
-    AlertComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FullCalendarModule,
+    MainInterfaceRoutingModule,
+    SharedModule
   ]
 })
 export class MainInterfaceModule { }

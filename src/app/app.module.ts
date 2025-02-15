@@ -36,9 +36,9 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from './services/login.service';
-import { ShortAlertComponent } from './short-alert/short-alert.component';
 import { MeetingComponent } from './register/components/meeting/meeting.component';
 import { MainInterfaceModule } from './main-interface/main-interface.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { MainInterfaceModule } from './main-interface/main-interface.module';
     CopyrightDatabaseComponent,
     IndustrialSecretComponent,
     NopagefoundComponent,
-    ShortAlertComponent,
     MeetingComponent,
   ],
   imports: [
@@ -75,6 +74,7 @@ import { MainInterfaceModule } from './main-interface/main-interface.module';
     ReactiveFormsModule,
     AppRoutingModule,
     MainInterfaceModule,
+    SharedModule
   ],
   providers: [LoginService, {provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]

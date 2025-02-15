@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShowAlertService } from '../services/show-alert/show-alert.service';
+import { ShowAlertService } from '../../services/show-alert/show-alert.service';
 import { Subscription } from 'rxjs';
 
 @Component({

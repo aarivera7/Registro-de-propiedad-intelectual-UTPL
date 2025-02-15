@@ -17,7 +17,6 @@ export class InfoComponent {
   requestForAdvice(): void {
     this.loading = true; // Mostrar el ícono de carga
     this.projectService.requestsForAdvice().then((data) => {
-      console.log(data);
       this.alertMessage = "Solicitud enviada";
     }).catch(() => {}).finally(() => {
       this.loading = false; // Ocultar el ícono de carga
