@@ -62,13 +62,13 @@ export class CopyrightDatabaseComponent implements OnInit, OnDestroy {
 
   redirect(project: Project, numStep: number): void {
     if (numStep <= 0 || numStep > this.steps.length) {
-      this.router.navigate([`/${project.type}_form/${project.getId}/1`])
+      this.router.navigate([`/register-pi/${project.type}_form/${project.getId}/1`])
       return
     } 
 
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
-    this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
+    this.router.navigate([`/register-pi/${project.type}_form/${project.getId}/${numStep}`])
   }
 
   async ngOnInit(): Promise<void> {

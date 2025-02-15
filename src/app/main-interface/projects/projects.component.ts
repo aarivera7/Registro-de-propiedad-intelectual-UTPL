@@ -144,7 +144,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           this.openModalApprove = null
           this.alertService.showAlert("Proyecto fue 'Aprobado' con éxito")
           // alert("Proyecto aprobado con éxito")
-          // console.log(data);
         }).catch(err => {
           this.openModalApprove = null
           alert("Error al aprobar el proyecto")
@@ -163,7 +162,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           this.openModalApprove = null
           this.alertService.showAlert("Proyecto fue \"Rechazado\" con éxito")
           // alert("Proyecto rechazado con éxito")
-          // console.log(data);
         }).catch(err => {
           this.openModalApprove = null
           alert("Error al rechazar el proyecto")
@@ -179,7 +177,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
     this.projectService.deleteProject(project)
         .then((data) => {
-          // console.log(data);
           this.alertService.showAlert("Proyecto eliminado con éxito")
           // alert("Proyecto eliminado con éxito")
         }).catch(err => {
@@ -190,7 +187,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   redirect(project: Project): void {
     if (project.status == "Aprobado") {
-      this.router.navigate([`/${project.type}_form/${project.getId}/${project.numStep}`])
+      this.router.navigate([`/register-pi/${project.type}_form/${project.getId}/${project.numStep}`])
     }
   }
 

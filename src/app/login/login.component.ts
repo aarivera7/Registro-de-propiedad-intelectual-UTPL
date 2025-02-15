@@ -59,7 +59,6 @@ export class LoginComponent {
   loginAuthGoogle(email: string){
     this.loginService.loginWithGoogle(email)
         .then(res => {
-          console.log(res);
           
           this.router.navigate(['/info'])
         })

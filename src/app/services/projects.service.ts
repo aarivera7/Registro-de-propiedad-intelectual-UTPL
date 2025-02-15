@@ -64,7 +64,6 @@ export class ProjectsService {
   addReviewMeeting(project: Project, meeting: any, type: string) : Promise<unknown>{
     // Se elimina esta referencia que se encuentra almacenada en la base de datos, porque al momento de actualizar el documento, se genera un error de que el objeto enviado es muy grande
     delete meeting.meetingRef
-    console.log(meeting)
     return httpsCallable(this.functions, 'addReviewMeeting')({id: project.getId, type: type, ...meeting})
   }
 

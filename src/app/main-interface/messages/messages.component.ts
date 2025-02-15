@@ -76,9 +76,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   newResponse(messageId: string, i: number): void {
     this.formNewResponse.setControl('messageId', new FormControl(messageId, [Validators.required, Validators.nullValidator]));
     this.inputMessages[i] = false
-    console.log(this.formNewResponse.value);
     this.messagesService.newResponse(this.formNewResponse.value).then(response  => {
-      console.log(response);
     }).catch(err => console.log(err));
 
     this.formNewResponse.reset()
@@ -94,7 +92,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     if (this.user.rol == "admin") { 
       this.subscriptionMessages = this.messagesService.getMessages(undefined).subscribe(messages => {
-        console.log(messages);
         this.messages = messages.map(x => Object.assign(new Message("", "", "", "", ""), x))
       })
     } else {
@@ -102,7 +99,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.projects = projects.map(x => Object.assign(new Project("", "", "", "", "", ""), x))
       })
       this.subscriptionMessages = this.messagesService.getMessages(this.loginService.uid).subscribe(messages => {
-        console.log(messages);
         this.messages = messages.map(x => Object.assign(new Message("", "", "", "", ""), x))
       })
     }

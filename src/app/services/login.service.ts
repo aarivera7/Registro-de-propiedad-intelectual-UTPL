@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Auth, signInWithEmailAndPassword, signOut, user, signInWithRedirect, signInWithPopup, OAuthProvider, linkWithPopup, UserCredential, GoogleAuthProvider } from "@angular/fire/auth";
+import { Auth, signInWithEmailAndPassword, signOut, user, signInWithPopup, OAuthProvider, linkWithPopup, UserCredential, GoogleAuthProvider } from "@angular/fire/auth";
 import { Firestore, getDoc, doc } from '@angular/fire/firestore';
 
 import { User } from "../models/user";
@@ -79,12 +79,17 @@ export class LoginService {
 
     async getDataUser(id: string): Promise<User>{
         if (this.userCache) {
+            
             return this.userCache.data() as Promise<User>;
         } else {
             const userRef = doc(this.firestore, 'users', id)
             const user = await getDoc(userRef)
             this.userCache = user;
+            
             if (user.exists()) {
+                sessionStorage.setItem('user', JSON.stringify(user.data()))
+
+                
                 return user.data() as User
             } else {
                 return this.aUser as User

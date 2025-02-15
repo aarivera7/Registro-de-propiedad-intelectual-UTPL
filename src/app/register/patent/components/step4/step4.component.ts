@@ -23,8 +23,6 @@ export class Step4Component {
   loading: boolean = false
 
 constructor(private projectService: ProjectsService, private alertService: ShowAlertService) { }
-
-
   confirmAssistance(): void {
     this.loading = true
 

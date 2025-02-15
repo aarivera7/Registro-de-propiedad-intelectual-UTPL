@@ -16,7 +16,6 @@ export class ProjectDocumentsService {
     
     const p = {...projectDocument}
     delete p.type
-    console.log(p);
     
     return setDoc(projectDocumentRef, p)
   }
@@ -41,7 +40,6 @@ export class ProjectDocumentsService {
     const p = {...projectDocument};
     delete p.type;
 
-    console.log(p);
     
     return updateDoc(projectDocumentRef, p)
   }

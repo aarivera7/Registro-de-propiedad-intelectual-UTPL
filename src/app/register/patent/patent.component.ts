@@ -50,7 +50,7 @@ export class PatentComponent implements OnInit, OnDestroy {
       numStep = 5
     }
 
-    this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
+    this.router.navigate([`/register-pi/${project.type}_form/${project.getId}/${numStep}`])
   }
 
   ngOnChanges() {

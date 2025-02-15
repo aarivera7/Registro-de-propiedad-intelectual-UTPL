@@ -100,8 +100,6 @@ export class MultipleFileLoadComponent {
     const fileNameSplit = file.name.split('.');
     fileNameSplit[fileNameSplit.length - 2] += addName;
     const fileName = fileNameSplit.join('.');
-
-    console.log(fileName);
     
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/${this.typeDocument}/${fileName}`);
 
@@ -133,7 +131,6 @@ export class MultipleFileLoadComponent {
             )
             
             this.documentService.addProjectDocument(this.projectDocument, this.project.getId)
-              .catch(e => console.log(e));
           }
 
           else {
@@ -165,8 +162,6 @@ export class MultipleFileLoadComponent {
 
     const urlParts = url.split('/') 
     const filePath = decodeURIComponent(urlParts[urlParts.length - 1].split('?')[0])
-    console.log(filePath);
-    
 
     const pdfRef = ref(this.storage, filePath);
     await deleteObject(pdfRef)
@@ -195,8 +190,6 @@ export class MultipleFileLoadComponent {
     }
     else {
       if (this.projectDocument) {
-        console.log(this.projectDocument);
-        
         this.observation = this.projectDocument.observation
         this.formObservations.get('observations')?.setValue(this.observation)
         this.documents = this.projectDocument.documents

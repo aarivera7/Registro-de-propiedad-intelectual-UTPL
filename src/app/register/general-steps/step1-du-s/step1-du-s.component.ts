@@ -94,7 +94,7 @@ export class Step1DuSComponent {
   }
 
   redirectUpdateDocuments(typeDocument: string, operation: string){
-    this.router.navigate([`/${this.project.type}_form/${this.project.getId}/1/${typeDocument}/${operation}`])
+    this.router.navigate([`/register-pi/${this.project.type}_form/${this.project.getId}/1/${typeDocument}/${operation}`])
   }
 
   getTitle(typeDocument: string): string{

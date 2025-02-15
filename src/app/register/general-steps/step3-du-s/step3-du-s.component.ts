@@ -81,7 +81,6 @@ export class Step3DuSComponent {
             .catch(err => console.log(err))
 
         this.projectService.sendEmail(this.project, "contract")
-            .then(a => console.log(a))
             .catch(err => console.log(err))
       }).catch();
     })
@@ -122,7 +121,6 @@ export class Step3DuSComponent {
   this.loading = true
   this.projectService.publishProject(this.project)
       .then((data) => {
-        console.log(data);
         this.alertService.showAlert("Certificado emitido correctamente")
       })
       .catch(err => console.log(err))
