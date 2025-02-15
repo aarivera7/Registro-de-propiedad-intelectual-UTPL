@@ -1,18 +1,22 @@
 <div class="whole">
   <ng-container  *ngIf="user.rol == 'user' && project.progressReviewMeeting">
-    <div class="conf">
-      <div class="imagen">
+    <div class="meeting-header">
+      <div class="meeting-header__div">
         <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
           <path d="M2.7085 3V61" stroke="#6188D8" stroke-width="5" stroke-linecap="round"/>
         </svg>
-        <div class="small">
+        <div class="meeting-header__div--title">
           <small>Asignación</small>
           <h2>Reunión de revisión de avances</h2>
         </div>
       </div>
 
-
-      <button *ngIf="!loading" class="cancelar" [disabled]="project.progressReviewMeeting.assistance" (click)="confirmAssistance()">
+      <button
+        *ngIf="!loading"
+        class="button"
+        [disabled]="project.progressReviewMeeting.assistance"
+        (click)="confirmAssistance()"
+      >
         Confirmar asistencia
       </button>
 
@@ -21,93 +25,125 @@
       </div>
     </div>
 
-    <div>
+    <div class="details">
       <small>Detalles</small>
-      <div class="detalles">
-        <p class="svg"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
-          <g clip-path="url(#clip0_216_11915)">
-            <path d="M3.5719 6.375H5.0119V7.79167H3.5719V6.375ZM13.6519 2.83333V12.75C13.6519 13.5292 13.0039 14.1667 12.2119 14.1667H2.1319C1.3327 14.1667 0.691895 13.5292 0.691895 12.75L0.699095 2.83333C0.699095 2.05417 1.3327 1.41667 2.1319 1.41667H2.8519V0H4.2919V1.41667H10.0519V0H11.4919V1.41667H12.2119C13.0039 1.41667 13.6519 2.05417 13.6519 2.83333ZM2.1319 4.25H12.2119V2.83333H2.1319V4.25ZM12.2119 12.75V5.66667H2.1319V12.75H12.2119ZM9.33191 7.79167H10.7719V6.375H9.33191V7.79167ZM6.45191 7.79167H7.89191V6.375H6.45191V7.79167Z" fill="#808080"/>
-          </g>
-          <defs>
-            <clipPath id="clip0_216_11915">
-              <rect width="17.28" height="17" fill="white" transform="translate(0.691895)"/>
-            </clipPath>
-          </defs>
-        </svg>Fecha: {{ project.progressReviewMeeting.timeStart.toDate() | date:'longDate'}}</p>
-        <p class="svg"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-          <path d="M6.7074 0C3.0603 0 0.106934 2.912 0.106934 6.5C0.106934 10.088 3.0603 13 6.7074 13C10.3611 13 13.3211 10.088 13.3211 6.5C13.3211 2.912 10.3611 0 6.7074 0ZM6.71401 11.7C3.79368 11.7 1.42835 9.373 1.42835 6.5C1.42835 3.627 3.79368 1.3 6.71401 1.3C9.63433 1.3 11.9997 3.627 11.9997 6.5C11.9997 9.373 9.63433 11.7 6.71401 11.7ZM7.04436 3.25H6.0533V7.15L9.52201 9.1975L10.0175 8.398L7.04436 6.6625V3.25Z" fill="#808080"/>
-        </svg>Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}</p>
-        <p class="svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11" fill="none">
-          <g clip-path="url(#clip0_216_11902)">
-            <path d="M4.074 10.7852H7.925H7.96473V2.50214H4.05634V10.7852H4.00631H0.683594V0.214722H15.1679V10.7852H7.83082H11.6921V5.22448H4.074V8.00482H11.6921" stroke="#808080" stroke-width="0.8" stroke-miterlimit="10"/>
-          </g>
-          <defs>
-            <clipPath id="clip0_216_11902">
-              <rect width="15.0729" height="11" fill="white" transform="translate(0.38916)"/>
-            </clipPath>
-          </defs>
-        </svg>Lugar: {{ project.progressReviewMeeting.place }}</p>
-        <p class="svg2"><svg xmlns="http://www.w3.org/2000/svg" width="2" height="64" viewBox="0 0 6 64" fill="none">
-          <path d="M2.7085 3V61" stroke="#808080" stroke-width="2" stroke-linecap="round"/>
-        </svg>{{ project.progressReviewMeeting.modality }}</p>
+      <div class="details-user">
+        <p class="details-user__column">
+          <img src="/assets/icons/mini-calendar.svg" alt="Fecha"> 
+          {{ project.progressReviewMeeting.timeStart.toDate() | date:'fullDate'}}
+        </p>
+        <p class="details-user__column">
+          <img src="/assets/icons/clock.svg" alt="Hora">
+          Hora: {{ project.progressReviewMeeting.timeStart.toDate() | date:'shortTime'}} - {{ project.progressReviewMeeting.timeFinish.toDate() | date:'shortTime'}}
+        </p>
+        <p class="details-user__column">
+          <img src="/assets/icons/build.svg" alt="Lugar">
+          <span *ngIf="project.progressReviewMeeting.modality == 'Presencial'">
+            Lugar: {{ project.progressReviewMeeting.place }}
+          </span> 
+          <span *ngIf="project.progressReviewMeeting.modality == 'Virtual'">
+            Enlace de la Reunión: {{ project.progressReviewMeeting.place }}
+          </span>
+        </p>
+        <p class="details-user__column modality">
+          {{ project.progressReviewMeeting.modality }}
+        </p>
       </div>
 
-      <p *ngIf="project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
+      <p *ngIf="project.progressReviewMeeting.assistance">
+        <b>Asistencia Confirmada!</b>
+      </p>
     </div>
   </ng-container>
 
   <ng-container *ngIf="user.rol == 'admin'">
     <form [formGroup]="formReviewMeeting" (ngSubmit)="createMeeting()">
-      <div class="conf">
-        <div class="imagen">
+      <div class="meeting-header">
+        <div class="meeting-header__div">
           <svg xmlns="http://www.w3.org/2000/svg" width="6" height="64" viewBox="0 0 6 64" fill="none">
             <path d="M2.7085 3V61" stroke="#6188D8" stroke-width="5" stroke-linecap="round"/>
           </svg>
-          <div class="small">
+          <div class="meeting-header__div--title">
             <small>Asignación</small>
             <h2>Reunión de revisión de avances</h2>
           </div>
         </div>
         
-        <button *ngIf="!loading" class="cancelar">Guardar y Enviar</button>
+        <button
+          *ngIf="!loading"
+          [disabled]="project.progressReviewMeeting.assistance"
+          class="button"
+        >
+          Guardar y Enviar
+        </button>
         <div *ngIf="loading" class="loading-overlay">
           <div class="loading-icon"></div>
         </div>
       </div>
 
-      <div>
+      <div class="details">
         <small>Detalles</small>
-        <div class="detalles1">
-          <div class="date">
+        <div class="details-admin">
+          <div class="date details-admin__column">
             <label for="date">Fecha: </label>
-            <input type="date" id="date" formControlName="date">
+            <input
+              type="date"
+              id="date"
+              required
+              formControlName="date"
+              class="details-admin__column--input"
+            >
           </div>
-          <div class="times">
+          <div class="times details-admin__column">
             <label for="timeStart">Inicio: </label>
-            <input type="time" id="timeStart" formControlName="timeStart">
+            <input
+              type="time"
+              id="timeStart"
+              required
+              formControlName="timeStart"
+              class="details-admin__column--input"
+            >
 
             <label for="timeFinish">Fin: </label>
-            <input type="time" id="timeFinish" [min]="" required formControlName="timeFinish">
+            <input
+              type="time"
+              id="timeFinish"
+              required
+              formControlName="timeFinish"
+              class="details-admin__column--input"
+            >
           </div>
-          <div class="lugar">
-            <label for="place">Lugar: </label>
-            <textarea id="place" cols="30" rows="10" formControlName="place"></textarea>
+          <div class="lugar details-admin__column">
+            <label for="place">Lugar o Enlace de Reunión: </label>
+            <textarea
+              id="place"
+              cols="30"
+              rows="10"
+              required
+              class="details-admin__column--textarea"
+              formControlName="place"
+            ></textarea>
           </div>
-          <div class="modalidad">
+          <div class="modalidad details-admin__column">
             <label for="modality">Modalidad: </label>
-            <select id="modality" required formControlName="modality">
-              <option selected disabled >Modalidad</option>
+            <select
+              id="modality"
+              class="details-admin__column--modality"
+              required
+              formControlName="modality"
+            >
+              <option selected disabled>Modalidad</option>
               <option value="Presencial">Presencial</option>
               <option value="Virtual">Virtual</option>
             </select>
           </div>
-
         </div>
-        <p *ngIf="project.progressReviewMeeting && project.progressReviewMeeting.assistance"><b>Asistencia Confirmada!</b></p>
+        
+        <p *ngIf="project.progressReviewMeeting && project.progressReviewMeeting.assistance">
+          <b>Asistencia Confirmada!</b>
+        </p>
       </div>
-
     </form>
   </ng-container>
-
 </div>
 

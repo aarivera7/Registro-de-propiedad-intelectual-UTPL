@@ -6,6 +6,8 @@ import { ProjectsService } from '../services/projects.service';
 import { LoginService } from '../services/login.service';
 import { Project } from '../models/project';
 import esLocate from '@fullcalendar/core/locales/es';
+import { Meeting } from '../models/meeting';
+import { MeetingsService } from '../services/meetings/meetings.service';
 
 @Component({
   selector: 'app-calendar',
@@ -27,14 +29,30 @@ export class CalendarComponent implements OnInit {
     }
   };
 
-  constructor(private projectService: ProjectsService, private loginService: LoginService) { }
+  constructor(
+    private projectService: ProjectsService,
+    private meetingService: MeetingsService,
+    private loginService: LoginService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     const user = await this.loginService.getDataUser(this.loginService.uid)
 
     const uid = user.rol == "admin" ? undefined : this.loginService.uid
+    
+    this.meetingService.getMeetings(uid).subscribe(meetings => {
+      this.calendarOptions.events = meetings.map(meeting => {
+        meeting = Object.assign(new Meeting(), meeting)
+        return {
+          title: meeting.projectName,
+          start: meeting.timeStart.toDate(),
+          end: meeting.timeFinish.toDate(),
+          display: 'block',
+        }
+      });
+    });
 
-    this.projectService.getProjects(uid).subscribe(projects => {
+    /*this.projectService.getProjects(uid).subscribe(projects => {
       this.calendarOptions.events = projects
       .filter(project => project.finalReviewMeeting && project.finalReviewMeeting.assistance)
       .map(project => {
@@ -59,6 +77,6 @@ export class CalendarComponent implements OnInit {
           }
         })
       )
-    });
+    });*/
   }
 }

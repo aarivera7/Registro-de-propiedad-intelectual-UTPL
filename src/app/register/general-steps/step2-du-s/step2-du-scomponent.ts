@@ -25,19 +25,6 @@ export class Step2DuSComponent {
 
   constructor(private projectService: ProjectsService, private alertService: ShowAlertService) {}
 
-  // Method to show the alert
-  showSuccessAlert() {
-    this.showAlert = true;
-    setTimeout(() => {
-      this.showAlert = false;
-    }, 3000); // Hide alert after 3 seconds
-  }
-
-  // Method to manually close the alert
-  closeAlert() {
-    this.showAlert = false;
-  }
-
   confirmAssistance(): void {
     this.loading = true
 

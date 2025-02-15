@@ -30,10 +30,9 @@
     <div *ngFor="let url of documents">
       {{ getFileName(url) }}
       <button *ngIf="!loading" class="button button__delete" (click)="deletePDF(url)">Borrar</button>
-
-      <div *ngIf="loading" class="loading-overlay">
-        <div class="loading-icon"></div>
-      </div>
+    </div>
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-icon"></div>
     </div>
   </div>
 

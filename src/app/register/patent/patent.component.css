@@ -1,3 +1,7 @@
+.registerpi-cont {
+  margin: 0 4rem;
+}
+
 .step-patent-container {
   padding: 0 1rem;
   border-radius: 10px;
@@ -38,6 +42,10 @@ h2{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.not-step {
+  visibility: hidden;
 }
 
 .navigation h3 {

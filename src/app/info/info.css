@@ -83,7 +83,7 @@ h3{
 .contDocs{
   display: flex;
   flex-direction: column;
-  margin: 5px;
+  margin: .4rem;
 }
 
 .contDocs img{

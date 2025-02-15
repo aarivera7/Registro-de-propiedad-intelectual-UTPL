@@ -1,4 +1,4 @@
-<div *ngIf="projects && user">
+<div class="projects-cont" *ngIf="projects && user">
   <div class="top">
     <h2>Registro de propiedad intelectual</h2>
     <h3>{{ title }}</h3>
@@ -67,10 +67,10 @@
   <app-alert *ngIf="alertMessage" [message]="alertMessage" (close)="alertMessage = undefined"></app-alert>
 
 
-  <div  >
+  <div>
     <h3 class="desc">Descripción</h3>
-    <div *ngIf="filteredProjects?.length == 0">
-      <p>No hay registros de propiedad intelectual</p>
+    <div *ngIf="filteredProjects?.length == 0" class="not-project" >
+      <p class="not-project__p">No hay registros de propiedad intelectual</p>
     </div>
 
     <div class="project" *ngFor="let project of filteredProjects" (click)="redirect(project)">
@@ -114,19 +114,20 @@
         </form>
       </dialog>
 
-      <div class="imgs" *ngIf="'user' == user.rol">
-        <img *ngIf="project.type === 'patent'" src="../../assets/icons/patent.svg" alt="Patente" >
-        <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" >
-        <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/database.svg"  >
-        <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/industrial.svg"  >
-      </div>
-
-      <div class="stroke">
-        <div class="name">
-          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="100" viewBox="0 0 6 64" fill="none">
-            <path [attr.stroke]="getStrokeColor(project.type)" stroke-width="5" stroke-height="80" stroke-linecap="round" d="M3 3V61"/>
-          </svg>
+      <div
+        class="data-project"
+        [ngClass]="{
+          'data-project-admin': 'admin' == user.rol,
+          'data-project-user': 'user' == user.rol
+        }"
+      >
+        <div class="imgs" *ngIf="'user' == user.rol">
+          <img *ngIf="project.type === 'patent'" src="../../assets/icons/patent.svg" alt="Patente o Modelo de Utilidad" >
+          <img *ngIf="project.type === 'copyright-software'" src="../../assets/icons/software.svg" alt="">
+          <img *ngIf="project.type === 'copyright-database'" src="../../assets/icons/database.svg"  >
+          <img *ngIf="project.type === 'industrial-secret'" src="../../assets/icons/industrial.svg"  >
         </div>
+        <div class="separator" [style.border-color]="getStrokeColor(project.type)"></div>
         <div>
           <p class="titulo" [ngClass]="{'aprobado': project.status === 'Aprobado', 'no-aprobado': project.status === 'No aprobado', 'en-proceso': project.status === 'En Proceso'}">
             <small>{{ project.status }}</small>
@@ -142,12 +143,12 @@
         <p class="titulo">Fecha de creación</p>
         <p class="contenido">{{ project.getCreateDate | date:'mediumDate' }}</p>
       </div>
-      <div class="fecha">
+      <div class="type-property">
         <p class="titulo">Tipo de propiedad intelectual</p>
         <div class="contenido1">{{translateProjectType(project.type)}}</div>
       </div>
 
-      <div *ngIf="'admin' == user.rol" class="botones" (click)="stopPropagation($event)">
+      <div *ngIf="'admin' == user.rol" class="buttons-project-container" (click)="stopPropagation($event)">
         <button [disabled]="project.publish" (click)="openModalApproveProject(project, 'Aprobar')" class="btn">
           <img *ngIf="project.status == 'Aprobado' else aprobado" src="assets/icons/approve-active.svg">
           <ng-template #aprobado>

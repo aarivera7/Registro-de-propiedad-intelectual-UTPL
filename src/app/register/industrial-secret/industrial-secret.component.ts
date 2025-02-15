@@ -55,6 +55,11 @@ export class IndustrialSecretComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
 
   redirect(project: Project, numStep: number): void {
+    if (numStep <= 0 || numStep > this.steps.length) {
+      this.router.navigate([`/${project.type}_form/${project.getId}/1`])
+      return
+    } 
+
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
     this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
@@ -72,7 +77,7 @@ export class IndustrialSecretComponent implements OnInit, OnDestroy {
       this.controlStep()
     })
 
-    this.projectService.getProject(this.id).subscribe(project => {
+    this.subscriptionProject = this.projectService.getProject(this.id).subscribe(project => {
       this.project = Object.assign(new Project("", "", "", "", "", ""), project)
 
       if (this.project.status != "Aprobado"){
@@ -97,7 +102,13 @@ export class IndustrialSecretComponent implements OnInit, OnDestroy {
   }
 
   controlStep()  {
-    if (this.project && this.user)
+    if (!(this.project && this.user)) return;
+
+    if (this.project.numStep! < this.step ) {
+      this.step = this.project.numStep! 
+      this.redirect(this.project, this.step -1)
+    }
+    
     if (this.user.rol == "admin") {
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true

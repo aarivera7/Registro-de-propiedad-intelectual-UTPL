@@ -1,5 +1,5 @@
 <!-- Form -->
-<form [formGroup]="formStatus"  *ngIf="!typeDocument && project">
+<form [formGroup]="formStatus"  *ngIf="!typeDocument && project && user">
   <div *ngIf="!loading" class="contBoton1">
     <button type="button" [disabled]="project.approveStep1" class="button correo" (click)="changeStatus()" *ngIf="user.rol == 'admin'">
       Guardar cambios
@@ -22,8 +22,8 @@
       <span *ngIf="user.rol == 'admin'"> Observación </span>
   </div>
 
-  <ng-container *ngIf="documents.length > 0">
-      <div *ngFor=" let type of typeDocuments let i = index" class="document">
+  <ng-container *ngIf="documents">
+      <div *ngFor="let type of typeDocuments let i = index" class="document">
           <span>{{ i+1 }}</span>
 
           <div class="contDoc">
@@ -53,11 +53,16 @@
                     {{ documentsView[type].date.toDate() | date:"longDate" }}
                   </span>
 
-                  <div class="obs" *ngIf="user.rol == 'admin'">
-                      <input  type="text" formControlName="{{type}}Observation">
+                  <div class="observation" *ngIf="user.rol == 'admin'">
+                      <input class="observation__input" type="text" formControlName="{{type}}Observation">
                   </div>
 
-                  <div title="Descargar archivo" *ngIf="user.rol == 'user' && type != 'sourceCode'" class="btns">
+                  <div
+                    title="Descargar archivo"
+                    *ngIf="user.rol == 'user'"
+                    class="btns"
+                    [ngClass]="{'not-visible':  type == 'sourceCode'}"
+                  >
                     <button (click)="redirectUpdateDocuments(type, 'download')" class="descargar">
                       <svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
                         <rect x="0.621338" y="0.25" width="39.4438" height="33.5" rx="1.75" fill="#DBE5F8" stroke="#172D5A" stroke-width="0.5"/>
@@ -86,22 +91,27 @@
               </ng-container>
 
                 
-                <ng-template #default>
-
-                    <select *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
+              <ng-template #default>
+                  <div class="div-select">
+                    <select class="div-select__select" *ngIf="user.rol == 'admin'" id="state" formControlName="{{type}}">
                         <option selected value="Pendiente">Pendiente</option>
-                        <option disabled value="Aceptado" >Aceptado</option>
-                        <option disabled value="Incompleto" >Incompleto</option>
+                        <option [disabled]="type != 'sourceCode'" value="Aceptado" >Aceptado</option>
+                        <option [disabled]="type != 'sourceCode'" value="Incompleto" >Incompleto</option>
                     </select>
+                  </div>
                     <span *ngIf="user.rol == 'user'"> Pendiente </span>
 
                     <span> Sin Fecha </span>
 
-                    <div *ngIf="user.rol == 'admin'">
-                        <input type="text" formControlName="{{type}}Observation">
+                    <div class="observation" *ngIf="user.rol == 'admin'">
+                        <input class="observation__input" type="text" formControlName="{{type}}Observation">
                     </div>
 
-                <div *ngIf="user.rol == 'user' && type != 'sourceCode'" class="btns">
+                <div
+                  *ngIf="user.rol == 'user'"
+                  class="btns"
+                  [ngClass]="{'not-visible':  type == 'sourceCode'}"
+                >
                   <button title="Descargar documento" [disabled]="true" (click)="redirectUpdateDocuments(type, 'download')" class="descargar">    
                     <svg xmlns="http://www.w3.org/2000/svg" width="41" height="34" viewBox="0 0 41 34" fill="none">
                       <rect x="0.621338" y="0.25" width="39.4438" height="33.5" rx="1.75" fill="#DBE5F8" stroke="#172D5A" stroke-width="0.5"/>
@@ -127,7 +137,7 @@
                     </svg>
                   </button>
                 </div>
-                </ng-template>
+              </ng-template>
             </div>
         </div>
     </ng-container>

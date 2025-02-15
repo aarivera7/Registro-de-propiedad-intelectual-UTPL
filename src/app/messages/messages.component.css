@@ -1,8 +1,13 @@
+button:disabled, input:disabled, textarea:disabled, .disabled {
+  /* Agrega aquí los estilos que desees para el botón desactivado */
+  opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
+  cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
+}
+
 h2{
   color: #172D5A;
   font-weight: 600;
   font-size: 26px;
-
 }
 
 h3{
@@ -25,10 +30,20 @@ h3{
   width: 162px;
 }
 
+.custom-file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid #000000;
+  padding: 0.3rem .5rem 0.25rem .2rem;
+  margin: 0.3rem;
+  background-color: #D3ECBA;
+  font-size: .9em;
+}
 
-
-
-
+.custom-file-upload {
+  display: none;
+}
 
 small{
   font-size: 15px;
@@ -47,7 +62,7 @@ a{
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 20px;
-  width: 90%;
+  width: 100%;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -191,8 +206,7 @@ dialog{
 }
 
 .cont{
-  width: 100%;
-  margin-left: 7%;
+  margin: 0 3rem;
 }
 
 .parte2{

@@ -91,16 +91,18 @@ export class MultipleFileLoadComponent {
     const file: File = input.files[0];
 
     let addName = ""
-    while (listFiles.items.filter((fileRef) => fileRef.name === (file.name + addName)).length > 0) {
+    while (listFiles.items.some((fileRef) => {
+      const str = file.name.split(".pdf")[0] + addName + ".pdf"
+      return fileRef.name === str
+    })) {
       addName += "1"
     }
-    const fileNameSplit = file.name.split('.')
+    const fileNameSplit = file.name.split('.');
+    fileNameSplit[fileNameSplit.length - 2] += addName;
+    const fileName = fileNameSplit.join('.');
 
-    const idxStart = fileNameSplit.length - 2
-    const idxEnd = fileNameSplit.length - 1
-
-    let fileName = fileNameSplit[idxStart] + addName + '.' + fileNameSplit[idxEnd]
-
+    console.log(fileName);
+    
     const pdfRef = ref(this.storage, `projects/${this.project.type}/${this.project.getId}/${this.typeDocument}/${fileName}`);
 
     await uploadBytesResumable(pdfRef, file);
@@ -136,7 +138,7 @@ export class MultipleFileLoadComponent {
 
           else {
             this.projectDocument.documents.push(url)
-            this.projectDocument.setDateNow = Timestamp.now()
+            this.projectDocument.date = Timestamp.now()
             this.projectDocument.status = "Pendiente"
             this.projectDocument.observation = this.observation
 
@@ -162,11 +164,12 @@ export class MultipleFileLoadComponent {
     this.loading = true
 
     const urlParts = url.split('/') 
-    const filePath = urlParts[urlParts.length - 1].split('?')[0].replaceAll('%2F', '/')
+    const filePath = decodeURIComponent(urlParts[urlParts.length - 1].split('?')[0])
+    console.log(filePath);
+    
 
     const pdfRef = ref(this.storage, filePath);
     await deleteObject(pdfRef)
-        
         .finally(() => this.loading = false)
   }
 
@@ -174,7 +177,7 @@ export class MultipleFileLoadComponent {
     const urlParts = url.split('/') 
     const filePath = urlParts[urlParts.length - 1].split('?')[0]
     const fileName = filePath.split('%2F')[filePath.split('%2F').length - 1]
-    return fileName.replaceAll('%20', ' ')
+    return decodeURIComponent(fileName)
   }
 
   ngOnChanges(): void {

@@ -1,31 +1,46 @@
+.whole {
+  padding: 3rem;
+  border-radius: 1.25rem;
+  background-color: white;
+  margin-top: .75rem;
+}
+
 button:disabled, input:disabled, textarea:disabled {
     /* Agrega aquí los estilos que desees para el botón desactivado */
     opacity: 0.5; /* Ejemplo: reduce la opacidad del botón */
     cursor: not-allowed; /* Ejemplo: cambia el cursor cuando el botón está desactivado */
 }
 
-.conf{
+.meeting-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 }
 
-.whole{
-  padding: 50px;
-  border-radius: 20px;
-  background-color: white;
-  margin-top: 10px;
-}
-
-.imagen{
+.meeting-header__div {
   display: flex;
 }
 
-.imagen svg{
+.meeting-header__div svg {
   margin-right: 5px;
 }
 
-.cancelar {
+.meeting-header__div--title {
+  display: flex;
+  flex-direction: column;
+}
+
+.meeting-header__div--title small {
+  color: #6486CB;
+}
+
+.meeting-header__div--title h2 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.button {
   border-radius: 10px;
   color: #172D5A;
   cursor: pointer;
@@ -36,94 +51,64 @@ button:disabled, input:disabled, textarea:disabled {
   font-weight: 500;
 }
 
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
+.details-user {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
 
-.small{
+.details-user__column {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  font-weight: 400;
+  max-width: 14rem;
+  color: rgb(128, 128, 128);
+}
+
+.details-admin{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.details-admin__column{
   display: flex;
   flex-direction: column;
 }
 
-.small small{
-  color: #6486CB;
-}
-
-.small h2{
-  font-weight: 400;
-  font-size: 20px;
-}
-
-.detalles{
-  display: flex;
-  justify-content: space-between;
-}
-
-.detalles1{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 10px;
-}
-
-.detalles1 select{
+.details-admin__column--modality {
   border-radius: 12px;
   border-bottom: 1px solid #172D5A;
   background: #FFF;
   padding: 10px;
 }
 
-.svg{
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  font-weight: 400;
-  color: rgb(128, 128, 128);
-}
-
-.svg2{
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  font-weight: 400;
-  color: rgb(128, 128, 128);
-}
-
-.svg2 svg{
-  margin-right: 2px;
-}
-
-.detalles1 input{
+.details-admin__column--input{
   border-radius: 12px;
   border: 1px solid #172D5A;
   background: #F6F9FF;
   padding: 10px;
 }
 
-.detalles1 textarea{
-  border-radius: 12px;
+.details-admin__column--textarea{
+  border-radius: .75rem;
   border: 1px solid #172D5A;
   background: #F6F9FF;
-  height: 50px;
-  padding: 10px;
+  height: 5rem;
+  padding: .75rem;
 }
 
-.lugar{
-  display: flex;
-  flex-direction: column;
-}
-
-.date{
-  display: flex;
-  flex-direction: column;
-}
-
-.times{
-  display: flex;
-  flex-direction: column;
-}
-
-.modalidad{
-  display: flex;
-  flex-direction: column;
+.modality{
+  border-left: #AEB5C2 2px solid;
+  padding-left: .5rem;
 }
 
 .loading-icon {

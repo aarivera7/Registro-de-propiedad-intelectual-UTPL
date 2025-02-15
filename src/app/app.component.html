@@ -1,36 +1,63 @@
 <app-short-alert></app-short-alert>
 
-<div *ngIf="!user.rol" class="loading-overlay botones">
+<div *ngIf="!user.rol && !isLoginPage()" class="loading-overlay botones">
   <div class="loading-icon"></div>
 </div>
 
-<aside class="sidebar active" id="sidebar" *ngIf="!isLoginPage()">
+<aside class="sidebar" [ngClass]="{'active': aside}" id="sidebar" *ngIf="!isLoginPage()">
+  <div class="close-btn" (click)="aside = !aside" id="toggle-sidebar-btn"><span>&#9776;</span></div>
   <div class="top">
-    <a routerLink="./info" class="sidebar__a" *ngIf="user.rol == 'user'" routerLinkActive="active">
+    <a
+      routerLink="./info"
+      class="sidebar__a"
+      *ngIf="user.rol == 'user'"
+      routerLinkActive="active"
+      [ngClass]="{'active': router.url === '/info'}"
+    >
       <div class="asideA">
         <img title="Informacion" src="assets/icons/info.svg">
         <span>Información</span>
       </div>
     </a>
-    <a routerLink="./projects" class="sidebar__a" routerLinkActive="active">
+    <a
+      routerLink="./projects"
+      class="sidebar__a"
+      routerLinkActive="active"
+      [ngClass]="{'active': router.url === '/projects'}"
+    >
       <div class="asideA">
         <img title="Registro de Propiedad" src="assets/icons/register-p.svg">
         <span>Registro de Propiedad</span>
       </div>
     </a>
-    <a routerLink="./certifications" class="sidebar__a" routerLinkActive="active" >
+    <a
+      routerLink="./certifications"
+      class="sidebar__a"
+      routerLinkActive="active"
+      [ngClass]="{'active': router.url === '/certifications'}"
+    >
       <div class="asideA">
         <img title="Certificaciones" src="assets/icons/certifications.svg">
         <span>Certificaciones</span>
       </div>
     </a>
-    <a routerLink="./messages" class="sidebar__a" routerLinkActive="active">
+    <a
+      routerLink="./messages"
+      class="sidebar__a"
+      routerLinkActive="active"
+      [ngClass]="{'active': router.url === '/messages'}"
+    >
       <div class="asideA">
         <img title="Mensajes" src="assets/icons/message.svg">
         <span>Mensajes</span>
       </div>
     </a>
-    <a routerLink="./calendar" class="sidebar__a" routerLinkActive="active">
+    <a
+      routerLink="./calendar"
+      class="sidebar__a"
+      routerLinkActive="active"
+      [ngClass]="{'active': router.url === '/calendar'}"
+    >
       <div class="asideA">
         <img title="Calendario" src="assets/icons/calendar.svg">
         <span>Mi Calendario</span>

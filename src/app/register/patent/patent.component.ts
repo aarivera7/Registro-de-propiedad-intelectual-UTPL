@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { Project } from 'src/app/models/project';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './patent.component.html',
   styleUrls: ['./patent.component.css']
 })
-export class PatentComponent {
+export class PatentComponent implements OnInit, OnDestroy {
   steps: string[] = [
     "Requisitos de estado",
     "Reunión 2 Memoria descriptiva",

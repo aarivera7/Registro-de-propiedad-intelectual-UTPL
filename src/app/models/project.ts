@@ -24,6 +24,7 @@ export class Project{
     approveStep5!: boolean
     publish!: boolean
     progressReviewMeeting: any;
+    memoryReviewMeeting: any;
 
     constructor(name: string, uid:string, nameAuthor:String, description: String, create_date: string, type: string){
         this.name = name

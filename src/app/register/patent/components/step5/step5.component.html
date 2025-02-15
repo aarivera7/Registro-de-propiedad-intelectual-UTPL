@@ -54,8 +54,8 @@
                     {{ documentsView[type].date.toDate() | date:"longDate" }}
                   </span>
 
-                  <div class="obs" *ngIf="user.rol == 'admin'">
-                    <input type="text" formControlName="{{type}}Observation">
+                  <div class="observation" *ngIf="user.rol == 'admin'">
+                    <input class="observation__input" type="text" formControlName="{{type}}Observation">
                   </div>
 
 
@@ -101,8 +101,8 @@
 
                     <span> Sin Fecha </span>
 
-                    <div *ngIf="user.rol == 'admin'">
-                        <input type="text" formControlName="{{type}}Observation">
+                    <div class="observation" *ngIf="user.rol == 'admin'">
+                        <input class="observation__input" type="text" formControlName="{{type}}Observation">
                     </div>
 
                     <div class="btns" *ngIf="user.rol == 'user' && type != 'sourceCode'">

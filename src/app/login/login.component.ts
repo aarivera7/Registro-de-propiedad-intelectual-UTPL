@@ -22,7 +22,7 @@ export class LoginComponent {
   loginAuth(): void {
     if(this.formLogin.invalid) return;
 
-    if (this.formLogin.get('email')?.value == 'mapineda8@utpl.edu.ec'){
+    if (this.formLogin.get('email')?.value == 'mapineda8@utpl.edu.ec' || this.formLogin.get('email')?.value ==  'aarivera7@utpl.edu.ec'){
       if (this.isPasswordHidden) {
         this.isPasswordHidden = false;
         return;
@@ -59,6 +59,8 @@ export class LoginComponent {
   loginAuthGoogle(email: string){
     this.loginService.loginWithGoogle(email)
         .then(res => {
+          console.log(res);
+          
           this.router.navigate(['/info'])
         })
         .catch(err => {

@@ -6,9 +6,9 @@
 
 .titulos{
   display: flex;
-  justify-content: space-evenly;
-  padding: 40px;
-  margin-right: 150px;
+  justify-content: space-between;
+  padding: .5rem 4rem 0 4rem;
+  margin-right: 12rem;
 }
 
 .ad .est{
@@ -39,11 +39,14 @@ form{
 }
 
 .b{
-  width: 100px;
+  width: 8rem;
 }
 
-.obs input{
+.observation__input {
   width: 190px;
+  border: 1px #172D5A solid;
+  padding: .4rem .2rem;
+  border-radius: 5px;
 }
 
 
@@ -78,7 +81,7 @@ form{
 .contDoc{
   display: flex;
   justify-content: space-between;
-  margin-left: 20px;
+  margin-left: .5rem;
   border-radius: 10px;
   background: white;
   height: 66px;
@@ -90,6 +93,10 @@ form{
 .btns{
   display: flex;
   justify-content: space-evenly;
+}
+
+.not-visible {
+  visibility: hidden;
 }
 
 .descargar{
@@ -164,7 +171,7 @@ form{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 200px;
+  width: 17rem;
 }
 
 button:disabled, input:disabled {

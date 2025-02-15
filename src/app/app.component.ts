@@ -15,9 +15,10 @@ export class AppComponent {
   user: User = new User('', '', '');
   user$;
   title: string = "";
+  aside: boolean = true;
   subscriptionUser?: Subscription;
 
-  constructor(protected loginService: LoginService, private router: Router, private auth: Auth){
+  constructor(protected loginService: LoginService, protected router: Router, private auth: Auth){
     this.user$ = user(this.auth);
   }
 

@@ -45,6 +45,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from './services/login.service';
 import { ShortAlertComponent } from './short-alert/short-alert.component';
+import { MeetingComponent } from './register/components/meeting/meeting.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ShortAlertComponent } from './short-alert/short-alert.component';
     AlertComponent,
     NopagefoundComponent,
     ShortAlertComponent,
+    MeetingComponent,
   ],
   imports: [
     BrowserModule,

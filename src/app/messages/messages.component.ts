@@ -31,6 +31,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     messageId: new FormControl('', [Validators.nullValidator]),
   })
 
+  selectedFileName: string | null = null;
+
   constructor(
     private messagesService: MessagesService, 
     private loginService: LoginService, 
@@ -41,6 +43,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.messages = []
     this.projects = []
     this.inputMessages = []
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+    }
   }
 
   async newMessage(input: HTMLInputElement): Promise<void> {

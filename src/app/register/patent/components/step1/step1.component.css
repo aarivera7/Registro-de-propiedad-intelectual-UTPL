@@ -1,11 +1,16 @@
-form {
-  max-width: 650px;
-  margin: auto;
-  padding: 10px;
+.not-info {
+  text-align: center;
+  font-size: 1em;
+  padding: 1rem;
 }
 
-div {
-  margin-bottom: 20px;
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: auto;
+  padding: 3rem;
+  justify-content: center;
 }
 
 label {
@@ -13,8 +18,8 @@ label {
 }
 
 p {
-  font-size: 12px;
-  margin: 10px
+  font-size: .75em;
+  margin: .63rem;
 }
 
 input, textarea {
@@ -23,13 +28,10 @@ input, textarea {
   border-radius: 6px;
   border: 1px solid #172D5A;
   background: #FFF;
+  font-size: .9em;
+  padding: .4rem;
 }
 
-button {
-  padding: 10px;
-  margin-top: 10px;
-  text-align: center;
-}
 
 button:disabled, input:disabled, textarea:disabled {
   /* Agrega aquí los estilos que desees para el botón desactivado */
@@ -42,36 +44,41 @@ button:disabled, input:disabled, textarea:disabled {
 }
 
 #title {
-  margin-top: 10px;
-  height: 35px;
+  height: 2.5rem;
 }
 
 #summary {
-  margin-bottom: 20px;
   height: 125px;
 }
 
 button {
   border-radius: 10px;
-  color: white;
   cursor: pointer;
-  background: #172D5A;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-}
-
-.contBoton{
-  display: flex;
-  justify-content: center;
-}
-
-.contBoton1{
-  display: flex;
-  justify-content: center;
-}
-
-.correo{
-  background-color: #6486CB;
   border: none;
+  padding: .5rem 2rem;
+  text-align: center;
+}
+
+.send-buttons-user{
+  display: flex;
+  justify-content: center;
+}
+
+.send-buttons-admin{
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.send-approved {
+  color: white;
+  background-color: #172D5A;
+}
+
+.send-email {
+  background-color: #6486CB;
+  color: white;
 }
 
 .loading-icon {

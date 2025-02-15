@@ -14,7 +14,7 @@
   background-color: #172D5A;
   padding-top: .5rem;
   transition: all 90ms linear;
-  left: -200px;
+  left: -14.5rem;
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,8 +22,8 @@
 
 .sidebar .close-btn {
   position: absolute;
-  top: 50px;
-  left: 200px;
+  top: .9rem;
+  left: 15rem;
   font-size: 2.4rem;
   cursor: pointer;
 }
@@ -32,9 +32,26 @@
   display: block;
 }
 
+
 .sidebar.active {
   left: 0;
   /*background: url('../assets/images/imagenAside.png'), #172D5A 100px 100px ;*/
+}
+
+/* Estilos para el contenido de la página */
+@media screen and (min-width: 800px) {
+  .sidebar .close-btn {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    left: 0;
+  }
+  .sidebar.active {
+    left: -14.5rem;
+  }
 }
 
 .sidebar__a {
@@ -46,7 +63,7 @@
   font-weight: 400;
 }
 
-.sidebar__a:hover, .logout-buttom:hover {
+.sidebar__a:hover, .logout-buttom:hover, .sidebar__a.active {
   background-color: #B0BFDD2E;
   border-radius: .6rem;
 }
@@ -85,9 +102,15 @@
   display: flex;
   padding: .1rem 0 .1rem 14.5rem;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   min-height: 100vh;
   background-color: #F6F9FF;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    padding: 0;
+  }
 }
 
 .contentLogin{

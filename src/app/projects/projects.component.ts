@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   filterText?: string
   alertMessage?: string
   types: any = {
-    'patent': "Patente",
+    'patent': "Patente o Modelo de Utilidad",
     'industrial-secret': "Secreto Industrial",
     'copyright-software': "Derechos de Autor /Software",
     'copyright-database': "Derechos de Autor /Base de Datos",
@@ -48,7 +48,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   translateProjectType(type: string): string {
     switch(type) {
       case 'patent':
-        return 'Patente';
+        return 'Patente o Modelo de Utilidad';
       case 'copyright-software':
         return 'Derechos de Autor/Software';
       case 'copyright-database':
@@ -161,12 +161,12 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.projectService.nonApproveProject(project)
         .then((data) => {
           this.openModalApprove = null
-          this.alertService.showAlert("Proyecto fue 'No Aprobado' con éxito")
-          // alert("Proyecto no aprobado con éxito")
+          this.alertService.showAlert("Proyecto fue \"Rechazado\" con éxito")
+          // alert("Proyecto rechazado con éxito")
           // console.log(data);
         }).catch(err => {
           this.openModalApprove = null
-          alert("Error al no aprobar el proyecto")
+          alert("Error al rechazar el proyecto")
           console.log(err)
         }).finally(() => {
           this.loadingApprove = false

@@ -3,8 +3,8 @@ import { Timestamp } from "firebase/firestore"
 export class ProjectDocument {
     status: string;
     observation: string;
-    documents: string[];
-    private date: Timestamp;
+    documents!: string[];
+    date: Timestamp;
     type?: string;
     uid: string
 

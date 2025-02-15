@@ -1,45 +1,51 @@
-<h2>Registro de Propiedad Intelectual</h2> 
-<app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
+<div class="registerpi-cont">
+  <h2>Registro de Propiedad Intelectual</h2> 
+  <app-progress-bar [steps]="steps" [numStep]="step"></app-progress-bar>
 
-<div *ngIf="project && user">
-  <div *ngIf="!typeDocument" class="moveStep">
-     <div class="navigation">
-       <button [ngClass]="{ 'opaco': step <= 0 }" (click)="redirect(project, step-1)">
-        <img src="/assets/icons/back.svg" alt="Volver">  Volver
-      </button>
+  <div *ngIf="project && user">
+    <div class="moveStep">
+      <div class="navigation">
+        <button
+            [ngClass]="{
+              'not-step': step <= 0 && !typeDocument,
+            }"
+            (click)="redirect(project, step-1)"
+          >
+          <img src="/assets/icons/back.svg" alt="Volver">  Volver
+        </button>
 
-       <h3> {{ longTitleSteps[step] }} </h3>
+        <h3> {{ longTitleSteps[step] }} </h3>
 
-       <button [disabled]="nextStepDisabled" [ngClass]="{ 'opaco': step>= steps.length-1 }" (click)="redirect(project, step+1)">Avanzar  
-        <img src="/assets/icons/next.svg" alt="Avanzar">
-       </button>
-     </div>
-  </div>
-
-  <div *ngIf="typeDocument" class="moveStep">
-    <div class="s">
-      <button (click)="redirect(project, 0)">
-        <img src="/assets/icons/back.svg" alt="Volver"> Volver</button>
-    </div>
-    <h3> {{ longTitleSteps[step] }} </h3>
-  </div>
-
-  <div class="step-patent-container">
-    <div class="info">
-      <h4>{{ project.getName }}</h4>
-      <p>{{ project.nameAuthor }}</p>
-      <p>{{ project.getCreateDate | date:"longDate"}}</p>
-      <p><b>Patente o Modelo de Utilidad</b></p>
+        <button
+          [disabled]="nextStepDisabled"
+          [ngClass]="{
+            'not-step': typeDocument || step>= steps.length-1
+          }"
+          (click)="redirect(project, step+1)"
+        >
+          Avanzar  
+          <img src="/assets/icons/next.svg" alt="Avanzar">
+        </button>
+      </div>
     </div>
 
-    <ng-container [ngSwitch]="step">
-        <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
-        <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
-        <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
-        <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
-        <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"
-            [operation]="operation"></app-step5>
-        <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
-    </ng-container>
+    <div class="step-patent-container">
+      <div class="info">
+        <h4>{{ project.getName }}</h4>
+        <p>{{ project.nameAuthor }}</p>
+        <p>{{ project.getCreateDate | date:"longDate"}}</p>
+        <p><b>Patente o Modelo de Utilidad</b></p>
+      </div>
+
+      <ng-container [ngSwitch]="step">
+          <app-step1 *ngSwitchCase="0" [project]="project" [user]="user"></app-step1>
+          <app-step2 *ngSwitchCase="1" [project]="project" [user]="user"></app-step2>
+          <app-step3 *ngSwitchCase="2" [project]="project" [user]="user"></app-step3>
+          <app-step4 *ngSwitchCase="3" [project]="project" [user]="user"></app-step4>
+          <app-step5 *ngSwitchCase="4" [project]="project" [user]="user" [typeDocument]="typeDocument"
+              [operation]="operation"></app-step5>
+          <app-step6 *ngSwitchCase="5" [project]="project" [user]="user"></app-step6>
+      </ng-container>
+    </div>
   </div>
 </div>

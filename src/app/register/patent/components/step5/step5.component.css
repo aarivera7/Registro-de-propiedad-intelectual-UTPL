@@ -186,16 +186,14 @@ form{
   cursor: pointer;
 }
 
-.obs{
-  width: 190px;
-}
-
 .b{
   width: 100px;
 }
 
-.obs input{
-  width: 190px;
+.observation__input{
+  border: 1px #172D5A solid;
+  padding: .4rem .2rem;
+  border-radius: 5px;
 }
 
 .ad .est{

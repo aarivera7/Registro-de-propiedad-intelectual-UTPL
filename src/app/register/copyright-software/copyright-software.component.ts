@@ -61,6 +61,11 @@ export class CopyrightSoftwareComponent {
   constructor(private route: ActivatedRoute, private projectService: ProjectsService, private loginService: LoginService, private router: Router) {}
 
   redirect(project: Project, numStep: number): void {
+    if (numStep <= 0 || numStep > this.steps.length) {
+      this.router.navigate([`/${project.type}_form/${project.getId}/1`])
+      return
+    } 
+
     // Se suma 1 porque cuando se muestra el componente se resta 1
     numStep += 1
     this.router.navigate([`/${project.type}_form/${project.getId}/${numStep}`])
@@ -94,12 +99,20 @@ export class CopyrightSoftwareComponent {
   }
 
   ngOnDestroy(): void {
-    this.subscriptionProject.unsubscribe()
-    this.subscriptionRoute.unsubscribe()
+    if (this.subscriptionProject)
+      this.subscriptionProject.unsubscribe()
+    if (this.subscriptionRoute)
+      this.subscriptionRoute.unsubscribe()
   }
 
   controlStep()  {
-    if (this.project && this.user)
+    if (!(this.project && this.user)) return;
+
+    if (this.project.numStep! < this.step ) {
+      this.step = this.project.numStep! 
+      this.redirect(this.project, this.step -1)
+    }
+
     if (this.user.rol == "admin") {
       if (this.step == 0 && !this.project.approveStep1) {
         this.nextStepDisabled = true

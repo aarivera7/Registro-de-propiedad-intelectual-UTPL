@@ -1,8 +1,34 @@
+h2{
+  color: #172D5A;
+  font-weight: 600;
+  font-size: 26px;
+  margin-left: 3rem;
+}
+
 .cal{
-  width: 90%;
-  margin-left: 7%;
   color: #172D5A;
   background-color: white;
-  border-radius: 4%;
-  padding: 20px;
+  border-radius: 3rem;
+  padding: 2.5rem;
+  margin: 3rem;
+}
+
+::ng-deep .fc-button {
+  background-color: #172D5A !important;
+  border-color: #172D5A !important;
+}
+
+::ng-deep .fc-button:hover {
+  background-color: #0f1e3d !important;
+  border-color: #0f1e3d !important;
+}
+
+::ng-deep .fc-button:hover {
+  background-color: #0f1e3d !important;
+  border-color: #0f1e3d !important;
+}
+
+::ng-deep .fc-button.fc-button-active {
+  background-color: #0b1a3a !important;
+  border-color: #0b1a3a !important;
 }

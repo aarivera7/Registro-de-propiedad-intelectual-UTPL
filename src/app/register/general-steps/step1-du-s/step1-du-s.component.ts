@@ -40,7 +40,7 @@ export class Step1DuSComponent {
   oldMethod: boolean = false
 
   document!: ProjectDocument
-  documents: ProjectDocument[] = []
+  documents!: ProjectDocument[]
   documentsView: any = {}
   showAlert = false;
 
@@ -55,51 +55,42 @@ export class Step1DuSComponent {
       return this.typeDocuments.filter(typeDocument =>
         this.project.documents[typeDocument] && this.project.documents[typeDocument].status == "Aceptado").length == this.typeDocuments.length
     }
-    else {
+    else if (this.documents) {
       return this.documents.filter(doc => doc.status == "Aceptado").length == this.typeDocuments.length
     }
+
+    return false;
   }
 
   changeStatus(): void {
     this.loading = true
 
-    if (this.oldMethod) {
-      this.typeDocuments.forEach(typeDocument => {
-        if(this.project.documents[typeDocument]){
-          this.project.documents[typeDocument].status = this.formStatus.get(typeDocument)?.value
-          this.project.documents[typeDocument].observation = this.formStatus.get(`${typeDocument}Observation`)?.value
-          if (this.project.documents[typeDocument].status == "Aceptado"  && typeDocument == "sourceCode"){
-            this.project.documents[typeDocument].date = Timestamp.now()
-          }
-        }
-      });
-      this.projectsService.updateProject(this.project)
-        .then(() => this.alertService.showAlert('¡Documentos actualizados exitosamente!'))
-        .finally(() => this.loading = false);
+    let updateDocuments: ProjectDocument[] = [];
+
+    if(["copyright-database", "copyright-software"].find(type => type == this.project.type)){
+      this.documents.push(new ProjectDocument("Pendiente", "", [], Timestamp.now(), "sourceCode", this.project.uid))
     }
-    else {
-      let updateDocuments: ProjectDocument[] = [];
+    
+    this.documents.forEach(document => {
+      const status = this.formStatus.get(document.type!)?.value
+      const observation = this.formStatus.get(`${document.type}Observation`)?.value
 
-      this.documents.forEach(document => {
-        const status = this.formStatus.get(document.type!)?.value
-        const observation = this.formStatus.get(`${document.type}Observation`)?.value
+      if (document.status != status || document.observation != observation){
+        document.status = status
+        document.observation = observation
 
-        if (document.status != status || document.observation != observation){
-          document.status = status
-          document.observation = observation
-
-          if (document.status == "Aceptado" && document.type == "sourceCode"){
-            document.setDateNow = Timestamp.now()
-          }
-          
+        if (document.type == "sourceCode"){
+          document.setDateNow = Timestamp.now()
+          this.documentsService.addProjectDocument(document, this.project.getId)
+        }else {
           updateDocuments.push(document)
         }
-        
-      })
-      this.documentsService.updateDocuments(updateDocuments, this.project.getId)
+      }
+    })
+
+    this.documentsService.updateDocuments(updateDocuments, this.project.getId)
         .then(() => this.alertService.showAlert('¡Documentos actualizados exitosamente!'))
         .finally(() => this.loading = false)
-    }
   }
 
   redirectUpdateDocuments(typeDocument: string, operation: string){
@@ -156,10 +147,22 @@ export class Step1DuSComponent {
           if (document){
             this.formStatus.addControl(typeDocument, new FormControl(document.status))
             this.formStatus.addControl(`${typeDocument}Observation`, new FormControl({value: document.observation, disabled: document.status == "Aceptado"}))
+            if (document.status != "Aceptado"){
+              this.formStatus.get(`${typeDocument}Observation`)?.enable()
+            }
             this.documentsView[typeDocument] = document
           } else {
-            this.formStatus.addControl(typeDocument, new FormControl("Pendiente"))
-            this.formStatus.addControl(`${typeDocument}Observation`, new FormControl({value: "", disabled: true}))
+            if (typeDocument == "sourceCode"){
+              this.formStatus.addControl(typeDocument, new FormControl("Pendiente"))
+              this.formStatus.addControl(`${typeDocument}Observation`, new FormControl(""))
+            } else {
+              this.formStatus.addControl(typeDocument, new FormControl("Pendiente"))
+              this.formStatus.addControl(`${typeDocument}Observation`, new FormControl({value: "", disabled: true}))
+            }
+          }
+
+          if (this.project.approveStep1){
+            this.formStatus.disable()
           }
         })
       })
