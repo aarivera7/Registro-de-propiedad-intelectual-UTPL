@@ -29,7 +29,7 @@ export class CertificationsService {
 
     if (uid) {
       const certificationRef = collection(this.firestore, 'certifications')
-      const q = query(certificationRef, ('uid', '==', uid))
+      const q = query(certificationRef, where('uid', '==', uid))
       const certifications = collectionData(q, {idField: 'id'})
       this.certificationsCache = certifications
       return certifications as Observable<Certification[]>
