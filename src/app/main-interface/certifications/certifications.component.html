@@ -1,10 +1,24 @@
+<!-- This component shows the certifications registered in the system -->
 <div class="title">
   <h2>Certificaciones</h2>
   <div class="bs">
-    <input class="bus" *ngIf="user && user.rol === 'admin'" (change)="filterResults(filter1.value)" placeholder="Buscar por nombre de registro..." type="text" #filter1>
-    <button  *ngIf="user && user.rol === 'admin'" class="btnBuscar" type="button" (click)="filterResults(filter1.value)">Buscar</button>
+    <input 
+      *ngIf="user && user.rol === 'admin'"
+      (change)="filterResults(filter1.value)" 
+      class="bus" 
+      placeholder="Buscar por nombre de registro..."
+      type="text" 
+      #filter1
+    >
+    <button 
+      *ngIf="user && user.rol === 'admin'"
+      class="btnBuscar"
+      type="button"
+      (click)="filterResults(filter1.value)"
+    >
+      Buscar
+    </button>
   </div>
-
 </div>
 
 

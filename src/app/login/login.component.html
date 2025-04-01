@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
 <div class="background-image"></div>
 <div class="container">
   <div class="title">
@@ -18,9 +11,9 @@
           <label for="email">Email </label>
           <input id="email" name="email" type="email" formControlName="email">
         </div>
-        <div class="password">
-          <label [hidden]="isPasswordHidden" for="password">Contraseña </label>
-          <input [hidden]="isPasswordHidden" id="password" name="password" type="password" formControlName="password">
+        <div class="password" [hidden]="isPasswordHidden">
+          <label for="password">Contraseña </label>
+          <input id="password" name="password" type="password" formControlName="password">
         </div>
         <input class="btn_log" type="submit" value="Iniciar Sesión">
       </form>
@@ -28,5 +21,3 @@
     </div>
   </div>
 </div>
-</body>
-</html>

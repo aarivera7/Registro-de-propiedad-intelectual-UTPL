@@ -4,7 +4,6 @@ import { AlertComponent } from './alert/alert.component';
 import { ShortAlertComponent } from './short-alert/short-alert.component';
 
 
-
 @NgModule({
   declarations: [
     AlertComponent,

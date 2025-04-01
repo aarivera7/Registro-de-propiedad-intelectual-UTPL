@@ -16,6 +16,11 @@ h3{
   font-size: 26px;
 }
 
+.title{
+  display: flex;
+  align-items: center;
+}
+
 .title button{
   border-radius: 10px;
   color: white;
@@ -51,7 +56,7 @@ small{
   margin-left: 10px;
 }
 
-a{
+a {
   text-decoration: underline;
   color: #172D5A;
   cursor: pointer;
@@ -66,16 +71,22 @@ a{
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.resp{
+.resp {
   font-weight: 600;
 }
 
-.btnPdf{
-  padding: 5px;
+.btnPdf {
+  padding: .4rem;
   border-radius: 2px;
   background-color: #DBE5F8;
   border: 0.5px solid #172D5A;
   cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  width: 3.3rem;
+  color: #ACA9A5;
+  font-weight: 500;
+  font-size: 13px;
 }
 
 .btResp{
@@ -98,59 +109,6 @@ a{
   border-bottom: 1px solid #172D5A;
 }
 
-.btnPdf{
-  color: #ACA9A5;
-  font-weight: 500;
-  font-size: 13px;
-}
-
-.btnPdf svg{
-  margin-right: 5px;
-}
-
-.btnBuscar{
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  background: #172D5A;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 15px;
-  border: none;
-}
-
-.p1 input{
-  border-radius: 10px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  padding: 15px;
-  border: none;
-
-}
-
-.bus{
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  width: 370px;
-}
-
-
-.p1{
-  display: flex;
-}
-
-.p1 input{
-  text-align: start;
-}
-
-.buscar{
-  display: flex;
-  justify-content: space-between;
-}
-
-.cards{
-  display: flex;
-  justify-content: space-evenly;
-}
-
 dialog{
   background-color: #F6F9FF;
   border: none;
@@ -165,44 +123,10 @@ dialog{
   flex-direction: column;
 }
 
-
-
-.cardInfo{
-  border-radius: 20px;
-  width: 90%;
-  margin: 20px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  background: white;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
-}
-
-.cardInfo h3{
-  font-weight: 600;
-  font-size: 16px;
-  padding: 10px 0;
-}
-
-.title{
-  display: flex;
-  align-items: center;
-}
-
 .superior{
   display: flex;
   justify-content: space-between;
   margin-right: 70px;
-}
-
-
-
-.parte1{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 5px 40px;
 }
 
 .cont{
@@ -265,7 +189,6 @@ dialog{
   z-index: 0;
 }
 
-
 label{
   font-weight: 400;
   font-size: 16px;
@@ -301,6 +224,7 @@ label{
   padding: 10px 30px;
   border: none;
 }
+
 .aceptar {
   border-radius: 10px;
   color: white;
@@ -310,6 +234,3 @@ label{
   padding: 10px 30px;
   border: none;
 }
-
-
-

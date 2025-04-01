@@ -9,7 +9,6 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 export class LoginService {
-
     public userCache: any = null
     user$ = user(this.auth)
     aUser?: User

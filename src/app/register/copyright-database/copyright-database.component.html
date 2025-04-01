@@ -5,24 +5,19 @@
   <div *ngIf="project && user">
     <div class="moveStep">
       <div class="s">
-        <button
+        <button 
           [ngClass]="{
             'not-step': step <= 0 && !typeDocument,
-          }"
-          (click)="redirect(project, step-1)"
+          }" (click)="redirect(project, step-1)"
         >
-          <img src="/assets/icons/back.svg" alt="Volver">  Volver
+          <img src="/assets/icons/back.svg" alt="Volver"> Volver
         </button>
 
         <h3> {{ longTitleSteps[step] }} </h3>
 
-        <button
-          [disabled]="nextStepDisabled"
-          [ngClass]="{
+        <button [disabled]="nextStepDisabled" [ngClass]="{
             'not-step': typeDocument || step >= steps.length-1
-          }"
-          (click)="redirect(project, step+1)"
-        >
+          }" (click)="redirect(project, step+1)">
           Avanzar
           <img src="/assets/icons/next.svg" alt="Avanzar">
         </button>
@@ -38,17 +33,11 @@
       </div>
     </div>
 
-
-      <ng-container [ngSwitch]="step">
-          <app-step1-du-s *ngSwitchCase="0"
-              [project]="project"
-              [user]="user"
-              [typeDocument]="typeDocument"
-              [nameDocuments]="nameDocuments"
-              [typeDocuments]="typeDocuments"
-              [operation]="operation"></app-step1-du-s>
-          <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
-          <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
-      </ng-container>
+    <ng-container [ngSwitch]="step">
+      <app-step1-du-s *ngSwitchCase="0" [project]="project" [user]="user" [typeDocument]="typeDocument"
+        [nameDocuments]="nameDocuments" [typeDocuments]="typeDocuments" [operation]="operation"></app-step1-du-s>
+      <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
+      <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
+    </ng-container>
   </div>
 </div>

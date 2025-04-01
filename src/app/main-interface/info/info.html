@@ -1,4 +1,11 @@
-<app-alert *ngIf="alertMessage" [message]="alertMessage" (close)="alertMessage = undefined"></app-alert>
+<app-alert 
+  *ngIf="alertMessage"
+  [message]="alertMessage"
+  (close)="alertMessage = undefined"
+>
+</app-alert>
+
+<!-- This component shows the information about the intellectual property -->
 <div class="info">
   <h2>Información sobre propiedad intelectual</h2>
   <div class="sup">
@@ -13,11 +20,16 @@
       <div class="contDocs">
         <h4>Manual</h4>
         <div class="center-text">
-          <a href="https://firebasestorage.googleapis.com/v0/b/patentes-utpl.appspot.com/o/archivosInformacion%2Fstakeholder-analysis-matrix.pdf?alt=media&token=825066b9-c577-4f8c-b4e4-fc2469d6c88d" target="_blank">
+          <a 
+            href="https://firebasestorage.googleapis.com/v0/b/patentes-utpl.appspot.com/o/archivosInformacion%2Fstakeholder-analysis-matrix.pdf?alt=media&token=825066b9-c577-4f8c-b4e4-fc2469d6c88d"
+            target="_blank"
+          >
             <img src="assets/icons/book-solid.svg" alt="Manual de Usuario" height="45">
           </a>
         </div>
       </div>
+
+      
       <div class="contDocs">
         <h4>Procuraduría</h4>
         <div class="center-text">
@@ -26,6 +38,7 @@
           </a>
         </div>
       </div>
+
       <div class="contDocs">
         <h4>Normativa</h4>
         <div class="center-text">
@@ -36,13 +49,20 @@
       </div>
     </div>
   </div>
+
+
   <div class="infoAs">
-    <p>Cuando solicitas la asesoría, se envía un correo electrónico a nuestro equipo. Una vez recibida tu solicitud, te responderemos por correo electrónico para coordinar y agendar una reunión.
-      </p>
-    <p>Durante esta reunión, abordaremos temas relevantes, como el funcionamiento del registro de propiedad intelectual gestionado por el Parque Científico y Tecnológico de la UTPL. Además, analizaremos el tipo de registro de propiedad intelectual que mejor se adapte a tu caso específico y te guiaremos a través del proceso de registro.
-      Estamos aquí para brindarte toda la información y orientación que necesitas para proteger tus derechos de propiedad intelectual. ¡Esperamos tu contacto y estamos ansiosos por colaborar contigo!</p>
+    <p>
+      Cuando solicitas la asesoría, se envía un correo electrónico a nuestro equipo. Una vez recibida tu solicitud, te responderemos por correo electrónico para coordinar y agendar una reunión.
+    </p>
+    <p>
+      Durante esta reunión, abordaremos temas relevantes, como el funcionamiento del registro de propiedad intelectual gestionado por el Parque Científico y Tecnológico de la UTPL. Además, analizaremos el tipo de registro de propiedad intelectual que mejor se adapte a tu caso específico y te guiaremos a través del proceso de registro.
+      Estamos aquí para brindarte toda la información y orientación que necesitas para proteger tus derechos de propiedad intelectual. ¡Esperamos tu contacto y estamos ansiosos por colaborar contigo!
+    </p>
   </div>
+
   <h3>{{ title }}</h3>
+
   <div class="cards">
     <div class="cardInfo">
       <h3>PATENTES O MODELO DE UTILIDAD</h3>
@@ -55,15 +75,19 @@
         </a>
       </div>
     </div>
+
     <div class="cardInfo">
       <h3>DERECHO DE AUTOR</h3>
-      <p>El derecho de autor, también conocido como derecho de autoría o derecho de propiedad intelectual, es un conjunto de leyes y normativas legales que otorgan a los creadores y autores de obras originales el control y los derechos exclusivos sobre sus creaciones. </p>
+      <p>
+        El derecho de autor, también conocido como derecho de autoría o derecho de propiedad intelectual, es un conjunto de leyes y normativas legales que otorgan a los creadores y autores de obras originales el control y los derechos exclusivos sobre sus creaciones.
+      </p>
       <div class="center-text">
         <a href="https://parquecientifico.utpl.edu.ec/es/gestion-transferencia-conocimiento" target="_blank">
           <input class="aceptar" type="submit" value="Ver más">
         </a>
       </div>
     </div>
+    
     <div class="cardInfo">
       <h3>SECRETO INDUSTRIAL</h3>
       <p>
@@ -77,4 +101,3 @@
     </div>
   </div>
 </div>
-

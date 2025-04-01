@@ -13,7 +13,6 @@
           <img src="/assets/icons/back.svg" alt="Volver">  Volver
         </button>
 
-
         <h3> {{ longTitleSteps[step] }} </h3>
 
         <button
@@ -36,17 +35,18 @@
         <p>{{ project.getCreateDate | date:"longDate"}}</p>
         <p><b>Derecho de autor /Software</b></p>
       </div>
-
-
     </div>
+
     <ng-container [ngSwitch]="step">
-      <app-step1-du-s *ngSwitchCase="0"
-                      [project]="project"
-                      [user]="user"
-                      [typeDocument]="typeDocument"
-                      [nameDocuments]="nameDocuments"
-                      [typeDocuments]="typeDocuments"
-                      [operation]="operation"></app-step1-du-s>
+      <app-step1-du-s 
+        *ngSwitchCase="0"
+        [project]="project"
+        [user]="user"
+        [typeDocument]="typeDocument"
+        [nameDocuments]="nameDocuments"
+        [typeDocuments]="typeDocuments"
+        [operation]="operation"
+      ></app-step1-du-s>
       <app-step2-du-s *ngSwitchCase="1" [project]="project" [user]="user"></app-step2-du-s>
       <app-step3-du-s *ngSwitchCase="2" [project]="project" [user]="user"></app-step3-du-s>
     </ng-container>
